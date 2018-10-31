@@ -15,3 +15,7 @@
 /BloodPressureMonitor/ClassLibrary1/obj/*.*
 /BloodPressureMonitor/Data/bin/*.*
 /BloodPressureMonitor/Data/obj/*.*
+/BloodPressureMonitor/Domain/bin/*.*
+/BloodPressureMonitor/Domain/obj/*.*
+/BloodPressureMonitor/Interfaces/bin/*.*
+/BloodPressureMonitor/Interfaces/obj/*.*
