@@ -9,7 +9,7 @@ namespace LogicLayer
     class UC2M2_UC3M3_Measure : IMeasure
     {
         public bool Running { get; private set; } = false;
-        PresentationLayer
+        
 
         public void StartMeasurement() // Sets Running to true, starts method Measure(), updates user interface
         {
