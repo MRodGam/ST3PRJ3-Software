@@ -1,8 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BloodPressureMonitor"
+    "\\BloodPressureMonitor",
+    "\\BloodPressureMonitor\\Data",
+    "\\BloodPressureMonitor\\Domain",
+    "\\BloodPressureMonitor\\Interfaces",
+    "\\BloodPressureMonitor\\Logic",
+    "\\BloodPressureMonitor\\Main",
+    "\\BloodPressureMonitor\\Presentation"
   ],
-  "SelectedNode": "\\BloodPressureMonitor",
+  "SelectedNode": "\\BloodPressureMonitor\\BloodPressureMonitor.sln",
   "PreviewInSolutionExplorer": false
 }
