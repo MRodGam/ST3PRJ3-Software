@@ -28,12 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.StartB = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // StartB
+            // 
+            this.StartB.BackColor = System.Drawing.Color.ForestGreen;
+            this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.StartB.Location = new System.Drawing.Point(13, 381);
+            this.StartB.Name = "StartB";
+            this.StartB.Size = new System.Drawing.Size(198, 57);
+            this.StartB.TabIndex = 0;
+            this.StartB.Text = "START MÅLING";
+            this.StartB.UseVisualStyleBackColor = false;
+            // 
+            // MainGUI
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.StartB);
+            this.Name = "MainGUI";
             this.Text = "MainGUI";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button StartB;
     }
 }

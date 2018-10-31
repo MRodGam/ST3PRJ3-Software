@@ -82,6 +82,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MainGUI.resx">
+      <DependentUpon>MainGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SaveDataGUI.resx">
       <DependentUpon>SaveDataGUI.cs</DependentUpon>
     </EmbeddedResource>
