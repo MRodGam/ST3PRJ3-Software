@@ -21,7 +21,7 @@ namespace LogicLayer
 
         public UC4M4_SaveData()
         {
-            connectionP = new SqlConnection("Data Source=i4dab.ase.au.dk;Initial Catalog=" + DBlogin +
+            connectionP = new SqlConnection("Data Source=st-i4dab.E18ST3PRJ3Gr3.dbo;Initial Catalog=" + DBlogin +
                                             ";Persist Security Info=True;User ID=" + DBlogin + ";Password=" + DBlogin + "");
             connectionO = new SqlConnection(
                 @"Data Source=i4dab.ase.au.dk;Initial Catalog=F18ST2PRJ2OffEKGDatabase;Integrated Security=False;User ID=F18ST2PRJ2OffEKGDatabase;Password=F18ST2PRJ2OffEKGDatabase;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
@@ -32,7 +32,7 @@ namespace LogicLayer
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            List<GemtMåling> ListeOverMålinger = new List<dataList>(); //omdøb den samlede liste 
+            List<dataList> ListeOverMålinger = new List<dataList>(); //omdøb den samlede liste 
 
 
             string a = "SELECT * FROM GemPrivat" + which;
@@ -58,8 +58,7 @@ namespace LogicLayer
 
                 //omdøb Gemtmåling
                 GemtMåling måling = new GemtMåling(Convert.ToString(reader["CPRno"]), Convert.ToString(reader["IDno"]),
-                    Convert.ToDateTime(reader["tidsstempel_"]), bloodPressure, Convert.ToDouble(reader["STværdi"]),
-                    Convert.ToInt32(reader["Puls"]));
+                    Convert.ToDateTime(reader["tidsstempel_"]), bloodPressure, Convert.ToInt32(reader["Puls"]), Convert.ToInt32(reader["Systolic"]), Convert.ToInt32(reader["Diastolic"]), Convert.ToInt32(reader["Mean"]));
                 GetCompletedMeasurement.Add(måling);
 
             }
@@ -70,16 +69,19 @@ namespace LogicLayer
             return GetCompletedMeasurement;
         }
 
-        public void GemPrivat(string CPRno, string IDno, DateTime date, byte[] måling, double ST, int Puls)
+        public void SaveInDatabase(string CPRno, string IDno, DateTime date, byte[] GetCompletedMeasurement, int Systolic, int Diastolic, int Mean, int Puls)
         {
 
 
             connectionP.Open();
-            SqlCommand command_ = new SqlCommand("INSERT INTO GemPrivat(IDno, CPRno, tidsstempel_,Målingsliste,STværdi,Puls) VALUES(@IDno, @CPRno, @tidsstempel_, @Målingsliste, @STværdi, @Puls)", connectionP);
+            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(IDno, CPRno, tidsstempel_, GetCompletedMeasurement, Systolic, Diastolic, Mean, Puls) VALUES(@IDno, @CPRno, @tidsstempel_, @GetCompletedMeasurement, @Systolic, @Diastolic, @Puls)", connectionP);
             command_.Parameters.AddWithValue("@IDno", IDno);
             command_.Parameters.AddWithValue("@CPRno", CPRno);
             command_.Parameters.AddWithValue("@tidsstempel_", date);
-            command_.Parameters.AddWithValue("@Målingsliste", måling);
+            command_.Parameters.AddWithValue("@GetCompletedMeasurement", måling);
+            command_.Parameters.AddWithValue("@Systolic", måling);
+            command_.Parameters.AddWithValue("@Diastolic", måling);
+            command_.Parameters.AddWithValue("@Mean", måling);
             command_.Parameters.AddWithValue("@Puls", Puls);
 
             command_.ExecuteNonQuery();
