@@ -3,3 +3,15 @@
 ################################################################################
 
 /BloodPressureMonitor/.vs/BloodPressureMonitor/v15/Server/sqlite3/db.lock
+/BloodPressureMonitor/.vs/BloodPressureMonitor/v15/Server/sqlite3/storage.ide
+/BloodPressureMonitor/.vs/BloodPressureMonitor/v15/Server/sqlite3/storage.ide-shm
+/BloodPressureMonitor/.vs/BloodPressureMonitor/v15/Server/sqlite3/storage.ide-wal
+/BloodPressureMonitor/.vs/BloodPressureMonitor/v15/*.suo
+/.vs/ST3PRJ3-Software/v15/*.suo
+/.vs/ST3PRJ3-Software/v15/*.sqlite
+/.vs/ST3PRJ3-Software/v15/*.json
+/BloodPressureMonitor/.vs/*.*
+/BloodPressureMonitor/ClassLibrary1/bin/*.*
+/BloodPressureMonitor/ClassLibrary1/obj/*.*
+/BloodPressureMonitor/Data/bin/*.*
+/BloodPressureMonitor/Data/obj/*.*
