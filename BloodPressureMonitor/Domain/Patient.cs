@@ -8,5 +8,16 @@ namespace Domain
 {
     class Patient
     {
+
+        private int _socSecNumber;
+        private string _procedure;
+
+        public Patient(int socSecNumber, string procedure)
+        {
+            _socSecNumber = socSecNumber;
+            _procedure = procedure;
+        }
+
+
     }
 }
