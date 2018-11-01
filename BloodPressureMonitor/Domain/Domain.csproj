@@ -48,8 +48,9 @@
     <Compile Include="Calibration.cs" />
     <Compile Include="ConvertAlgo.cs" />
     <Compile Include="FilterAlgo.cs" />
-    <Compile Include="Healthtechnitian.cs" />
+    <Compile Include="HealthProffesional.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="MedicoTechnician.cs" />
     <Compile Include="Operation.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
