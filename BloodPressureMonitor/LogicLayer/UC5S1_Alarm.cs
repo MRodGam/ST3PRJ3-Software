@@ -9,25 +9,33 @@ namespace LogicLayer
     class UC5S1_Alarm : IAlarm
     {
 
-        private bool RunAlarm = false;
+        private bool runAlarm = false;
+        private bool muteAlarm = false;
+        UC9S5_Limits Limits = new UC9S5_Limits();
+        UC2M2_UC3M3_Measure Measure = new UC2M2_UC3M3_Measure();
 
 
         // lydfil hentes
-        // metode der starter alarm
+        
 
-        public void ControlAlarm()
+        public void ControlAlarm() // metode der kontrollere alarmen
         {
             // hvis blodtryksværdi overskrider grænseværdier
-
-            RunAlarm = true;
-
-            // if else
-            RunAlarm = false;
+            if (Measure.GetMeasure() < Limits.getLowerLimit() || Measure.GetMeasure() > Limits.getUpperLimit() )
+            {
+                runAlarm = true;
+            }
+            else if () // hvis knappen "Kvitter alarm" er trykket på
+            {
+                muteAlarm = true;
+            }
+            else
+            runAlarm = false;
         }
 
         public void StartAlarm()
         {
-            if (RunAlarm == true)
+            if (runAlarm == true)
             {
                 // alarm starter: 
                 //lydfil afspilles,
@@ -37,9 +45,9 @@ namespace LogicLayer
             }
         }
 
-        public void muteAlarm()
+        public void MuteAlarm()
         {
-            //if (Knappen kvitter alarm er trykket på )
+            if (muteAlarm==true)
             {
                 // Knappen "Kvitter alarm" usynliggøres
                 // lydfilen stoppes
@@ -48,7 +56,7 @@ namespace LogicLayer
 
         public void StopAlarm()
         {
-            if (RunAlarm == false)
+            if (runAlarm == false)
             {
                 // lydfilen stoppe
                 // brugergrænsefladen bliver normal igen (tal for blodtryk bliver grønne, knappen "kvitter alarm" usynliggøres)
