@@ -28,7 +28,7 @@ namespace LogicLayer
 
         public void UpdateButtonColours() 
         {
-            if (Running ==true)
+            if (Running ==true) //Det her skal rettes
             {
                 MainGUI.StartB.Background = red;
                 MainGUI.StartB.Text = "STOP MÅLING";
