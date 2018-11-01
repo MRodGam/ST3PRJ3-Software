@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Alarm
+    class Alarmer
     {
-        //hej
+        
     }
 }
