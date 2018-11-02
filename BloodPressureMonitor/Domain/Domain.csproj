@@ -49,7 +49,7 @@
     <Compile Include="ConvertAlgo.cs" />
     <Compile Include="FilterAlgo.cs" />
     <Compile Include="GraphList.cs" />
-    <Compile Include="HealthProffesional.cs" />
+    <Compile Include="HealthProfessional.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MedicoTechnician.cs" />
     <Compile Include="Operation.cs" />

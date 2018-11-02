@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class HealthProffesional
+    class HealthProfessional
     {
         private int _ID;
 
-        public HealthProffesional(int ID)
+        public HealthProfessional(int ID)
         {
             _ID = ID;
         }
