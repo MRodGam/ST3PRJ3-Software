@@ -48,6 +48,7 @@
     <Compile Include="Calibration.cs" />
     <Compile Include="ConvertAlgo.cs" />
     <Compile Include="FilterAlgo.cs" />
+    <Compile Include="GraphList.cs" />
     <Compile Include="HealthProffesional.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MedicoTechnician.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PulseAlgo.cs" />
+    <Compile Include="TotalMeasurementsLists.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
