@@ -8,22 +8,22 @@ namespace Domain
 {
     public class Operation
     {
-        private string _procedure;
-        private DateTime _startTime;
-        private DateTime _endTime;
+        public string Procedure { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
-        private double _zeroAdjustmentValue;
-        private double _calibrationValue;
+        public double ZeroAdjustmentValue { get; set; }
+        public double CalibrationValue { get; set; }
 
 
         public Operation(string procedure, DateTime startTime, DateTime endTime, double zeroAdjustmentValue, double calibrationValue)
         {
-            _procedure = procedure;
-            _startTime = startTime;
-            _endTime = endTime;
+            Procedure = procedure;
+            StartTime = startTime;
+            EndTime = endTime;
 
-            _zeroAdjustmentValue = zeroAdjustmentValue;
-            _calibrationValue = calibrationValue;
+            ZeroAdjustmentValue = zeroAdjustmentValue;
+            CalibrationValue = calibrationValue;
 
         }
     }
