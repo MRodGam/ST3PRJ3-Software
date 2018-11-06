@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class Healthtechnitian
+    class HealthProfessional
     {
+        public int ID { get; set; }
+
+        public HealthProfessional(int id)
+        {
+            ID = id;
+        }
     }
 }

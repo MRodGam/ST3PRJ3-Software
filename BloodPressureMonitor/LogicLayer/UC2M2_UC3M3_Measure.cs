@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LogicLayer
@@ -24,9 +26,9 @@ namespace LogicLayer
             UpdateButtonColours(); 
         }
 
-        public bool UpdateButtonColours() 
+        public void UpdateButtonColours() 
         {
-            if (Running ==true)
+            if (Running ==true) //Det her skal rettes
             {
                 MainGUI.StartB.Background = red;
                 MainGUI.StartB.Text = "STOP MÅLING";
@@ -39,17 +41,15 @@ namespace LogicLayer
             }
 
         }
-        public void Measure() // Should it be a thread, in order to constant check for whether or not Running is true or false??
+
+        public void Measure() 
         {
+
             if (Running == true)
-            {
                 DataLayer.TransducerDAQ.Start();
-            }
 
             if (Running ==false)
-            {
                 DataLayer.TransducerDAQ.Stop();
-            }
         }
     }
 }
