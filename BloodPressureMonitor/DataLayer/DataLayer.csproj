@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAQ.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="IDAQ.cs" />
     <Compile Include="IData.cs" />
+    <Compile Include="NI-DAQVoltage.cs" />
     <Compile Include="TransducerDAQ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
