@@ -36,19 +36,22 @@
             this.StartB.BackColor = System.Drawing.Color.ForestGreen;
             this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.StartB.Location = new System.Drawing.Point(13, 381);
+            this.StartB.Location = new System.Drawing.Point(15, 476);
+            this.StartB.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.StartB.Name = "StartB";
-            this.StartB.Size = new System.Drawing.Size(198, 57);
+            this.StartB.Size = new System.Drawing.Size(223, 71);
             this.StartB.TabIndex = 0;
             this.StartB.Text = "START MÅLING";
             this.StartB.UseVisualStyleBackColor = false;
+            this.StartB.Click += new System.EventHandler(this.StartB_Click);
             // 
             // MainGUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(900, 562);
             this.Controls.Add(this.StartB);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainGUI";
             this.Text = "MainGUI";
             this.ResumeLayout(false);
