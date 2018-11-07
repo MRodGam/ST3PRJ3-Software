@@ -42,6 +42,7 @@
             this.StartB.TabIndex = 0;
             this.StartB.Text = "START MÅLING";
             this.StartB.UseVisualStyleBackColor = false;
+            this.StartB.Click += new System.EventHandler(this.StartB_Click);
             // 
             // MainGUI
             // 
@@ -57,6 +58,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button StartB;
+        public System.Windows.Forms.Button StartB;
     }
 }

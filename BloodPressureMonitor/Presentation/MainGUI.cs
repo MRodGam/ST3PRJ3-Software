@@ -16,5 +16,22 @@ namespace Presentation
         {
             InitializeComponent();
         }
+
+        private void StartB_Click(object sender, EventArgs e)
+        {
+            // Is missing a method to do the start/stop eventhandler
+
+            if (isMeasurementRunning== true)
+            {
+                StartB.BackColor = Color.Red;
+                StartB.Text = "STOP MÅLING";
+            }
+
+            if (isMeasurementRunning == false)
+            {
+                StartB.BackColor = Color.ForestGreen;
+                StartB = "START MÅLING";
+            }
+        }
     }
 }
