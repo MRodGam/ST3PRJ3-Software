@@ -47,35 +47,35 @@ namespace LogicLayer
 
         public void StartAlarm()
         {
-            if (runAlarm == true)
+            if (runAlarm == true) // alarm starter
             {
-                // alarm starter
-
                 // lydfil afspilles,
                 player.Play();
               
                 
                 //Brugergrænseflade ændre udseende (tal for blodtryk bliver rød, knappen "kvitter alarm" bliver synlig)
 
-
             }
         }
 
         public void MuteAlarm()
         {
-            if (muteAlarm==true)
+            if (muteAlarm==true) // alarm pauser
             {
                 // Knappen "Kvitter alarm" usynliggøres
+                // symbol på brugergrænsefladens mainGUI synliggøres -> evt. i eventhandleren for knappen "Kvitter alarm"
 
-                // lydfilen stoppes
+                // lydfilen stoppes / pauses
                 player.Stop();
+                // alarm starter igen efter 180 sekunder ???
+                player.Play();
 
             }
         }
 
         public void StopAlarm()
         {
-            if (runAlarm == false)
+            if (runAlarm == false) // alarm stopper
             {
                 // lydfilen stoppe
                 player.Stop();
