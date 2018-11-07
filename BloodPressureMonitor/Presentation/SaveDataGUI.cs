@@ -32,6 +32,8 @@ namespace Presentation
             systolic_ = systolic;
             diastolic_ = diastolic;
             getCompletMeasurements_ = getCompletMeasurements;
+            timeAndDate.Format = DateTimePickerFormat.Custom;
+            timeAndDate.CustomFormat = "dd/MM/yyyy HH:mm:ss";
         }
 
         public SaveDataGUI()
