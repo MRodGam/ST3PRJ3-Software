@@ -9,13 +9,13 @@ namespace Domain
     class Patient
     {
 
-        private int _socSecNumber;
-        private string _procedure;
+        public int SocSecNumber { get; set; }
+        public string Procedure { get; set; }
 
         public Patient(int socSecNumber, string procedure)
         {
-            _socSecNumber = socSecNumber;
-            _procedure = procedure;
+            SocSecNumber = socSecNumber;
+            Procedure = procedure;
         }
 
 

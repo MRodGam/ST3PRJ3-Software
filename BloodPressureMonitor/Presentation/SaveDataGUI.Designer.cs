@@ -36,7 +36,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.timeAndDate = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.navnTB = new System.Windows.Forms.TextBox();
@@ -55,6 +55,7 @@
             this.SaveB.TabIndex = 64;
             this.SaveB.Text = "Gem";
             this.SaveB.UseVisualStyleBackColor = true;
+            this.SaveB.Click += new System.EventHandler(this.SaveB_Click);
             // 
             // medarbejderIDTB
             // 
@@ -127,14 +128,14 @@
             this.label4.TabIndex = 57;
             this.label4.Text = "Indtast venligst følgende oplysninger for at gemme i database ";
             // 
-            // dateTimePicker1
+            // timeAndDate
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(182, 351);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(222, 30);
-            this.dateTimePicker1.TabIndex = 56;
+            this.timeAndDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeAndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.timeAndDate.Location = new System.Drawing.Point(182, 351);
+            this.timeAndDate.Name = "timeAndDate";
+            this.timeAndDate.Size = new System.Drawing.Size(222, 30);
+            this.timeAndDate.TabIndex = 56;
             // 
             // label1
             // 
@@ -204,7 +205,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.timeAndDate);
             this.Controls.Add(this.label1);
             this.Name = "SaveDataGUI";
             this.Text = "SaveDataGUI";
@@ -223,7 +224,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker timeAndDate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox navnTB;

@@ -8,11 +8,11 @@ namespace Domain
 {
     class HealthProfessional
     {
-        private int _ID;
+        public int ID { get; set; }
 
-        public HealthProfessional(int ID)
+        public HealthProfessional(int id)
         {
-            _ID = ID;
+            ID = id;
         }
     }
 }

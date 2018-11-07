@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\BloodPressureMonitor",
+    "\\BloodPressureMonitor\\BloodPressureMonitor",
+    "\\BloodPressureMonitor\\DataLayer",
     "\\BloodPressureMonitor\\Domain",
     "\\BloodPressureMonitor\\Main",
     "\\BloodPressureMonitor\\Presentation"
   ],
-  "SelectedNode": "\\BloodPressureMonitor",
+  "SelectedNode": "\\BloodPressureMonitor\\Domain\\Domain.csproj",
   "PreviewInSolutionExplorer": false
 }

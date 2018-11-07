@@ -8,11 +8,11 @@ namespace Domain
 {
     class Calibration
     {
-        private double _calibrationValue;
+        public double CalibrationValue { get; set; }
 
         public Calibration(double calibrationValue)
         {
-            _calibrationValue = calibrationValue;
+            CalibrationValue = calibrationValue;
         }
     }
 }
