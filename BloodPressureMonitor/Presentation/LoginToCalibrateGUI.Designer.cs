@@ -33,6 +33,7 @@
             this.usernameTB = new System.Windows.Forms.TextBox();
             this.passwordTB = new System.Windows.Forms.TextBox();
             this.password = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // loginB
@@ -41,7 +42,7 @@
             this.loginB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.loginB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loginB.ForeColor = System.Drawing.Color.White;
-            this.loginB.Location = new System.Drawing.Point(70, 190);
+            this.loginB.Location = new System.Drawing.Point(67, 181);
             this.loginB.Name = "loginB";
             this.loginB.Size = new System.Drawing.Size(75, 23);
             this.loginB.TabIndex = 0;
@@ -83,12 +84,24 @@
             this.password.TabIndex = 4;
             this.password.Text = "Adgangskode";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(65, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(225, 25);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Log in for at kalibrer";
+            // 
             // LoginToCalibrateGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.password);
             this.Controls.Add(this.passwordTB);
             this.Controls.Add(this.usernameTB);
@@ -109,5 +122,6 @@
         private System.Windows.Forms.TextBox usernameTB;
         private System.Windows.Forms.TextBox passwordTB;
         private System.Windows.Forms.Label password;
+        private System.Windows.Forms.Label label1;
     }
 }
