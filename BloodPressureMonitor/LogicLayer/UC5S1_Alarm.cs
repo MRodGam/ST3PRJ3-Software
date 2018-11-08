@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer;
@@ -14,20 +15,31 @@ namespace LogicLayer
         private bool runAlarm = false;
         private bool muteAlarm = false;
         UC9S5_Limits Limits = new UC9S5_Limits();
-        UC2M2_UC3M3_Measure Measure = new UC2M2_UC3M3_Measure();
-
-
-        // lydfil hentes
+        DataTreatment dataTreatment = new DataTreatment();
         
+
+
+        // player klassen oprettes
+        SoundPlayer player = new SoundPlayer();
+
+        public void GetFileSound()
+        {
+            // lydfil hentes
+            player.SoundLocation = @"C: \Users\Celia\Documents\UNI\3 semester\Semesterprojekt 3(blodtrykmålesystem)\Github\BloodPressureMonitor\LogicLayer\bin\Debug\foghorn - daniel_simon.wav";
+            // filnavnet : "foghorn - daniel_simon.wav" erstattes med filnavn fra DSB projekt 
+        }
+
 
         public void ControlAlarm() // metode der kontrollere alarmen
         {
+            
+
             // hvis blodtryksværdi overskrider grænseværdier
-            if (Measure.GetMeasure() < Limits.getLowerLimit() || Measure.GetMeasure() > Limits.getUpperLimit() )
+            if (dataTreatment.GetConvertedData() < Limits.getLowerLimit() || dataTreatment.GetConvertedData() > Limits.getUpperLimit() )
             {
                 runAlarm = true;
             }
-            else if () // hvis knappen "Kvitter alarm" er trykket på
+            else if () // hvis knappen "Kvitter alarm" er trykket på, eller en variable bliver sat true inde i eventhandleren 
             {
                 muteAlarm = true;
             }
@@ -37,30 +49,39 @@ namespace LogicLayer
 
         public void StartAlarm()
         {
-            if (runAlarm == true)
+            if (runAlarm == true) // alarm starter
             {
-                // alarm starter: 
-                //lydfil afspilles,
+                // lydfil afspilles,
+                player.Play();
+              
+                
                 //Brugergrænseflade ændre udseende (tal for blodtryk bliver rød, knappen "kvitter alarm" bliver synlig)
-
 
             }
         }
 
         public void MuteAlarm()
         {
-            if (muteAlarm==true)
+            if (muteAlarm==true) // alarm pauser
             {
                 // Knappen "Kvitter alarm" usynliggøres
-                // lydfilen stoppes
+                // symbol på brugergrænsefladens mainGUI synliggøres -> evt. i eventhandleren for knappen "Kvitter alarm"
+
+                // lydfilen stoppes / pauses
+                player.Stop();
+                // alarm starter igen efter 180 sekunder ???
+                player.Play();
+
             }
         }
 
         public void StopAlarm()
         {
-            if (runAlarm == false)
+            if (runAlarm == false) // alarm stopper
             {
                 // lydfilen stoppe
+                player.Stop();
+
                 // brugergrænsefladen bliver normal igen (tal for blodtryk bliver grønne, knappen "kvitter alarm" usynliggøres)
 
             }

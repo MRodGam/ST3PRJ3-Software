@@ -8,5 +8,11 @@ namespace LogicLayer
 {
     public class DataTreatment : IDataTreatment
     {
+        public double ConvertedData { get; set; }
+
+        public double GetConvertedData()
+        {
+            return ConvertedData;
+        }
     }
 }
