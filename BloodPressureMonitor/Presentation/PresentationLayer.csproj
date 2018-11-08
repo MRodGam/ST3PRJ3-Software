@@ -103,6 +103,9 @@
     <EmbeddedResource Include="SaveDataGUI.resx">
       <DependentUpon>SaveDataGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ZeroAdjustmentGUI.resx">
+      <DependentUpon>ZeroAdjustmentGUI.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

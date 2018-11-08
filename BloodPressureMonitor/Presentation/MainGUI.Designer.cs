@@ -1,6 +1,6 @@
 ﻿namespace Presentation
 {
-    partial class MainGUI
+    partial class filter
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.StartB = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.limitsB = new System.Windows.Forms.Button();
+            this.saveB = new System.Windows.Forms.Button();
+            this.clearB = new System.Windows.Forms.Button();
             this.pauseB = new System.Windows.Forms.Button();
+            this.FilterRB = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // StartB
@@ -48,38 +49,38 @@
             this.StartB.Text = "START MÅLING";
             this.StartB.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // limitsB
             // 
-            this.button1.BackColor = System.Drawing.Color.Silver;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(468, 248);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 25);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Grænseværdi";
-            this.button1.UseVisualStyleBackColor = false;
+            this.limitsB.BackColor = System.Drawing.Color.Silver;
+            this.limitsB.ForeColor = System.Drawing.Color.White;
+            this.limitsB.Location = new System.Drawing.Point(468, 248);
+            this.limitsB.Name = "limitsB";
+            this.limitsB.Size = new System.Drawing.Size(120, 25);
+            this.limitsB.TabIndex = 1;
+            this.limitsB.Text = "Grænseværdi";
+            this.limitsB.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // saveB
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(468, 279);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 25);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Gem";
-            this.button2.UseVisualStyleBackColor = false;
+            this.saveB.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.saveB.ForeColor = System.Drawing.Color.White;
+            this.saveB.Location = new System.Drawing.Point(468, 279);
+            this.saveB.Name = "saveB";
+            this.saveB.Size = new System.Drawing.Size(120, 25);
+            this.saveB.TabIndex = 2;
+            this.saveB.Text = "Gem";
+            this.saveB.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // clearB
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(468, 310);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(120, 25);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Ryd";
-            this.button3.UseVisualStyleBackColor = false;
+            this.clearB.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.clearB.ForeColor = System.Drawing.Color.White;
+            this.clearB.Location = new System.Drawing.Point(468, 310);
+            this.clearB.Name = "clearB";
+            this.clearB.Size = new System.Drawing.Size(120, 25);
+            this.clearB.TabIndex = 3;
+            this.clearB.Text = "Ryd";
+            this.clearB.UseVisualStyleBackColor = false;
             // 
             // pauseB
             // 
@@ -90,30 +91,46 @@
             this.pauseB.Text = "Kvitter alarm ";
             this.pauseB.UseVisualStyleBackColor = true;
             // 
-            // MainGUI
+            // FilterRB
+            // 
+            this.FilterRB.AutoSize = true;
+            this.FilterRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FilterRB.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.FilterRB.Location = new System.Drawing.Point(348, 314);
+            this.FilterRB.Name = "FilterRB";
+            this.FilterRB.Size = new System.Drawing.Size(57, 17);
+            this.FilterRB.TabIndex = 5;
+            this.FilterRB.TabStop = true;
+            this.FilterRB.Text = "Filtrer";
+            this.FilterRB.UseVisualStyleBackColor = true;
+            // 
+            // filter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.FilterRB);
             this.Controls.Add(this.pauseB);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.clearB);
+            this.Controls.Add(this.saveB);
+            this.Controls.Add(this.limitsB);
             this.Controls.Add(this.StartB);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "MainGUI";
+            this.Name = "filter";
             this.Text = "MainGUI";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button StartB;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button limitsB;
+        private System.Windows.Forms.Button saveB;
+        private System.Windows.Forms.Button clearB;
         private System.Windows.Forms.Button pauseB;
+        private System.Windows.Forms.RadioButton FilterRB;
     }
 }

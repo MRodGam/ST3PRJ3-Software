@@ -30,11 +30,11 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.UpperTB = new System.Windows.Forms.TextBox();
+            this.lowerTB = new System.Windows.Forms.TextBox();
+            this.childB = new System.Windows.Forms.Button();
+            this.adultB = new System.Windows.Forms.Button();
+            this.oldB = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -57,52 +57,52 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Nedre";
             // 
-            // textBox1
+            // UpperTB
             // 
-            this.textBox1.Location = new System.Drawing.Point(61, 138);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
+            this.UpperTB.Location = new System.Drawing.Point(61, 138);
+            this.UpperTB.Name = "UpperTB";
+            this.UpperTB.Size = new System.Drawing.Size(100, 20);
+            this.UpperTB.TabIndex = 2;
             // 
-            // textBox2
+            // lowerTB
             // 
-            this.textBox2.Location = new System.Drawing.Point(61, 183);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.lowerTB.Location = new System.Drawing.Point(61, 183);
+            this.lowerTB.Name = "lowerTB";
+            this.lowerTB.Size = new System.Drawing.Size(100, 20);
+            this.lowerTB.TabIndex = 3;
             // 
-            // button1
+            // childB
             // 
-            this.button1.BackColor = System.Drawing.Color.Silver;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(278, 109);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Barn";
-            this.button1.UseVisualStyleBackColor = false;
+            this.childB.BackColor = System.Drawing.Color.Silver;
+            this.childB.ForeColor = System.Drawing.Color.White;
+            this.childB.Location = new System.Drawing.Point(278, 109);
+            this.childB.Name = "childB";
+            this.childB.Size = new System.Drawing.Size(121, 23);
+            this.childB.TabIndex = 4;
+            this.childB.Text = "Barn";
+            this.childB.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // adultB
             // 
-            this.button2.BackColor = System.Drawing.Color.Silver;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(278, 138);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Voksen";
-            this.button2.UseVisualStyleBackColor = false;
+            this.adultB.BackColor = System.Drawing.Color.Silver;
+            this.adultB.ForeColor = System.Drawing.Color.White;
+            this.adultB.Location = new System.Drawing.Point(278, 138);
+            this.adultB.Name = "adultB";
+            this.adultB.Size = new System.Drawing.Size(121, 23);
+            this.adultB.TabIndex = 5;
+            this.adultB.Text = "Voksen";
+            this.adultB.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // oldB
             // 
-            this.button3.BackColor = System.Drawing.Color.Silver;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(278, 166);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(121, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Ældre";
-            this.button3.UseVisualStyleBackColor = false;
+            this.oldB.BackColor = System.Drawing.Color.Silver;
+            this.oldB.ForeColor = System.Drawing.Color.White;
+            this.oldB.Location = new System.Drawing.Point(278, 166);
+            this.oldB.Name = "oldB";
+            this.oldB.Size = new System.Drawing.Size(121, 23);
+            this.oldB.TabIndex = 6;
+            this.oldB.Text = "Ældre";
+            this.oldB.UseVisualStyleBackColor = false;
             // 
             // ChangeLimitsGUI
             // 
@@ -110,11 +110,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.oldB);
+            this.Controls.Add(this.adultB);
+            this.Controls.Add(this.childB);
+            this.Controls.Add(this.lowerTB);
+            this.Controls.Add(this.UpperTB);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ChangeLimitsGUI";
@@ -128,10 +128,10 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox UpperTB;
+        private System.Windows.Forms.TextBox lowerTB;
+        private System.Windows.Forms.Button childB;
+        private System.Windows.Forms.Button adultB;
+        private System.Windows.Forms.Button oldB;
     }
 }
