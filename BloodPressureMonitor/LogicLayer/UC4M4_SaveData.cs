@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DTO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Data.SqlClient;
+using DataLayer;
+using Domain;
 
 namespace LogicLayer
 {
@@ -24,7 +25,7 @@ namespace LogicLayer
             connectionP = new SqlConnection("Data Source=st-i4dab.E18ST3PRJ3Gr3.dbo;Initial Catalog=" + DBlogin +
                                             ";Persist Security Info=True;User ID=" + DBlogin + ";Password=" + DBlogin + "");
             connectionO = new SqlConnection(
-                @"Data Source=i4dab.ase.au.dk;Initial Catalog=F18ST2PRJ2OffEKGDatabase;Integrated Security=False;User ID=F18ST2PRJ2OffEKGDatabase;Password=F18ST2PRJ2OffEKGDatabase;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
+                @"Data Source=i4dab.ase.au.dk;Initial Catalog=F18ST2PRJ2OffEKGDatabase;Integrated Security=False;User ID=st-i4dab.E18ST3PRJ3Gr3;Password=st-i4dab.E18ST3PRJ3Gr3;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False");
 
         }
 
@@ -35,9 +36,9 @@ namespace LogicLayer
             List<dataList> ListeOverMålinger = new List<dataList>(); //omdøb den samlede liste 
 
 
-            string a = "SELECT * FROM GemPrivat" + which;
+            string a = "SELECT * FROM SaveData" + which;
             //Oprette SQL kommando
-            command = new SqlCommand("SELECT * FROM Gem" + which, connectionP);
+            command = new SqlCommand("SELECT * FROM SaveData" + which, connectionP);
 
             //Åbne DB-forbindelsen
             connectionP.Open();
@@ -91,4 +92,4 @@ namespace LogicLayer
 
     }
 }
-}
+

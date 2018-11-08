@@ -8,13 +8,13 @@ namespace Domain
 {
     class MedicoTechnician
     {
-        private string _username;
-        private int _password;
+        public string Username { get; set; }
+        public int Password { get; set; }
 
         public MedicoTechnician(string username, int password)
         {
-            _username = username;
-            _password = password;
+            Username = username;
+            Password = password;
         }
     }
 }

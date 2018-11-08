@@ -60,6 +60,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button StartB;
+        public System.Windows.Forms.Button StartB;
     }
 }

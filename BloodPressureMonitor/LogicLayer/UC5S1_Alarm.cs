@@ -4,6 +4,8 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer;
+using Domain;
 
 namespace LogicLayer
 {
