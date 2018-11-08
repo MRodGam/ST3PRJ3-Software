@@ -8,5 +8,7 @@ namespace LogicLayer
 {
     interface ISave
     {
+        void SaveInDatabase(string CPRno, string IDno, DateTime date, byte[] GetCompletedMeasurement, int Systolic, int Diastolic, int Mean, int Puls);
+        
     }
 }

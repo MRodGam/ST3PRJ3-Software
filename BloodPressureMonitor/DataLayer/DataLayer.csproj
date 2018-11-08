@@ -41,11 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAQ.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="IDAQ.cs" />
     <Compile Include="IData.cs" />
+    <Compile Include="NI-DAQVoltage.cs" />
     <Compile Include="TransducerDAQ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{f60e2c13-d94b-4f60-bfe4-aedb0b293855}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

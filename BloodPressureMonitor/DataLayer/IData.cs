@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 
 namespace DataLayer
 {
     interface IData
     {
+        List<dataList> GetCompletedMeasurement(string which);  //Ændre dataliste her
     }
 }
