@@ -28,17 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Button button1;
             this.StartB = new System.Windows.Forms.Button();
             this.limitsB = new System.Windows.Forms.Button();
             this.saveB = new System.Windows.Forms.Button();
             this.clearB = new System.Windows.Forms.Button();
             this.pauseB = new System.Windows.Forms.Button();
             this.FilterRB = new System.Windows.Forms.RadioButton();
+            button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // StartB
             // 
             this.StartB.BackColor = System.Drawing.Color.ForestGreen;
+            this.StartB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.StartB.Location = new System.Drawing.Point(10, 310);
@@ -52,6 +55,7 @@
             // limitsB
             // 
             this.limitsB.BackColor = System.Drawing.Color.Silver;
+            this.limitsB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.limitsB.ForeColor = System.Drawing.Color.White;
             this.limitsB.Location = new System.Drawing.Point(468, 248);
             this.limitsB.Name = "limitsB";
@@ -63,6 +67,7 @@
             // saveB
             // 
             this.saveB.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.saveB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.saveB.ForeColor = System.Drawing.Color.White;
             this.saveB.Location = new System.Drawing.Point(468, 279);
             this.saveB.Name = "saveB";
@@ -74,6 +79,7 @@
             // clearB
             // 
             this.clearB.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.clearB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clearB.ForeColor = System.Drawing.Color.White;
             this.clearB.Location = new System.Drawing.Point(468, 310);
             this.clearB.Name = "clearB";
@@ -84,12 +90,16 @@
             // 
             // pauseB
             // 
-            this.pauseB.Location = new System.Drawing.Point(222, 312);
+            this.pauseB.BackColor = System.Drawing.Color.Silver;
+            this.pauseB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.pauseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseB.ForeColor = System.Drawing.Color.White;
+            this.pauseB.Location = new System.Drawing.Point(204, 306);
             this.pauseB.Name = "pauseB";
-            this.pauseB.Size = new System.Drawing.Size(75, 23);
+            this.pauseB.Size = new System.Drawing.Size(141, 29);
             this.pauseB.TabIndex = 4;
             this.pauseB.Text = "Kvitter alarm ";
-            this.pauseB.UseVisualStyleBackColor = true;
+            this.pauseB.UseVisualStyleBackColor = false;
             // 
             // FilterRB
             // 
@@ -104,12 +114,26 @@
             this.FilterRB.Text = "Filtrer";
             this.FilterRB.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            button1.ForeColor = System.Drawing.Color.Silver;
+            button1.Location = new System.Drawing.Point(26, 12);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(93, 21);
+            button1.TabIndex = 6;
+            button1.Text = "Kalibrer";
+            button1.UseVisualStyleBackColor = false;
+            // 
             // filter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(button1);
             this.Controls.Add(this.FilterRB);
             this.Controls.Add(this.pauseB);
             this.Controls.Add(this.clearB);

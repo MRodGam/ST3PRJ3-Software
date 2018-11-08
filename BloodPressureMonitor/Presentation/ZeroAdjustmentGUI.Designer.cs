@@ -36,6 +36,7 @@
             // zeroB
             // 
             this.zeroB.BackColor = System.Drawing.Color.Gray;
+            this.zeroB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.zeroB.ForeColor = System.Drawing.Color.White;
             this.zeroB.Location = new System.Drawing.Point(158, 375);
             this.zeroB.Name = "zeroB";
