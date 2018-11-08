@@ -13,7 +13,7 @@ namespace Presentation
 {
     public partial class SaveDataGUI : Form
     {
-        private bool tjek = false;
+        private bool check = false;
         private int puls_;
         private int mean_;
         private int systolic_;
@@ -78,18 +78,18 @@ namespace Presentation
 
         private void SaveB_Click(object sender, EventArgs e)
         {
-            //if (danMåling_.checkCPR(textBox2.Text + textBox4.Text) == false && tjek == false)
-            //{
-            //    MessageBox.Show("Tjek venligst, om CPR-nummeret er korrekt indtastet. \nHvis det er korrekt, tryk da på gem igen.");
-            //    tjek = true;
-            //}
-            //else
-            //{
-            //    string cpr = textBox2.Text + "-" + textBox4.Text;
-            //    danMåling_.GemPrivat(cpr, textBox9.Text, dateTimePicker1.Value, måling_, ST_, puls_);
-            //    tjek = false;
-            //    this.Close();
-            //}
+            if (danMåling_.checkCPR(cprTB1.Text + cprTB2.Text) == false && tjek == false)
+            {
+                MessageBox.Show("Tjek venligst, om CPR-nummeret er korrekt indtastet. \nHvis det er korrekt, tryk da på gem igen.");
+                check = true;
+            }
+            else
+            {
+                string cpr = cprTB1.Text + "-" + cprTB2.Text;
+                danMåling_.GemPrivat(cpr, medarbejderIDTB.Text, procedure_, timeAndDate.Value, måling_, puls_, mean_, diastolic_, systolic_, name_);
+                check = false;
+                this.Close();
+            }
         }
     }
 }

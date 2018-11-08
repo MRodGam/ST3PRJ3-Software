@@ -8,5 +8,11 @@ namespace Domain
 {
     class PulseAlgo
     {
+        public PulsAlgo(int frekvens, List<Måling> måling)
+        {
+
+            måling_ = måling;
+            frekvens_ = frekvens;
+        }
     }
 }

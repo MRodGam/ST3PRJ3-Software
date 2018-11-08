@@ -9,5 +9,6 @@ namespace DataLayer
 {
     interface IData
     {
+        List<dataList> GetCompletedMeasurement(string which);  //Ændre dataliste her
     }
 }
