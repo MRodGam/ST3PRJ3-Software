@@ -90,6 +90,9 @@
     <EmbeddedResource Include="CalibrateGUI.resx">
       <DependentUpon>CalibrateGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangeLimitsGUI.resx">
+      <DependentUpon>ChangeLimitsGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainGUI.resx">
       <DependentUpon>MainGUI.cs</DependentUpon>
     </EmbeddedResource>
