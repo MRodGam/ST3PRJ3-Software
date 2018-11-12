@@ -64,7 +64,7 @@ namespace DataLayer
         public string deviceName { get; set; }
 
 
-        public NI_DAQVoltage()
+        public NIDAQVoltage()
         {
             // Initialize local variables
             sampleRateInHz = 250;

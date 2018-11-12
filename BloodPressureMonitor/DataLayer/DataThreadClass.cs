@@ -22,7 +22,10 @@ namespace DataLayer
             pushThread = new Thread(localDAQ.CollectData);
         }
 
-         
+        public void StartMeasurement()
+        {
+            pushThread.Start();
+        }
 
     }
 }
