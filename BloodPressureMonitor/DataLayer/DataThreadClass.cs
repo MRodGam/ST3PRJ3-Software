@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace DataLayer
 {
-    class ThreadClass
+    class DataThreadClass
     {
         // Opretter tråd
         // Producer og consumer metoden
@@ -16,7 +16,7 @@ namespace DataLayer
         public DAQ localDAQ;
         public Thread pushThread;
 
-        public ThreadClass(DAQ actualDAQ)
+        public DataThreadClass(DAQ actualDAQ)
         {
             localDAQ = actualDAQ;
             pushThread = new Thread(localDAQ.CollectData);
