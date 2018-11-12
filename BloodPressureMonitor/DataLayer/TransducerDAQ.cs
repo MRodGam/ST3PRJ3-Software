@@ -38,12 +38,12 @@ namespace DataLayer
         {
             while (!ShallStop)
             {
-                localDAQ.GetData();
+                localDAQ.CollectData();
 
 
 
                 List<RawData> ShortDataList = new List<RawData>();
-                ShortDataList= localDAQ.GetData();
+                ShortDataList= localDAQ.CollectData();
                 RawDataList.Add(ShortDataList);
             }
             
