@@ -68,6 +68,11 @@
       <DependentUpon>MainGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SaveDataGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,8 +87,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CalibrateGUI.resx">
+      <DependentUpon>CalibrateGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeLimitsGUI.resx">
+      <DependentUpon>ChangeLimitsGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainGUI.resx">
       <DependentUpon>MainGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="SaveDataGUI.resx">
       <DependentUpon>SaveDataGUI.cs</DependentUpon>

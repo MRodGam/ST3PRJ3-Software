@@ -46,6 +46,7 @@
     <Compile Include="IDAQ.cs" />
     <Compile Include="IData.cs" />
     <Compile Include="NI-DAQVoltage.cs" />
+    <Compile Include="ThreadClass.cs" />
     <Compile Include="TransducerDAQ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
