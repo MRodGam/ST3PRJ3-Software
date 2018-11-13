@@ -8,6 +8,8 @@ namespace LogicLayer
 {
     interface IAlarmType
     {
-        
+        void RunAlarm();
+        void MuteAlarm();
+        void StopAlarm();
     }
 }
