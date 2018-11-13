@@ -10,7 +10,7 @@ using NationalInstruments.DAQmx;
 
 namespace DataLayer
 {
-    public class DAQ
+    public class DAQ // Producer class
     {
         List<RawData> TotalRawDataList;
         List<RawData> ShortSampleDataList;
@@ -58,7 +58,6 @@ namespace DataLayer
                     _collection.Add(new RawData(sekunder, Math.Round((Raw1000DataArray[i]), 3)));
                 }
             }
-
         }
 
         public List<RawData> GetRawData()

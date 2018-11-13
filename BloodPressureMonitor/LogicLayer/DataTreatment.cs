@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain;
 
-namespace LogicLayer
+namespace LogicLayer // Consumer class
 {
     public class DataTreatment : IDataTreatment
     {
