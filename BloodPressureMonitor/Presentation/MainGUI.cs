@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Presentation
 {
-    public partial class MainGUI : Form
+    public partial class filter : Form
     {
-        public MainGUI()
+        public filter()
         {
             InitializeComponent();
         }
