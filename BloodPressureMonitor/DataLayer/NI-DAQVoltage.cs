@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NationalInstruments.DAQmx;
+using ST2Prj2LibNI_DAQ;
 
 
 namespace DataLayer
@@ -67,10 +68,10 @@ namespace DataLayer
         public NIDAQVoltage()
         {
             // Initialize local variables
-            sampleRateInHz = 250;
-            rangeMinimumVolt = -1.2;
-            rangeMaximumVolt = 1.2;
-            samplesPerChannel = 3600;
+            sampleRateInHz = 1000;
+            rangeMinimumVolt = -2;
+            rangeMaximumVolt = 2;
+            samplesPerChannel = 1000; // Means that a 1000 samples will come in at a time
             deviceName = "Dev1/ai0";
             seqTimeOut = -1; 
 
