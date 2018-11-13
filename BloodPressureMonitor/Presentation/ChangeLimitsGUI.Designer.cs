@@ -35,6 +35,7 @@
             this.childB = new System.Windows.Forms.Button();
             this.adultB = new System.Windows.Forms.Button();
             this.oldB = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -73,7 +74,8 @@
             // 
             // childB
             // 
-            this.childB.BackColor = System.Drawing.Color.Silver;
+            this.childB.BackColor = System.Drawing.Color.Gray;
+            this.childB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.childB.ForeColor = System.Drawing.Color.White;
             this.childB.Location = new System.Drawing.Point(278, 109);
             this.childB.Name = "childB";
@@ -84,7 +86,8 @@
             // 
             // adultB
             // 
-            this.adultB.BackColor = System.Drawing.Color.Silver;
+            this.adultB.BackColor = System.Drawing.Color.Gray;
+            this.adultB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.adultB.ForeColor = System.Drawing.Color.White;
             this.adultB.Location = new System.Drawing.Point(278, 138);
             this.adultB.Name = "adultB";
@@ -95,7 +98,8 @@
             // 
             // oldB
             // 
-            this.oldB.BackColor = System.Drawing.Color.Silver;
+            this.oldB.BackColor = System.Drawing.Color.Gray;
+            this.oldB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.oldB.ForeColor = System.Drawing.Color.White;
             this.oldB.Location = new System.Drawing.Point(278, 166);
             this.oldB.Name = "oldB";
@@ -104,12 +108,25 @@
             this.oldB.Text = "Ældre";
             this.oldB.UseVisualStyleBackColor = false;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Gray;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(233, 319);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "OK";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // ChangeLimitsGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.oldB);
             this.Controls.Add(this.adultB);
             this.Controls.Add(this.childB);
@@ -133,5 +150,6 @@
         private System.Windows.Forms.Button childB;
         private System.Windows.Forms.Button adultB;
         private System.Windows.Forms.Button oldB;
+        private System.Windows.Forms.Button button1;
     }
 }
