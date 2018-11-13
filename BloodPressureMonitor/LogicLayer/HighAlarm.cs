@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    interface IMeasure
+    class HighAlarm : 
     {
-        void RunAlarm();
     }
 }
