@@ -1,29 +1,38 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
-using LogicLayer;
-using ST2Prj2LibNI_DAQ;
+using NationalInstruments.DAQmx;
 
 
 namespace DataLayer
 {
-    class DAQ
+    public class DAQ // Producer class
     {
         List<RawData> TotalRawDataList;
+        List<RawData> ShortSampleDataList;
         double[] Raw1000DataArray;
-        private bool isDatacollectionRunning = false;
+        public bool isDatacollectionRunning { get; set; }
 
-        public static List<RawData> GetRawData()
+        private BlockingCollection<RawData> _collection; // Taken from Troels lesson on producer consumer. I guess this is the producer?
+
+        public DAQ(BlockingCollection<RawData> collection)
+        {
+            isDatacollectionRunning = false;
+            _collection = collection;
+
+        }
+        public void CollectData()
         {
             while (isDatacollectionRunning == true)
             {
                 Raw1000DataArray = new double[1000]; // 1000 should be exchanged for the amount of samples measured during a single update
-                TotalRawDataList = new List<RawData>();
+                ShortSampleDataList = new List<RawData>();
 
-                NI_DAQVoltage datacollector = new NI_DAQVoltage(); //Creates a DAQ-object
+                NIDAQVoltage datacollector = new NIDAQVoltage(); //Creates a DAQ-object
                 // Should it do this here? Didn't I talk to Lars about creating the transducer through the constructor?
 
                 datacollector.samplesPerChannel = 1000; // 1000 should be exchanged for the amount of samples measured during a single update
@@ -41,11 +50,19 @@ namespace DataLayer
                 {
                     double sekunder = 0.004 * (i + 1); //The 0.004 should be changed depending on the sample frequency. It is the timespacing between the given samples.
                     // plus 1 because arrays start at 0 and we start counting samples at the first sample.
-                    TotalRawDataList.Add(new RawData(sekunder, Math.Round((Raw1000DataArray[i]), 3))); // The voltage value is being rounded down into a number with three decimals.
+
+                    // ShortSampleDataList.Add(new RawData(sekunder, Math.Round((Raw1000DataArray[i]), 3))); // The voltage value is being rounded down into a number with three decimals.
+                    // This is the way we've done it before.
+
+                    // This is my attempt at making a producer thread 
+                    _collection.Add(new RawData(sekunder, Math.Round((Raw1000DataArray[i]), 3)));
                 }
             }
-            
-            return TotalRawDataList;
+        }
+
+        public List<RawData> GetRawData()
+        {
+            return ShortSampleDataList;
         }
         
     }

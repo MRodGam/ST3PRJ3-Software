@@ -14,15 +14,18 @@ namespace DataLayer
         public List<RawData> RawDataList { get; private set; }
         private static Thread measurementThread;
         public static bool ShallStop { get; private set; }
+        public DAQ localDAQ;
        
 
-        public TransducerDAQ()
+        public TransducerDAQ(DAQ actualDAQ)
         {
+            localDAQ = actualDAQ;
             RawDataList = new List<RawData>();
             measurementThread = new Thread(GetRawData);
         }
         public static void Start()
         {
+            ShallStop = false;
             measurementThread.Start();
         }
 
@@ -31,18 +34,20 @@ namespace DataLayer
             ShallStop = true;
         }
 
-        private void GetRawData()
+        private List<RawData> GetRawData()
         {
-            DAQ daq = new DAQ();
             while (!ShallStop)
             {
-                while (true)
-                {
-                    DAQ.GetRawData();
-                }
+                localDAQ.CollectData();
+
+
+
+                List<RawData> ShortDataList = new List<RawData>();
+                ShortDataList= localDAQ.CollectData();
+                RawDataList.Add(ShortDataList);
             }
             
-            RawDataList = DAQ.GetRawData();
+            
         }
 
        
