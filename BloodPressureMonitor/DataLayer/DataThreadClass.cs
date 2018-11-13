@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace DataLayer
 {
-    class DataThreadClass
+    public class DataThreadClass
     {
         // Opretter tråd
         // Producer og consumer metoden

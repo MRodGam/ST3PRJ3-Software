@@ -37,6 +37,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="NationalInstruments.NiLmClientDLL, Version=17.5.40.49152, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL" />
+    <Reference Include="ST2Prj2LibNI-DAQ">
+      <HintPath>.\ST2Prj2LibNI-DAQ.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
