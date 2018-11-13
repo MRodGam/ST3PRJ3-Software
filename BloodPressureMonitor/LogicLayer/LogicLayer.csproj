@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAlarmType.cs" />
     <Compile Include="DataTreatment.cs" />
+    <Compile Include="HighAlarm.cs" />
     <Compile Include="IAlarm.cs" />
     <Compile Include="ICalibrate.cs" />
     <Compile Include="IClear.cs" />

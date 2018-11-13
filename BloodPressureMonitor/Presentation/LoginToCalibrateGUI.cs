@@ -16,5 +16,15 @@ namespace Presentation
         {
             InitializeComponent();
         }
+
+        private void LoginToCalibrateGUI_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void username_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

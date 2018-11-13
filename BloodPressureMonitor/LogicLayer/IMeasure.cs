@@ -8,5 +8,6 @@ namespace LogicLayer
 {
     interface IMeasure
     {
+        void RunAlarm();
     }
 }
