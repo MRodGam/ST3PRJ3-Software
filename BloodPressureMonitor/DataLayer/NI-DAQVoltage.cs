@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using NationalInstruments.DAQ.mx;
+using NationalInstruments.DAQmx;
+
 
 namespace DataLayer
 {
@@ -63,7 +64,7 @@ namespace DataLayer
         public string deviceName { get; set; }
 
 
-        public NI_DAQVoltage()
+        public NIDAQVoltage()
         {
             // Initialize local variables
             sampleRateInHz = 250;
