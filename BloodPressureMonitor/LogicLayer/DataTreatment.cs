@@ -20,7 +20,9 @@ namespace LogicLayer // Consumer class
         }
         public double GetConvertedData()
         {
-            // Return the converted data List
+            // Return
+            //
+            // the converted data List
         }
 
         public void TreatData()
@@ -33,7 +35,7 @@ namespace LogicLayer // Consumer class
                 } 
 
                 // DataTreatment code
-                // This code should use the conversion algorithm written in a seperate class
+                // This code should use the conversion algorithm written in a separate class
                 // Put into a list
             }
         }
