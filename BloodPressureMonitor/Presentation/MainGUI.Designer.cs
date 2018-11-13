@@ -38,11 +38,24 @@
             button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
+            // button1
+            // 
+            button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            button1.ForeColor = System.Drawing.Color.Silver;
+            button1.Location = new System.Drawing.Point(26, 12);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(93, 21);
+            button1.TabIndex = 6;
+            button1.Text = "Kalibrer";
+            button1.UseVisualStyleBackColor = false;
+            // 
             // StartB
             // 
             this.StartB.BackColor = System.Drawing.Color.ForestGreen;
             this.StartB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.StartB.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.StartB.Location = new System.Drawing.Point(10, 310);
             this.StartB.Margin = new System.Windows.Forms.Padding(2);
@@ -113,19 +126,6 @@
             this.FilterRB.TabStop = true;
             this.FilterRB.Text = "Filtrer";
             this.FilterRB.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            button1.ForeColor = System.Drawing.Color.Silver;
-            button1.Location = new System.Drawing.Point(26, 12);
-            button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(93, 21);
-            button1.TabIndex = 6;
-            button1.Text = "Kalibrer";
-            button1.UseVisualStyleBackColor = false;
             // 
             // filter
             // 
