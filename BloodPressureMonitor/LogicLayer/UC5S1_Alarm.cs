@@ -9,7 +9,7 @@ using Domain;
 
 namespace LogicLayer
 {
-    public class UC5S1_Alarm : IAlarm
+    class UC5S1_Alarm : IAlarm
     {
 
         UC9S5_Limits Limits = new UC9S5_Limits();
