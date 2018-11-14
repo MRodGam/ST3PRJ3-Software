@@ -25,23 +25,7 @@ namespace LogicLayer
             //Brugergrænseflade ændre udseende (tal for blodtryk bliver rød, knappen "kvitter alarm" bliver synlig)
         }
 
-
-        public void MuteAlarm()
-        {
-            if (muteAlarm == true) // alarm pauser
-            {
-                // Knappen "Kvitter alarm" usynliggøres
-                // symbol på brugergrænsefladens mainGUI synliggøres -> evt. i eventhandleren for knappen "Kvitter alarm"
-
-                // lydfilen stoppes / pauses
-                player.Stop();
-
-                // alarm starter igen efter 180 sekunder ???
-                player.Play();
-
-            }
-        }
-
+       
         public void StopAlarm()
         {
             if (runAlarm == false) // alarm stopper
