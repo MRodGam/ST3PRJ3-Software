@@ -21,7 +21,7 @@ namespace Presentation
         {
             // Is missing a method to do the start/stop eventhandler
 
-            if (isMeasurementRunning== true)
+            if (UCisMeasurementRunning== true)
             {
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
@@ -32,6 +32,11 @@ namespace Presentation
                 StartB.BackColor = Color.ForestGreen;
                 StartB = "START MÅLING";
             }
+        }
+
+        private void StartB_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
