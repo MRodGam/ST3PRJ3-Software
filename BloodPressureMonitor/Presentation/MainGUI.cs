@@ -7,11 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LogicLayer;
+using Domain;
 
 namespace Presentation
 {
     public partial class filter : Form
     {
+        
+        private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
+
+
+
         public filter()
         {
             InitializeComponent();
@@ -21,7 +28,7 @@ namespace Presentation
         {
             // Is missing a method to do the start/stop eventhandler
 
-            if (UCisMeasurementRunning== true)
+            if (isMeasurementRunning== true)
             {
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
@@ -34,9 +41,10 @@ namespace Presentation
             }
         }
 
-        private void StartB_Click_1(object sender, EventArgs e)
+        private void pauseB_Click(object sender, EventArgs e)
         {
-
+            alarm.MuteAlarm();
+            
         }
     }
 }

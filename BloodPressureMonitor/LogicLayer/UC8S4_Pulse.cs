@@ -10,5 +10,6 @@ namespace LogicLayer
 {
     class UC8S4_Pulse : IPulse 
     {
+
     }
 }
