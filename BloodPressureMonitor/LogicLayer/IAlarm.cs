@@ -11,5 +11,6 @@ namespace LogicLayer
         void PlayAlarm();
         void MuteAlarm();
         void StopAlarm();
+        bool GetIsAlarmActive();
     }
 }

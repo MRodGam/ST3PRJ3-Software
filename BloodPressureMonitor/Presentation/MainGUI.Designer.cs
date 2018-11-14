@@ -106,17 +106,18 @@
             // 
             // pauseB
             // 
-            this.pauseB.BackColor = System.Drawing.Color.Silver;
+            this.pauseB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.pauseB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.pauseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseB.ForeColor = System.Drawing.Color.White;
-            this.pauseB.Location = new System.Drawing.Point(306, 471);
+            this.pauseB.Location = new System.Drawing.Point(244, 477);
             this.pauseB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pauseB.Name = "pauseB";
-            this.pauseB.Size = new System.Drawing.Size(212, 45);
+            this.pauseB.Size = new System.Drawing.Size(638, 71);
             this.pauseB.TabIndex = 4;
             this.pauseB.Text = "Kvitter alarm ";
             this.pauseB.UseVisualStyleBackColor = false;
+            this.pauseB.Visible = false;
             this.pauseB.Click += new System.EventHandler(this.pauseB_Click);
             // 
             // FilterRB
