@@ -16,8 +16,9 @@ namespace Presentation
     {
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
-
-
+        private IMeasure Measure;
+        public bool isMeasurementRunning { get; private set; } = false;
+        public int Counter { get; private set; } = 0;
 
         public filter()
         {
@@ -27,8 +28,21 @@ namespace Presentation
         private void StartB_Click(object sender, EventArgs e)
         {
             // Is missing a method to do the start/stop eventhandler
+            Counter++;
 
-            if (isMeasurementRunning== true)
+            if (Counter % 2 == 0)
+            {
+                Measure.StartMeasurement();
+                isMeasurementRunning = true;
+            }
+            if (Counter % 2 != 0)
+            {
+                Measure.StopMeasurement();
+                isMeasurementRunning = false;
+            }
+
+
+            if (isMeasurementRunning == true)
             {
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
@@ -37,7 +51,7 @@ namespace Presentation
             if (isMeasurementRunning == false)
             {
                 StartB.BackColor = Color.ForestGreen;
-                StartB = "START MÅLING";
+                StartB.Text = "START MÅLING";
             }
         }
 
