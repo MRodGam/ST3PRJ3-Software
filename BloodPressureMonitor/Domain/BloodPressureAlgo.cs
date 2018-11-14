@@ -8,5 +8,22 @@ namespace Domain
 {
     class BloodPressureAlgo
     {
+        // find systole 
+        public void FindSystolic()
+        {
+            // maks-værdi for de samples der gennemløbes mellem to pulsværdier
+        }
+
+        // find diastole 
+        public void FindDiastolic()
+        {
+            // min-værdi for de samples der gennemløbes mellem to pulsværdier 
+        }
+
+        // find middelværdi
+        public void FindMean()
+        {
+            // gennemsnit for de samples der gennemløbes mellem to pulsværdier
+        }
     }
 }
