@@ -16,5 +16,6 @@ namespace Domain
             Second = second;
             Voltage = voltage;
         }
+        
     }
 }

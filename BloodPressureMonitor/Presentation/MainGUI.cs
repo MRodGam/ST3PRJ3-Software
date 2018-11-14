@@ -16,35 +16,58 @@ namespace Presentation
     {
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
-
-
+        private IMeasure Measure;
+        
+        public int Counter { get; private set; } = 0;
 
         public filter()
         {
             InitializeComponent();
+            
         }
 
         private void StartB_Click(object sender, EventArgs e)
         {
             // Is missing a method to do the start/stop eventhandler
+            Counter++;
 
-            if (isMeasurementRunning== true)
+            if (Counter % 2 == 0)
             {
+                Measure.StartMeasurement();
+                
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
             }
-
-            if (isMeasurementRunning == false)
+            if (Counter % 2 != 0)
             {
+                Measure.StopMeasurement();
+                
                 StartB.BackColor = Color.ForestGreen;
-                StartB = "START MÅLING";
+                StartB.Text = "START MÅLING";
             }
+
+
+           
         }
 
         private void pauseB_Click(object sender, EventArgs e)
         {
-            alarm.MuteAlarm();
+            BackgroundWorker
+            // hvis alarmen er aktiv skal knappen være synlig 
+            if (alarm.GetIsAlarmActive() == true)
+            {
+                pauseB.Visible = true;
+            }
+
+            alarm.MuteAlarm(); // kalder metoden MuteAlarm inde i UC5S1_Alarm
+
             
+            // hvis alarmen ikke er aktiv skal knappen være usynlig 
+            if (alarm.GetIsAlarmActive() == false)
+            {
+                pauseB.Visible = false;
+            }
+
         }
     }
 }

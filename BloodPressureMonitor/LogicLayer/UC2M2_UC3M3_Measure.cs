@@ -20,13 +20,16 @@ namespace LogicLayer
 
         public UC2M2_UC3M3_Measure()
         {
-            checkifRunningThread = new Thread(IsMeasurementRunning); // Threads can only do void methods. 
+
         }
 
-        public void IsMeasurementRunning() //Check with Lars, might be very very wrong. Im just stupid
+        public bool MeasurementStarted()
         {
-            checkifRunningThread.Start();
+            isGUIRunning = true;
+        }
 
+        public bool IsMeasurementRunning() //Check with Lars, might be very very wrong. Im just stupid
+        {
             if (isGUIRunning == true)
             {
                 isMeasurementRunning = true;
@@ -36,6 +39,8 @@ namespace LogicLayer
             {
                 isMeasurementRunning = false;
             }
+
+            return isMeasurementRunning;
         }
 
         //public void StartMeasurement() // Sets Running to true, starts method Measure(), updates user interface
@@ -64,6 +69,16 @@ namespace LogicLayer
                 ShallStop = true;
             }
 
+        }
+
+        public void StartMeasurement()
+        {
+            TransducerDAQ.Start();
+        }
+
+        public void StopMeasurement()
+        {
+            TransducerDAQ.Stop();
         }
     }
 }

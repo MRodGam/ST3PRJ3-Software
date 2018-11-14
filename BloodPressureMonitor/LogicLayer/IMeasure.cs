@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    interface IMeasure
+    public interface IMeasure
     {
-        void RunAlarm();
+        bool IsMeasurementRunning();
+        void StartMeasurement();
+        void StopMeasurement();
     }
 }

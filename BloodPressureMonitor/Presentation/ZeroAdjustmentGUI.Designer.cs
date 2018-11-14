@@ -38,18 +38,19 @@
             this.zeroB.BackColor = System.Drawing.Color.Gray;
             this.zeroB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.zeroB.ForeColor = System.Drawing.Color.White;
-            this.zeroB.Location = new System.Drawing.Point(158, 375);
+            this.zeroB.Location = new System.Drawing.Point(290, 384);
             this.zeroB.Name = "zeroB";
             this.zeroB.Size = new System.Drawing.Size(175, 23);
             this.zeroB.TabIndex = 0;
             this.zeroB.Text = "Nulpunktsjustering udført";
             this.zeroB.UseVisualStyleBackColor = false;
+            this.zeroB.Click += new System.EventHandler(this.zeroB_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(108, 71);
+            this.label1.Location = new System.Drawing.Point(240, 80);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 1;
@@ -59,7 +60,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(129, 41);
+            this.label2.Location = new System.Drawing.Point(261, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(257, 31);
             this.label2.TabIndex = 2;

@@ -16,5 +16,10 @@ namespace Presentation
         {
             InitializeComponent();
         }
+
+        private void zeroB_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
