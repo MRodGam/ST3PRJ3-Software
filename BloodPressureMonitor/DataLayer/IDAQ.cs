@@ -7,7 +7,11 @@ using Domain;
 
 namespace DataLayer
 {
-    interface IDAQ
+    public interface IDAQ
     {
+        void Start();
+        void Stop();
+        void GetRawData();
+
     }
 }

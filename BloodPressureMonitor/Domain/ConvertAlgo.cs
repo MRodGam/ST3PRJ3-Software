@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class ConvertAlgo
+    public class ConvertAlgo
     {
-       
+        public double Second { get; private set; }
+        public double Voltage { get; private set; }
+        public double Pressure { get; private set; }
+
+        public void ConvertData(double second, double voltage)
+        {
+            Second = second;
+            Voltage = voltage;
+            
+            // Calculate pressure from voltage
+        }
     }
 }
