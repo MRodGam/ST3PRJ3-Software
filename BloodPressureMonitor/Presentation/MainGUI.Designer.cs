@@ -107,9 +107,9 @@
             this.pauseB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.pauseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseB.ForeColor = System.Drawing.Color.White;
-            this.pauseB.Location = new System.Drawing.Point(204, 306);
+            this.pauseB.Location = new System.Drawing.Point(192, 310);
             this.pauseB.Name = "pauseB";
-            this.pauseB.Size = new System.Drawing.Size(141, 29);
+            this.pauseB.Size = new System.Drawing.Size(155, 46);
             this.pauseB.TabIndex = 4;
             this.pauseB.Text = "Kvitter alarm ";
             this.pauseB.UseVisualStyleBackColor = false;
@@ -119,7 +119,7 @@
             this.FilterRB.AutoSize = true;
             this.FilterRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilterRB.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.FilterRB.Location = new System.Drawing.Point(348, 314);
+            this.FilterRB.Location = new System.Drawing.Point(362, 314);
             this.FilterRB.Name = "FilterRB";
             this.FilterRB.Size = new System.Drawing.Size(57, 17);
             this.FilterRB.TabIndex = 5;
