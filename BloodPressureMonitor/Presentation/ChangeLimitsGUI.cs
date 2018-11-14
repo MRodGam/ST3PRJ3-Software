@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Presentation
 {
-    public partial class sixB : Form
+    public partial class ChangeLimits : Form
     {
-        public sixB()
+        public ChangeLimits()
         {
             InitializeComponent();
         }

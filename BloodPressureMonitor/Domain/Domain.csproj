@@ -56,6 +56,7 @@
     <Compile Include="BPandPulseMeasurement.cs" />
     <Compile Include="Calibration.cs" />
     <Compile Include="ConvertAlgo.cs" />
+    <Compile Include="ConvertedData.cs" />
     <Compile Include="FilterAlgo.cs" />
     <Compile Include="GraphList.cs" />
     <Compile Include="HealthProfessional.cs" />
