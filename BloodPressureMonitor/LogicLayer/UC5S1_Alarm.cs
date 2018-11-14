@@ -16,7 +16,7 @@ namespace LogicLayer
         DataTreatment dataTreatment = new DataTreatment(); // hvad sker der her?
 
         private IAlarmType alarmType; // korrekt at den er private ?
-
+        public bool IsAlarmActive { get; private set; } = false;
         
         public void PlayAlarm() // metode der kontrollere alarmen
         {
@@ -26,6 +26,7 @@ namespace LogicLayer
                 dataTreatment.GetConvertedData() > Limits.getUpperLimit())
             {
                 alarmType.RunAlarm();
+                IsAlarmActive = true;
             }
 
         }
@@ -43,6 +44,7 @@ namespace LogicLayer
                 dataTreatment.GetConvertedData() <= Limits.getUpperLimit())
             {
                 alarmType.StopAlarm();
+                IsAlarmActive = false;
             }
             
             
