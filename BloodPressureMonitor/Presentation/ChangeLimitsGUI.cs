@@ -12,9 +12,35 @@ namespace Presentation
 {
     public partial class ChangeLimits : Form
     {
+        private int limite = 0;
         public ChangeLimits()
         {
             InitializeComponent();
         }
+
+        private void button_Click(object sender, EventArgs e)
+        {
+            Button b = (Button) sender;
+            if (limite == 1)
+            {
+            upperLimit.Text = upperLimit.Text + b.Text;
+            }
+
+            if (limite == 2)
+            { upperLimit.Text = upperLimit.Text + b.Text; }
+        }
+
+        private void lowerLimit_Click(object sender, EventArgs e)
+        {
+            limite = 1;
+        }
+
+        private void upperLimit_Click(object sender, EventArgs e)
+        {
+            limite = 2;
+
+        }
+
+     
     }
 }
