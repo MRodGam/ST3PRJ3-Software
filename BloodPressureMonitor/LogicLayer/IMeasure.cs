@@ -8,7 +8,6 @@ namespace LogicLayer
 {
     public interface IMeasure
     {
-        bool IsMeasurementRunning();
         void StartMeasurement();
         void StopMeasurement();
     }

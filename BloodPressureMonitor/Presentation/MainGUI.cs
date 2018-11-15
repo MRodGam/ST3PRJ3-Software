@@ -52,7 +52,7 @@ namespace Presentation
 
         private void pauseB_Click(object sender, EventArgs e)
         {
-            BackgroundWorker
+            //BackgroundWorker ??
             // hvis alarmen er aktiv skal knappen være synlig 
             if (alarm.GetIsAlarmActive() == true)
             {
