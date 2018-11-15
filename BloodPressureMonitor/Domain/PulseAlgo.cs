@@ -4,42 +4,87 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using alglib;
 using MathNet.Numerics; //generating sine waveforms
 using MathNet.Numerics.IntegralTransforms;
 using System.Numerics; // Complex numbers 
-using System.Threading.Thread;
+using System.Threading;
 
 namespace Domain
 {
-    class PulseAlgo
+    public class PulseAlgo
     {
-        private int samplefrekvens_ = 1000;
-        
-
-        public PulseAlgo(List<ConvertedData> ConvertedData) //ikke oprettet endnu
-        {}
-
-        public void ComplexPulseArray() //laver array med komplekse værdier fra den koverterede pulsliste
+        public int Pulse(double[] measurements, double samplefrequence)
         {
-            ComplexArray[] complexArray = new ComplexArray[list.Count];
-            int i = 0;
-            //opretter samples i compleks array
-            for (ComplexArray complexArray in list)
+            double samplefrequence_ = samplefrequence;
+            double[] measurements_ = measurements; // Opretter array til målingerne
+
+            int length = measurements.Length; //Finder antal målinger
+            alglib.complex[] complexArray = new alglib.complex[length]; //komplekst array
+            List<double> amplitudes = new List<double>(); //listen som skal indeholde amplituderne
+
+            alglib.fftr1d(measurements,out complexArray); //fourier der danner det komplekse array
+
+            foreach (var measurement in complexArray) //Hver måling i det komplekse array gennemløbes
             {
-                complexArray[i++] = new Complex(ComplexArray);
+                double amplitude = Math.Sqrt(Math.Pow(measurement.x, 2) + Math.Pow(measurement.y, 2)); //Phytagoras for at finde højden på vektoren
+                amplitudes.Add(amplitude);// Beregningen tilføjes til listen som indeholder amplituder
             }
+
+            double maximum = amplitudes[0]; //Den maksimale amplitude vælges som den første i listen
+            int index = 0;
+
+            for (int i = 0; i < amplitudes.Count / 2; i++)
+            {
+                if (amplitudes[i]>maximum) //tjekker om amplituden er højere end den der allerede er valgt
+                {
+                    maximum = amplitudes[i]; //Hvis den er højere erstattes den med den gemte 
+                    index = i; //
+                }
+            }
+
+            double frequence = (double) samplefrequence_ / measurements_.Length;
+            double calcFrequence = frequence * index;
+
+            int pulse = (int) (calcFrequence * 60);
+            return pulse;
         }
-
-        public int PulseFourier()
-        {
-            //Konverterer tid til frekvens 
-            Fourier.Forward(complexArray, FourierOptions.NoScaling);  //Skal det være forward eller invers? 
-
-
-        }
-
-        
-        
     }
 }
+    
+        
+
+        //private List<ConvertedData> convertedList_;
+        //private alglib.complex complexArray;
+
+        //public PulseAlgo(List<ConvertedData> ConvertedData) //ikke oprettet endnu
+        //{
+        //    convertedList_ = ConvertedData;
+        //}
+
+        //public alglib.complex[]
+        //    ComplexPulseArray() //laver array med komplekse værdier fra den koverterede dataliste. Returner complexArray
+        //{
+        //    alglib.complex[] complexArray = new alglib.complex[convertedList_.Count];
+
+        //    alglib.fftr1d(convertedList_<ConvertedData>.ToArray(), out complexArray);
+
+        //    return complexArray;
+        //}
+
+        ////det komplekse array skal gennemløbes og længden på vektoren registreres. Den længste vektor er en puls som med grundfrekvensen kan omregnes til pulsslag/min.
+
+        //public double VecorLength()
+        //{
+        //    complexArray.
+        //}
+    
+
+    
+
+
+
+
+        
+        
+    
+
