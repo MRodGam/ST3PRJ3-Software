@@ -12,6 +12,7 @@ namespace DataLayer
     public class TransducerDAQ : IDAQ // Producer
     {
         public List<RawData> RawDataList { get; private set; }
+        public List<RawData> CollectedData;
         private static Thread measurementThread;
         public static bool ShallStop { get; private set; }
         public DAQ localDAQ;
@@ -44,11 +45,17 @@ namespace DataLayer
             while (!ShallStop)
             {
                 localDAQ.CollectData(); // Starts the data collection
+                CollectedData = localDAQ.GetCollectedRawData();
 
-                foreach (var obj in localDAQ.GetCollectedRawData())// Transfers content measured from the DAQ to the collection
+                foreach (var obj in CollectedData)// Transfers content measured from the DAQ to the collection
                 {
                     _collection.Add(obj);
                 }
+
+                //foreach (var obj in localDAQ.GetCollectedRawData())// Transfers content measured from the DAQ to the collection
+                //{
+                //    _collection.Add(obj);
+                //}
             }
         }
     }
