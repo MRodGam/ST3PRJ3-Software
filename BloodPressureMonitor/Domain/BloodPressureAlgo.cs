@@ -18,7 +18,7 @@ namespace Domain
 
         public int SysBP { get; private set; }
         public int DiaBP { get; private set; }
-        public int MeanBP { get;  }
+        public int MeanBP { get; private set; }
         private double value;
         private int Window = 5000;
         private int CountConvertedDataList;
@@ -32,20 +32,26 @@ namespace Domain
 
         public List<double> WindowOfConvertedData(List<ConvertedData> _convertedData)
         {
-            while (true)
+            while (true) // så længe målingen kører -> hvordan skrives det, er der er properti der skal sættes til true i UCMeasure?
             {
-                CountConvertedDataList = _convertedData.Count;
+                CountConvertedDataList = _convertedData.Count; // længden af listen sættes lig med attributten "CountConvertedDataList"
 
-                if (CountConvertedDataList>Window)
+                if (CountConvertedDataList>Window) // hvis længden af listen for convertedData er længere end window (som er 5000)
                 {
-                    _windowList.Clear();
-                    _windowList.AddRange(_convertedData[_convertedData.Count-5000]);
+                    _windowList.Clear(); // Listen for window tømmes
+                    _windowList.AddRange(_convertedData[_convertedData.Count - 5000]); // Tilføjer data til listen for window, som længere nede bliver kørt igennem
+                    // synes ikke det giver mening at man trækker 5000 fra længden af convertedData, fordi den liste bliver vel bare længere og længere med tiden. 
+                    // Det antal af værdier vi gerne vil tilføje til _windowList er vel 5000, og det bliver det ikke hvis koden er skrevet som nu??
+                    // er det bedre med array, hvor pladserne rykkes???
                 }
 
-                return _windowList;
+                // for hvert sekund (for hver gang vi opdatere skærmen) skal disse metoder kaldes -> hvor skal det stå, i metoderne?
+                FindSystolic();
+                FindDiastolic();
+                FindMean();
             }
 
-            return _windowOfConvertedData;
+            
         }
 
         // find systole 
@@ -70,7 +76,7 @@ namespace Domain
         // find diastole 
         public int FindDiastolic()
         {
-            // min-værdi for de samples der gennemløbes mellem to pulsværdier 
+            // min-værdi for de samples der gennemløbes 
 
             value = _windowList[0];
 
@@ -88,7 +94,17 @@ namespace Domain
         // find middelværdi
         public int FindMean()
         {
-            // gennemsnit for de samples der gennemløbes mellem to pulsværdier
+            double totalPressureValue = 0; 
+
+            // gennemsnit for de tryk-værdierne i window-listen
+            // window-listen gennemløbes
+            for (int i = 0; i <_windowList.Count ; i++)
+            {
+                totalPressureValue = _windowList[i] + totalPressureValue; // samlet værdi for tryk finde
+            }
+
+            MeanBP = Convert.ToInt32(totalPressureValue / _windowList.Count); // gennemsnittet for trykværdierne findes
+            return MeanBP;
         }
     }
 }
