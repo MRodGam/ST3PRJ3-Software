@@ -45,6 +45,11 @@ namespace LogicLayer // Consumer
 
         }
 
+        public List<RawData> GetRawData()
+        {
+            return TreatmentList;
+        }
+
         public void TreatData()
         {
             while (true)

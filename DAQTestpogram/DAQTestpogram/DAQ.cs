@@ -11,17 +11,12 @@ using ST2Prj2LibNI_DAQ;
 
 namespace DataLayer
 {
-    public class DAQ
+    public class DAQ 
     {
         List<RawData> TotalRawDataList;
         List<RawData> ShortSampleDataList;
         double[] Raw1000DataArray;
-        public bool isDatacollectionRunning { get; set; }
 
-        public DAQ()
-        {
-            isDatacollectionRunning = false;
-        }
         public void CollectData()
         {
             Raw1000DataArray = new double[1000]; // 1000 means the screen would be updates every second
@@ -39,7 +34,7 @@ namespace DataLayer
                 // The samples that are measured during the time it takes for it to save it to the list are lost
                 // Run a sinusoidal curve through the system and see how much the damage is before deciding to change it; it might be okay.
 
-            Raw1000DataArray = datacollector.currentVoltageSeqArray; // Inserts the collected datainto the array
+            Raw1000DataArray = datacollector.currentVoltageSeqArray; // Inserts the collected data into the array
 
             for (int i = 0; i < Raw1000DataArray.Length; i++)
             {
