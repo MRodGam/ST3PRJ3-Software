@@ -47,7 +47,7 @@ namespace Domain
 
             int pulse = (int) (calcFrequence * 60);
             return pulse;
-        }
+        } //returner pulse
     }
 }
     
