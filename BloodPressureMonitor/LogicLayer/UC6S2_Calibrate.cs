@@ -10,5 +10,6 @@ namespace LogicLayer
 {
     class UC6S2_Calibrate : ICalibrate
     {
+
     }
 }

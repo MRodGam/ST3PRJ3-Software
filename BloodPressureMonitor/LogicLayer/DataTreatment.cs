@@ -14,6 +14,7 @@ namespace LogicLayer // Consumer
         private BlockingCollection<RawData> _collection;
         public List<RawData> TreatmentList;
         public List<ConvertedData> ConvertedDataList;
+        private double _data;
 
 
         public DataTreatment(BlockingCollection<RawData> collection)
@@ -22,7 +23,7 @@ namespace LogicLayer // Consumer
             TreatmentList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
         }
-        public double GetConvertedData()
+        public List<ConvertedData> GetConvertedData()
         {
              while (true)
              {
@@ -33,9 +34,14 @@ namespace LogicLayer // Consumer
 
                  foreach (var obj in TreatmentList)
                  {
-                     ConvertAlgo.ConvertData(obj.Second,obj.Voltage);
-                 }
+                     _data = ConvertAlgo.ConvertData(obj.Second,obj.Voltage);
+                     ConvertedDataList.Add(_data);   // ConvertData skal tilføjes til ConvertDataList, men det virker ikke helt ? (tænker jeg)
+                }
+                 
+                 
              }
+
+            return ConvertedDataList;
 
         }
 
