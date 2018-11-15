@@ -12,7 +12,9 @@ namespace LogicLayer
     {
         public DataTreatment dataTreatment;
         public List<RawData> RawDataList;
+        public PulseAlgo pulseAlgorithm;
         public double[] rawDataArray;
+        public int pulse;
 
 
         public UC8S4_Pulse(DataTreatment _dataTreatment)
@@ -21,14 +23,16 @@ namespace LogicLayer
         }
         public int FindPulse()
         {
-            RawDataList= dataTreatment.GetRawData;
+            RawDataList= dataTreatment.GetRawData();
 
             for (int i = 0; i < RawDataList.Count; i++)
             {
                 rawDataArray[i] = RawDataList[i].Voltage;
             }
 
-            PulseAlgo.Pulse(rawDataArray, 1000);
+            pulse = pulseAlgorithm.Pulse(rawDataArray, 1000);
+
+            return pulse;
 
         }
     }

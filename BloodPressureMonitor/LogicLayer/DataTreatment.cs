@@ -22,7 +22,7 @@ namespace LogicLayer // Consumer
             TreatmentList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
         }
-        public double GetConvertedData()
+        public List<ConvertedData> GetConvertedData()
         {
              while (true)
              {
@@ -37,6 +37,11 @@ namespace LogicLayer // Consumer
                  }
              }
 
+        }
+
+        public List<RawData> GetRawData()
+        {
+            return TreatmentList;
         }
 
         public void TreatData()
