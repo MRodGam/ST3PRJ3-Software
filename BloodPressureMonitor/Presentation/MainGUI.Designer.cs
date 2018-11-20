@@ -63,7 +63,7 @@
             this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.StartB.Location = new System.Drawing.Point(10, 310);
-            this.StartB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.StartB.Margin = new System.Windows.Forms.Padding(2);
             this.StartB.Name = "StartB";
             this.StartB.Size = new System.Drawing.Size(148, 46);
             this.StartB.TabIndex = 0;
@@ -138,17 +138,16 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
-            legend1.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
             legend1.Name = "Legend1";
-            legend1.TableStyle = System.Windows.Forms.DataVisualization.Charting.LegendTableStyle.Tall;
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(26, 54);
+            this.chart1.Location = new System.Drawing.Point(12, 51);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(379, 205);
+            this.chart1.Size = new System.Drawing.Size(379, 242);
             this.chart1.TabIndex = 7;
             this.chart1.Text = "chart1";
             // 
@@ -166,7 +165,7 @@
             this.Controls.Add(this.saveB);
             this.Controls.Add(this.limitsB);
             this.Controls.Add(this.StartB);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "filter";
             this.Text = "MainGUI";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();

@@ -12,7 +12,7 @@ namespace Presentation
 {
     public partial class ChangeLimits : Form
     {
-        private int limite = 0;
+        private int limite = 1;
         public ChangeLimits()
         {
             InitializeComponent();
