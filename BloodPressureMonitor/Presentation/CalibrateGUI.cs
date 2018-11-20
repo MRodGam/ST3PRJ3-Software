@@ -13,7 +13,7 @@ namespace Presentation
 {
     public partial class CalibrateGUI : Form
     {
-        private UC6S2_Calibrate calibrate; // reference til UC6S2_Calibrate
+        private UC6S2_Calibrate calibrate = new UC6S2_Calibrate(); // reference til UC6S2_Calibrate
         private UC2M2_UC3M3_Measure measure;
 
         public CalibrateGUI()
@@ -21,31 +21,40 @@ namespace Presentation
             InitializeComponent();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) // 30 mmHg måles
         {
-
+            calibrate.AddVoltageValue(30);
+            button2.Enabled = false;
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e) //  kalibrer knappen
         {
-            measure = new UC2M2_UC3M3_Measure();
-            calibrate = new UC6S2_Calibrate(); // der skal stå noget i parameteren 
-
-            measure.StartMeasurement(); // start måling -> skal stoppe igen efter den har lavet et take?
-
-            calibrate.DoCalibrateAlgo(); // ved at trykke på OK, dvs. den skal køre algoritmen, så kaldes metoden DoCalibrateAlgo i Controller klassen for Calibrate
-
-            if (expr)
-            {
-                
-            }
-            measure.StopMeasurement();
-
+            calibrate.DoCalibrateRegression(); // ved at trykke på knappen, dvs. den skal køre kalibreringen i logik-laget
+            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // 10 mmHg måles
         {
+            calibrate.AddVoltageValue(10);
+            button1.Enabled = false;
+        }
 
+        private void button3_Click(object sender, EventArgs e) // 50 mmHg måles
+        {
+            calibrate.AddVoltageValue(50);
+            button3.Enabled = false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)// 75 mmHg måles
+        {
+            calibrate.AddVoltageValue(75);
+            button4.Enabled = false;
+        }
+
+        private void button5_Click(object sender, EventArgs e) // 100 mmHg måles
+        {
+            calibrate.AddVoltageValue(100);
+            button5.Enabled = false;
         }
     }
 }
