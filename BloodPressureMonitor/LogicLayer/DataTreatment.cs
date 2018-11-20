@@ -14,7 +14,8 @@ namespace LogicLayer // Consumer
         private BlockingCollection<RawData> _collection;
         public List<RawData> TreatmentList;
         public List<ConvertedData> ConvertedDataList;
-        private double _data;
+        public ConvertAlgo ConvertAlgo;
+        public List<ConvertedData> GraphList;
 
 
         public DataTreatment(BlockingCollection<RawData> collection)
@@ -23,7 +24,7 @@ namespace LogicLayer // Consumer
             TreatmentList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
         }
-        public List<ConvertedData> GetConvertedData()
+        public double GetConvertedData()
         {
              while (true)
              {
@@ -34,35 +35,36 @@ namespace LogicLayer // Consumer
 
                  foreach (var obj in TreatmentList)
                  {
-                     _data = ConvertAlgo.ConvertData(obj.Second,obj.Voltage);
-                     ConvertedDataList.Add(_data);   // ConvertData skal tilføjes til ConvertDataList, men det virker ikke helt ? (tænker jeg)
+                     ConvertedData ConvertedDataSample = ConvertAlgo.ConvertData(obj.Second, obj.Voltage);
+                     ConvertedDataList.Add(ConvertedDataSample);
                 }
-                 
-                 
              }
 
-            return ConvertedDataList;
-
         }
 
-        public List<RawData> GetRawData()
+        public List<ConvertedData> GetGraphList()
         {
-            return TreatmentList;
-        }
+             for (int i = 0; i < 5000; i++)
+             {
+                 GraphList.Add(ConvertedDataList[i]);
+             }
 
-        public void TreatData()
-        {
-            while (true)
-            {
-                for (int i = 0; i < 1000; i++) // 1000 being the amount of samples we want to process at a time. We NEED make sure this is the right number
-                {
-                    TreatmentList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
-                } 
+             if (GraphList.Count == 5000)
+             {
+                 for (int i = 0; i < 1000; i++)
+                 {
+                     GraphList.RemoveAt(i);
+                 }
 
-                // DataTreatment code
-                // This code should use the conversion algorithm written in a separate class
-                // Put into a list
-            }
+                 for (int i = 0; i < 4000; i++)
+                 {
+                     int counter = 1000;
+                     GraphList[i] = GraphList[counter];
+                     counter++;
+                 }
+             }
+
+            return GraphList;
         }
     }
 }
