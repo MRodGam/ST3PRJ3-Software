@@ -37,10 +37,18 @@ namespace LogicLayer
 
         public double GetOneVoltagePoint()
         {
-           
-            voltageList.AddRange(_collection.Take());
+            double totalVoltageValue = 0;
+            double _voltagePoint;
 
+            voltageList.AddRange(_collection.Take()); // virker ikke? 
+          
+         
+            for (int i = 0; i < voltageList.Count; i++)
+            {
+                totalVoltageValue = voltageList[i] + totalVoltageValue; // samlet værdi for volt findes
+            }
 
+            _voltagePoint = (totalVoltageValue / voltageList.Count); // gennemsnittet for volt-værdierne findes
             
             return _voltagePoint;
         }
