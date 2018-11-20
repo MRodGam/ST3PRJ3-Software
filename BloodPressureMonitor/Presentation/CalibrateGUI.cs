@@ -14,6 +14,7 @@ namespace Presentation
     public partial class CalibrateGUI : Form
     {
         private UC6S2_Calibrate calibrate; // reference til UC6S2_Calibrate
+        private UC2M2_UC3M3_Measure measure;
 
         public CalibrateGUI()
         {
@@ -27,9 +28,23 @@ namespace Presentation
 
         private void button6_Click(object sender, EventArgs e)
         {
-            calibrate= new UC6S2_Calibrate();
+            measure = new UC2M2_UC3M3_Measure();
+            calibrate = new UC6S2_Calibrate(); // der skal stå noget i parameteren 
+
+            measure.StartMeasurement(); // start måling -> skal stoppe igen efter den har lavet et take?
 
             calibrate.DoCalibrateAlgo(); // ved at trykke på OK, dvs. den skal køre algoritmen, så kaldes metoden DoCalibrateAlgo i Controller klassen for Calibrate
+
+            if (expr)
+            {
+                
+            }
+            measure.StopMeasurement();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
 
         }
     }

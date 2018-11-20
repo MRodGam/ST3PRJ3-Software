@@ -11,7 +11,7 @@ using Domain;
 
 namespace LogicLayer
 {
-    class UC2M2_UC3M3_Measure : IMeasure
+    public class UC2M2_UC3M3_Measure : IMeasure
     {
         public IDAQ Daq;
 

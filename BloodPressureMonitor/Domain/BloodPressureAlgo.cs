@@ -20,7 +20,7 @@ namespace Domain
         public int DiaBP { get; private set; }
         public int MeanBP { get; private set; }
         private double value;
-        private int Window = 2000; // antal af samples (tryk-værdier) som der kigges på
+        private int Window = 2000; // antal af samples (tryk-værdier) som der kigges på. 
         private int CountConvertedDataList;
         private List<double> _windowList; 
 
