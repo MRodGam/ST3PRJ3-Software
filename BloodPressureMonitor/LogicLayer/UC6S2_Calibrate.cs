@@ -13,17 +13,7 @@ namespace LogicLayer
 {
     public class UC6S2_Calibrate : ICalibrate
     {
-        //lineær regrssion 
-
-        // finde hældningen på a, som skal ganges på alle målingerne --> algoritmen 
-
-        // x-aksen er volt og y-aksen er mmHg
-
-        // vi sender et kendt tryk ind, og måler volten for det -> dette er hvad der kommer på x-aksen
-        // det systemet måler for det der sendes ind er hvad der er på y-aksen -> eller er de fast besluttet?
-
-        // hældningen for den graf der laves ud fra de punkter der kommer fra målingen, skal ganges på den volt der kommer ind i systemet, og dette er måden man omregner til mmHg
-
+       
         private BlockingCollection<RawData> _collection;
         private List<double> voltageList = new List<double>();
 
@@ -39,7 +29,7 @@ namespace LogicLayer
 
         }
 
-        public void AddVoltageValue(int pressureValue)
+        public void AddVoltageValue(int pressureValue) // metoden der kaldes i eventhandleren for hver volt måling 
         {
             
             double voltageValue = GetOneVoltagePoint();
@@ -48,7 +38,7 @@ namespace LogicLayer
 
         }
 
-        public double GetOneVoltagePoint()
+        public double GetOneVoltagePoint() // køres for hver volt måling (kaldes i metoden AddVoltage()
         {
             UC2M2_UC3M3_Measure measure = new UC2M2_UC3M3_Measure();
             double totalVoltageValue = 0;
@@ -86,6 +76,19 @@ namespace LogicLayer
             pressureArray[_tæller] = pressure; // tilføjer tryk-værdi i array
             _tæller++;
         }
+
+
+        //lineær regrssion 
+
+        // finde hældningen på a, som skal ganges på alle målingerne --> algoritmen 
+
+        // x-aksen er volt og y-aksen er mmHg
+
+        // vi sender et kendt tryk ind, og måler volten for det -> dette er hvad der kommer på x-aksen
+        // det systemet måler for det der sendes ind er hvad der er på y-aksen -> eller er de fast besluttet?
+
+        // hældningen for den graf der laves ud fra de punkter der kommer fra målingen, skal ganges på den volt der kommer ind i systemet, og dette er måden man omregner til mmHg
+
 
         public double DoCalibrateRegression()
         {
