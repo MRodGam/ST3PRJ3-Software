@@ -17,12 +17,15 @@ namespace Presentation
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
+
+        private BackgroundWorker muteAlarmWorker;
         
         public int Counter { get; private set; } = 0;
 
         public filter()
         {
             InitializeComponent();
+            muteAlarmWorker = new BackgroundWorker();
             
         }
 
@@ -69,5 +72,9 @@ namespace Presentation
             }
 
         }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+            }
     }
 }
