@@ -14,6 +14,8 @@ namespace LogicLayer // Consumer
         private BlockingCollection<RawData> _collection;
         public List<RawData> TreatmentList;
         public List<ConvertedData> ConvertedDataList;
+        public ConvertAlgo ConvertAlgo;
+        public List<ConvertedData> GraphList;
 
 
         public DataTreatment(BlockingCollection<RawData> collection)
@@ -33,25 +35,36 @@ namespace LogicLayer // Consumer
 
                  foreach (var obj in TreatmentList)
                  {
-                     ConvertAlgo.ConvertData(obj.Second,obj.Voltage);
-                 }
+                     ConvertedData ConvertedDataSample = ConvertAlgo.ConvertData(obj.Second, obj.Voltage);
+                     ConvertedDataList.Add(ConvertedDataSample);
+                }
              }
 
         }
 
-        public void TreatData()
+        public List<ConvertedData> GetGraphList()
         {
-            while (true)
-            {
-                for (int i = 0; i < 1000; i++) // 1000 being the amount of samples we want to process at a time. We NEED make sure this is the right number
-                {
-                    TreatmentList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
-                } 
+             for (int i = 0; i < 5000; i++)
+             {
+                 GraphList.Add(ConvertedDataList[i]);
+             }
 
-                // DataTreatment code
-                // This code should use the conversion algorithm written in a separate class
-                // Put into a list
-            }
+             if (GraphList.Count == 5000)
+             {
+                 for (int i = 0; i < 1000; i++)
+                 {
+                     GraphList.RemoveAt(i);
+                 }
+
+                 for (int i = 0; i < 4000; i++)
+                 {
+                     int counter = 1000;
+                     GraphList[i] = GraphList[counter];
+                     counter++;
+                 }
+             }
+
+            return GraphList;
         }
     }
 }
