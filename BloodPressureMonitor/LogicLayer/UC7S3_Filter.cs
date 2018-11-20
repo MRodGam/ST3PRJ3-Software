@@ -10,5 +10,10 @@ namespace LogicLayer
 {
     class UC7S3_Filter : IFilter
     {
+        private List<RawData>BPFilter; //Ikke færdigt 
+        public void BPFilterData()
+        {
+            return BPFilterData();
+        }
     }
 }
