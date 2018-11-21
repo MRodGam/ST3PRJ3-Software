@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    interface ICalibrate
+    public interface ICalibrate
     {
+        // de to metoder som skal kunne kaldes andet sted fra
+        void AddVoltageValue(int pressureValue);
+        double DoCalibrateRegression();
     }
 }

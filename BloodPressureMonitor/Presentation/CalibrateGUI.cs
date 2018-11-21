@@ -13,12 +13,28 @@ namespace Presentation
 {
     public partial class CalibrateGUI : Form
     {
-        private UC6S2_Calibrate calibrate = new UC6S2_Calibrate(); // reference til UC6S2_Calibrate
-        private UC2M2_UC3M3_Measure measure;
+        private ICalibrate calibrate; // reference til ICalibrate
+        private IMeasure measure; // reference til ICalibrate
 
-        public CalibrateGUI()
+        private LoginToCalibrateGUI loginToCalibrateRef = new LoginToCalibrateGUI(); // er det OK at jeg opretter en new her??
+
+        
+
+        public CalibrateGUI(ICalibrate calibrate, IMeasure measure)
         {
             InitializeComponent();
+
+            this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis login = true (se koden nedenunder)
+
+
+            loginToCalibrateRef.ShowDialog();
+
+            if (loginToCalibrateRef.LoginOK == true)
+            {
+                this.Visible = true;
+            }
+            else
+                this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
         }
 
         private void button2_Click(object sender, EventArgs e) // 30 mmHg måles
@@ -29,7 +45,7 @@ namespace Presentation
 
         private void button6_Click(object sender, EventArgs e) //  kalibrer knappen
         {
-            calibrate.DoCalibrateRegression(); // ved at trykke på knappen, dvs. den skal køre kalibreringen i logik-laget
+            calibrate.DoCalibrateRegression(); // Kører metoden DoCalibration i logiklaget
             
         }
 
