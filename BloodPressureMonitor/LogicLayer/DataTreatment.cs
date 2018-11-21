@@ -16,12 +16,15 @@ namespace LogicLayer // Consumer
 
         private BlockingCollection<RawData> _collection;
         private static Thread GraphThread;
+        private static Thread FilterThread;
 
         public List<RawData> TreatmentList;
+        public static List<RawData> FilteredList;
         public static List<ConvertedData> ConvertedDataList;
         public static List<ConvertedData> GraphList;
+        
 
-        public bool ShallStop { get; private set; }
+        public static bool ShallStop { get; private set; }
 
         public DataTreatment(BlockingCollection<RawData> collection)
         {
@@ -29,7 +32,20 @@ namespace LogicLayer // Consumer
             TreatmentList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
             GraphThread = new Thread(MakeGraphList);
+            FilterThread = new Thread(GetFilterList);
         }
+
+        public List<RawData> GetDownSampledData()
+        {
+            while (true)
+            {
+                for (int i = 0; i < 1000; i++) // 1000 being the amount of samples we want to process at a time. We NEED make sure this is the right number
+                {
+                    TreatmentList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
+                }
+            }
+        }
+
         public double GetConvertedData()
         {
              while (true)
@@ -42,14 +58,17 @@ namespace LogicLayer // Consumer
                  foreach (var obj in TreatmentList)
                  {
                      ConvertedData ConvertedDataSample = ConvertAlgo.ConvertData(obj.Second, obj.Voltage);
+                     // Should do a downsampling here
                      ConvertedDataList.Add(ConvertedDataSample);
                 }
              }
         }
 
+
         public void StartGraph()
         {
             ShallStop = false;
+            GraphThread.Start();
         }
 
         public void StopGraph()
@@ -57,9 +76,9 @@ namespace LogicLayer // Consumer
             ShallStop = true;
         }
 
-        public static void MakeGraphList()
+        public static void MakeGraphList() // This needs redoing; its only taking the firs 5000 samples of Converted DataList, it needs to take the last
         {
-            while (!TransducerDAQ.ShallStop)
+            while (!ShallStop)
             {
                 for (int i = 0; i < 5000 && i < ConvertedDataList.Count; i++)
                 {
@@ -81,6 +100,16 @@ namespace LogicLayer // Consumer
         public List<ConvertedData> GetGraphList()
         {
            return GraphList;
+        }
+
+        public static void MakeFilterList()
+        {
+
+        }
+
+        public List<RawData> GetFilterList()
+        {
+            return FilteredList;
         }
     }
 }
