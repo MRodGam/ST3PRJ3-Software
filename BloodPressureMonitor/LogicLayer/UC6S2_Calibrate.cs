@@ -15,7 +15,7 @@ namespace LogicLayer
     {
        
         private BlockingCollection<RawData> _collection;
-        private List<double> voltageList = new List<double>();
+        private List<RawData> voltageList = new List<RawData>();
 
         private double[] voltageArray = new double[4];
         private double[] pressureArray = new double[4];
@@ -42,22 +42,22 @@ namespace LogicLayer
         {
             UC2M2_UC3M3_Measure measure = new UC2M2_UC3M3_Measure();
             double totalVoltageValue = 0;
-            double _voltagePoint;
+            double _voltagePoint = 0.0;
             
             
             measure.StartMeasurement(); // start måling 
 
-            voltageList.AddRange(_collection.Take()); // Tilføj samples til liste, OBS virker ikke? 
+            //voltageList.AddRange(_collection.Take()); // Tilføj samples til liste, OBS virker ikke? 
             
          
-            for (int i = 0; i < voltageList.Count; i++)
-            {
-                totalVoltageValue = voltageList[i] + totalVoltageValue; // samlet værdi for volt findes
-            }
+            //for (int i = 0; i < voltageList.Count; i++)
+            //{
+            //    totalVoltageValue = voltageList[i] + totalVoltageValue; // samlet værdi for volt findes
+            //}
 
-            _voltagePoint = (totalVoltageValue / voltageList.Count); // gennemsnittet for volt-værdierne findes
+            _voltagePoint = _collection.Take().Voltage;
 
-            if (_voltagePoint != null)
+            if (_voltagePoint != 0.0)
             {
                 measure.StopMeasurement();// slut måling på denne måde?
             }
