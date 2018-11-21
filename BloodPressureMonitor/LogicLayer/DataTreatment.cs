@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DataLayer;
 using Domain;
@@ -11,18 +12,23 @@ namespace LogicLayer // Consumer
 {
     public class DataTreatment : IDataTreatment
     {
-        private BlockingCollection<RawData> _collection;
-        public List<RawData> TreatmentList;
-        public List<ConvertedData> ConvertedDataList;
-        public ConvertAlgo ConvertAlgo;
-        public List<ConvertedData> GraphList;
+        private ConvertAlgo ConvertAlgo;
 
+        private BlockingCollection<RawData> _collection;
+        private static Thread GraphThread;
+
+        public List<RawData> TreatmentList;
+        public static List<ConvertedData> ConvertedDataList;
+        public static List<ConvertedData> GraphList;
+
+        public bool ShallStop { get; private set; }
 
         public DataTreatment(BlockingCollection<RawData> collection)
         {
             _collection = collection;
             TreatmentList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
+            GraphThread = new Thread(MakeGraphList);
         }
         public double GetConvertedData()
         {
@@ -39,32 +45,42 @@ namespace LogicLayer // Consumer
                      ConvertedDataList.Add(ConvertedDataSample);
                 }
              }
+        }
 
+        public void StartGraph()
+        {
+            ShallStop = false;
+        }
+
+        public void StopGraph()
+        {
+            ShallStop = true;
+        }
+
+        public static void MakeGraphList()
+        {
+            while (!TransducerDAQ.ShallStop)
+            {
+                for (int i = 0; i < 5000 && i < ConvertedDataList.Count; i++)
+                {
+                    GraphList.Add(ConvertedDataList[i]);
+                }
+
+                if (GraphList.Count == 5000)
+                {
+                    for (int i = 0; i < 1000; i++)
+                    {
+                        GraphList.RemoveAt(i);
+                    }
+                }
+
+                Thread.Sleep(500); // Evt varier de 500
+            }
         }
 
         public List<ConvertedData> GetGraphList()
         {
-             for (int i = 0; i < 5000; i++)
-             {
-                 GraphList.Add(ConvertedDataList[i]);
-             }
-
-             if (GraphList.Count == 5000)
-             {
-                 for (int i = 0; i < 1000; i++)
-                 {
-                     GraphList.RemoveAt(i);
-                 }
-
-                 for (int i = 0; i < 4000; i++)
-                 {
-                     int counter = 1000;
-                     GraphList[i] = GraphList[counter];
-                     counter++;
-                 }
-             }
-
-            return GraphList;
+           return GraphList;
         }
     }
 }
