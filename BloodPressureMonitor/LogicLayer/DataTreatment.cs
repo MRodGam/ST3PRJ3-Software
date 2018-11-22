@@ -62,6 +62,12 @@ namespace LogicLayer // Consumer
         {
             while (!ShallStop)
             {
+                for (int i = 0; i < UPPER; i++) // Nedsampling?
+
+                {
+                    
+                }
+
                 for (int i = 0; i < 5000 && i < FullList.Count; i++)
                 {
                     ShortRawList.Add(FullList[i]); // Skal ændres, fordi den bliver ved med at tage de første samples i treatmentlist, den skal tage de sidste
@@ -97,17 +103,7 @@ namespace LogicLayer // Consumer
 
         public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata
         {
-            if (FilterController.ShallStop == false)
-            {
-                FilterShallStop = false;
-                return ShortRawList;
-            }
-            else
-            {
-                FilterShallStop = true;
-            }
-
-            return FilterList;
+            return ShortRawList;
         }
     }
 }
