@@ -108,9 +108,9 @@ namespace LogicLayer // Consumer
 
         public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata
         {
-            if (FilterController.ShallStop )
+            if (FilterController.ShallStop == false)
             {
-                
+                FilterListThread.Start();
             }
             return FilterList;
         }
