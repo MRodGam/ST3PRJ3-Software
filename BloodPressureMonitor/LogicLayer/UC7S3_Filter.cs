@@ -13,7 +13,7 @@ namespace LogicLayer
     {
         public List<RawData> BPFilter;
         public DataTreatment datatreatment_;
-        public static bool ShallStop { get; private set; }
+        public bool ShallStop { get; private set; }
         private static Thread FilterThread;
 
         public UC7S3_Filter(DataTreatment datatreatment)
