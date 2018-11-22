@@ -17,15 +17,18 @@ namespace LogicLayer // Consumer
 
         private BlockingCollection<RawData> _collection;
         private static Thread DataCollectorThread;
-        private static Thread ShortRawThread;
 
         public static List<RawData> FullList;
         public static List<RawData> ShortRawList;
+        public static List<RawData> DownsampledRawList;
         public static List<ConvertedData> ConvertedDataList;
         public static List<ConvertedData> GraphList;
-
+      
         public static bool ShallStop { get; private set; }
         public static bool FilterShallStop { get; private set; }
+        private static double Total { get; set; }
+        private static double Average { get; set; }
+        private static int Time { get; set; } = 1;
 
 
         public DataTreatment(BlockingCollection<RawData> collection)
@@ -34,6 +37,7 @@ namespace LogicLayer // Consumer
             FullList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
             DataCollectorThread = new Thread(GetRawData);
+            DownsampledRawList = new List<RawData>();
         }
 
         public void StartGraph()
@@ -62,21 +66,26 @@ namespace LogicLayer // Consumer
         {
             while (!ShallStop)
             {
-                for (int i = FullList.Count - 5000; i < FullList.Count; i++) // Nedsampling?
+                if (DownsampledRawList.Count < 300)
                 {
-                    PreDownsampledList.Add(FullList[i]);
-                }
-
-                for (int i = 0; i < 5000 && i < FullList.Count; i++)
-                {
-                    ShortRawList.Add(FullList[i]); // Skal ændres, fordi den bliver ved med at tage de første samples i treatmentlist, den skal tage de sidste
-                }
-
-                if (ShortRawList.Count == 5000)
-                {
-                    for (int i = 0; i < 1000; i++)
+                    for (int i = FullList.Count - 5016; i < FullList.Count; i+=17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
                     {
-                        ShortRawList.RemoveAt(i);
+                        for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
+                        {
+                            Total = FullList[i + u].Voltage;
+                        }
+
+                        Average = Total / 17;
+                        DownsampledRawList.Add(new RawData(Time, Average));
+                        Time++;
+                    }
+                }
+
+                if (DownsampledRawList.Count == 300) // 300 samples equals 5 sec on 60Hz
+                {
+                    for (int i = 0; i < 60; i++) // 60 samples is 1 sec on 60Hz
+                    {
+                        DownsampledRawList.RemoveAt(i);
                     }
                 }
 
@@ -88,7 +97,7 @@ namespace LogicLayer // Consumer
         {
             while (FilterController.ShallStop == true)
             {
-                foreach (var sample in ShortRawList)
+                foreach (var sample in DownsampledRawList)
                 {
                     GraphList = ConvertAlgo(sample.Second, sample.Voltage);
                 }
@@ -102,7 +111,7 @@ namespace LogicLayer // Consumer
 
         public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata
         {
-            return ShortRawList;
+            return DownsampledRawList;
         }
     }
 }
