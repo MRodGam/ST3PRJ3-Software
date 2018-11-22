@@ -62,10 +62,9 @@ namespace LogicLayer // Consumer
         {
             while (!ShallStop)
             {
-                for (int i = 0; i < UPPER; i++) // Nedsampling?
-
+                for (int i = FullList.Count - 5000; i < FullList.Count; i++) // Nedsampling?
                 {
-                    
+                    PreDownsampledList.Add(FullList[i]);
                 }
 
                 for (int i = 0; i < 5000 && i < FullList.Count; i++)
