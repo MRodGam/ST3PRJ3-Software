@@ -49,9 +49,10 @@
             button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             button1.ForeColor = System.Drawing.Color.Silver;
-            button1.Location = new System.Drawing.Point(26, 12);
+            button1.Location = new System.Drawing.Point(35, 15);
+            button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             button1.Name = "button1";
-            button1.Size = new System.Drawing.Size(93, 21);
+            button1.Size = new System.Drawing.Size(124, 26);
             button1.TabIndex = 6;
             button1.Text = "Kalibrer";
             button1.UseVisualStyleBackColor = false;
@@ -62,10 +63,10 @@
             this.StartB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.StartB.Location = new System.Drawing.Point(10, 310);
-            this.StartB.Margin = new System.Windows.Forms.Padding(2);
+            this.StartB.Location = new System.Drawing.Point(13, 382);
+            this.StartB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.StartB.Name = "StartB";
-            this.StartB.Size = new System.Drawing.Size(148, 46);
+            this.StartB.Size = new System.Drawing.Size(197, 57);
             this.StartB.TabIndex = 0;
             this.StartB.Text = "START MÅLING";
             this.StartB.UseVisualStyleBackColor = false;
@@ -75,9 +76,10 @@
             this.limitsB.BackColor = System.Drawing.Color.Silver;
             this.limitsB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.limitsB.ForeColor = System.Drawing.Color.White;
-            this.limitsB.Location = new System.Drawing.Point(468, 248);
+            this.limitsB.Location = new System.Drawing.Point(624, 305);
+            this.limitsB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.limitsB.Name = "limitsB";
-            this.limitsB.Size = new System.Drawing.Size(120, 25);
+            this.limitsB.Size = new System.Drawing.Size(160, 31);
             this.limitsB.TabIndex = 1;
             this.limitsB.Text = "Grænseværdi";
             this.limitsB.UseVisualStyleBackColor = false;
@@ -87,9 +89,10 @@
             this.saveB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.saveB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.saveB.ForeColor = System.Drawing.Color.White;
-            this.saveB.Location = new System.Drawing.Point(468, 279);
+            this.saveB.Location = new System.Drawing.Point(624, 343);
+            this.saveB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.saveB.Name = "saveB";
-            this.saveB.Size = new System.Drawing.Size(120, 25);
+            this.saveB.Size = new System.Drawing.Size(160, 31);
             this.saveB.TabIndex = 2;
             this.saveB.Text = "Gem";
             this.saveB.UseVisualStyleBackColor = false;
@@ -99,9 +102,10 @@
             this.clearB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.clearB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clearB.ForeColor = System.Drawing.Color.White;
-            this.clearB.Location = new System.Drawing.Point(468, 310);
+            this.clearB.Location = new System.Drawing.Point(624, 382);
+            this.clearB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.clearB.Name = "clearB";
-            this.clearB.Size = new System.Drawing.Size(120, 25);
+            this.clearB.Size = new System.Drawing.Size(160, 31);
             this.clearB.TabIndex = 3;
             this.clearB.Text = "Ryd";
             this.clearB.UseVisualStyleBackColor = false;
@@ -112,9 +116,10 @@
             this.pauseB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.pauseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseB.ForeColor = System.Drawing.Color.White;
-            this.pauseB.Location = new System.Drawing.Point(163, 310);
+            this.pauseB.Location = new System.Drawing.Point(217, 382);
+            this.pauseB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pauseB.Name = "pauseB";
-            this.pauseB.Size = new System.Drawing.Size(425, 46);
+            this.pauseB.Size = new System.Drawing.Size(567, 57);
             this.pauseB.TabIndex = 4;
             this.pauseB.Text = "Kvitter alarm ";
             this.pauseB.UseVisualStyleBackColor = false;
@@ -126,13 +131,15 @@
             this.FilterRB.AutoSize = true;
             this.FilterRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilterRB.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.FilterRB.Location = new System.Drawing.Point(348, 314);
+            this.FilterRB.Location = new System.Drawing.Point(464, 386);
+            this.FilterRB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.FilterRB.Name = "FilterRB";
-            this.FilterRB.Size = new System.Drawing.Size(57, 17);
+            this.FilterRB.Size = new System.Drawing.Size(72, 21);
             this.FilterRB.TabIndex = 5;
             this.FilterRB.TabStop = true;
             this.FilterRB.Text = "Filtrer";
             this.FilterRB.UseVisualStyleBackColor = true;
+            this.FilterRB.CheckedChanged += new System.EventHandler(this.FilterRB_CheckedChanged);
             // 
             // chart1
             // 
@@ -140,23 +147,24 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(12, 51);
+            this.chart1.Location = new System.Drawing.Point(16, 63);
+            this.chart1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(379, 242);
+            this.chart1.Size = new System.Drawing.Size(505, 298);
             this.chart1.TabIndex = 7;
             this.chart1.Text = "chart1";
             // 
             // filter
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
-            this.ClientSize = new System.Drawing.Size(600, 366);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.chart1);
             this.Controls.Add(button1);
             this.Controls.Add(this.FilterRB);
@@ -165,7 +173,7 @@
             this.Controls.Add(this.saveB);
             this.Controls.Add(this.limitsB);
             this.Controls.Add(this.StartB);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "filter";
             this.Text = "MainGUI";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();

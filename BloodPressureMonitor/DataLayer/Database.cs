@@ -17,7 +17,7 @@ namespace DataLayer
         private SqlDataReader reader;
         private SqlCommand command;
         private const String DBlogin = "st-i4dab.E18ST3PRJ3Gr3";
-        public List<ConvertedData> convertedData; //omdøb evt.
+        public List<RawData> rawData; 
 
         public Database()
         {
@@ -29,7 +29,7 @@ namespace DataLayer
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            List<ConvertedData> convertedData = new List<ConvertedData>(); //omdøb den samlede liste 
+            List<RawData> rawData = new List<RawData>(); 
 
             string a = "SELECT * FROM SaveData" + which;
             //Oprette SQL kommando
@@ -58,7 +58,7 @@ namespace DataLayer
 
             //Lukke forbindelsen til DB
             connectionP.Close();
-            return GetCompletedMeasurement;
+            return GetRawData;
         }
 
         public void SaveInDatabase(string CPRno, string IDno, DateTime date, byte[] GetCompletedMeasurement, int Systolic, int Diastolic, int Mean, int Puls)
