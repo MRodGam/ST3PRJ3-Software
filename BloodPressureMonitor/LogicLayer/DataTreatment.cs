@@ -18,8 +18,8 @@ namespace LogicLayer // Consumer
         private static Thread GraphThread;
         private static Thread FilterThread;
 
-        public List<RawData> TreatmentList;
-        public static List<RawData> FilteredList;
+        public static List<RawData> TreatmentList;
+        public static List<RawData> FilterList;
         public static List<ConvertedData> ConvertedDataList;
         public static List<ConvertedData> GraphList;
         
@@ -32,7 +32,7 @@ namespace LogicLayer // Consumer
             TreatmentList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
             GraphThread = new Thread(MakeGraphList);
-            FilterThread = new Thread(GetFilterList);
+            FilterThread = new Thread(MakeFilterList);
         }
 
         public List<RawData> GetDownSampledData()
@@ -78,18 +78,28 @@ namespace LogicLayer // Consumer
 
         public static void MakeGraphList() // This needs redoing; its only taking the firs 5000 samples of Converted DataList, it needs to take the last
         {
+            
+        }
+
+        public List<ConvertedData> GetGraphList() // Skal returnere det nedsamplede converterede data
+        {
+           return GraphList;
+        }
+
+        public static void MakeFilterList()
+        {
             while (!ShallStop)
             {
-                for (int i = 0; i < 5000 && i < ConvertedDataList.Count; i++)
+                for (int i = 0; i < 5000 && i < TreatmentList.Count; i++)  // Skal ændres, fordi den bliver ved med at tage de første samples i treatmentlist, den skal tage de sidste
                 {
-                    GraphList.Add(ConvertedDataList[i]);
+                    FilterList.Add(TreatmentList[i]);
                 }
 
-                if (GraphList.Count == 5000)
+                if (FilterList.Count == 5000)
                 {
                     for (int i = 0; i < 1000; i++)
                     {
-                        GraphList.RemoveAt(i);
+                        FilterList.RemoveAt(i);
                     }
                 }
 
@@ -97,19 +107,9 @@ namespace LogicLayer // Consumer
             }
         }
 
-        public List<ConvertedData> GetGraphList()
+        public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata
         {
-           return GraphList;
-        }
-
-        public static void MakeFilterList()
-        {
-
-        }
-
-        public List<RawData> GetFilterList()
-        {
-            return FilteredList;
+            return FilterList;
         }
     }
 }
