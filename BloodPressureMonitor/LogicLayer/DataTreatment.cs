@@ -13,26 +13,28 @@ namespace LogicLayer // Consumer
     public class DataTreatment : IDataTreatment
     {
         private ConvertAlgo ConvertAlgo;
+        private UC7S3_Filter FilterController;
 
         private BlockingCollection<RawData> _collection;
-        private static Thread GraphThread;
-        private static Thread FilterThread;
+        private static Thread GraphListThread;
+        private static Thread FilterListThread;
 
         public static List<RawData> TreatmentList;
         public static List<RawData> FilterList;
         public static List<ConvertedData> ConvertedDataList;
         public static List<ConvertedData> GraphList;
-        
 
         public static bool ShallStop { get; private set; }
+        public static bool FilterShallStop { get; private set; }
+
 
         public DataTreatment(BlockingCollection<RawData> collection)
         {
             _collection = collection;
             TreatmentList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
-            GraphThread = new Thread(MakeGraphList);
-            FilterThread = new Thread(MakeFilterList);
+            GraphListThread = new Thread(MakeGraphList);
+            FilterListThread = new Thread(MakeFilterList);
         }
 
         public List<RawData> GetDownSampledData()
@@ -68,7 +70,7 @@ namespace LogicLayer // Consumer
         public void StartGraph()
         {
             ShallStop = false;
-            GraphThread.Start();
+            GraphListThread.Start();
         }
 
         public void StopGraph()
@@ -88,27 +90,28 @@ namespace LogicLayer // Consumer
 
         public static void MakeFilterList()
         {
-            while (!ShallStop)
-            {
-                for (int i = 0; i < 5000 && i < TreatmentList.Count; i++)  // Skal ændres, fordi den bliver ved med at tage de første samples i treatmentlist, den skal tage de sidste
-                {
-                    FilterList.Add(TreatmentList[i]);
-                }
+             for (int i = 0; i < 5000 && i < TreatmentList.Count; i++)  // Skal ændres, fordi den bliver ved med at tage de første samples i treatmentlist, den skal tage de sidste
+             {
+                 FilterList.Add(TreatmentList[i]);
+             }
 
-                if (FilterList.Count == 5000)
-                {
-                    for (int i = 0; i < 1000; i++)
-                    {
-                        FilterList.RemoveAt(i);
-                    }
-                }
+             if (FilterList.Count == 5000)
+             {
+                 for (int i = 0; i < 1000; i++)
+                 {
+                     FilterList.RemoveAt(i);
+                 }
+             }
 
-                Thread.Sleep(500); // Evt varier de 500
-            }
+             Thread.Sleep(500); // Evt varier de 500
         }
 
         public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata
         {
+            if (FilterController.ShallStop )
+            {
+                
+            }
             return FilterList;
         }
     }
