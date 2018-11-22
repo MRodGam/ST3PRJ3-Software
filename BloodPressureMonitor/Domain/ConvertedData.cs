@@ -11,6 +11,7 @@ namespace Domain
         public double Second { get; set; }
         public double Pressure { get; set; }
 
+
         public ConvertedData(double second, double pressure)
         {
             Second = second;

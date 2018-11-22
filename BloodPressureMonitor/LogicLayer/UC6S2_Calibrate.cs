@@ -16,12 +16,13 @@ namespace LogicLayer
        
         private BlockingCollection<RawData> _collection;
         private List<RawData> voltageList = new List<RawData>();
+        private CalibrationValue _calibration;
 
         private double[] voltageArray = new double[4];
         private double[] pressureArray = new double[4];
         private int _tæller = 0;
         private double _voltagePoint;
-        public double _hældningskoefficient;
+        
 
         public UC6S2_Calibrate(BlockingCollection<RawData> collection)
         {
@@ -59,7 +60,7 @@ namespace LogicLayer
 
             if (_voltagePoint != 0.0)
             {
-                measure.StopMeasurement();// slut måling på denne måde?
+                measure.StopMeasurement();// slutter måling 
             }
             
             return _voltagePoint;
@@ -90,19 +91,27 @@ namespace LogicLayer
         // hældningen for den graf der laves ud fra de punkter der kommer fra målingen, skal ganges på den volt der kommer ind i systemet, og dette er måden man omregner til mmHg
 
 
-        public double DoCalibrateRegression()
+        public void DoCalibrateRegression()
         {
-            // regression
-            double[] Volt = new double[] {voltageArray[0], voltageArray[1], voltageArray[2], voltageArray[3], voltageArray[4]};
-            double[] Pressure = new double[] {pressureArray[0],pressureArray[1], pressureArray[2],pressureArray[3],pressureArray[4]};
+            // regressions kode
+            double[] volt = new double[] {voltageArray[0], voltageArray[1], voltageArray[2], voltageArray[3], voltageArray[4]};
+            double[] pressure = new double[] {pressureArray[0],pressureArray[1], pressureArray[2],pressureArray[3],pressureArray[4]};
 
-            //Tuple<double, double> p = FitLine(Volt, Pressure);
-            //double a = p.Item1;
-            //double b = p.Item2;
+            double n = volt.Length;
+            double sumxy = 0, sumx = 0, sumy = 0, sumx2 = 0;
+            for (int i = 0; i < volt.Length; i++)
+            {
+                sumxy += volt[i] * pressure[i];
+                sumx += volt[i];
+                sumy += pressure[i];
+                sumx2 += volt[i] * volt[i];
 
-            _hældningskoefficient = (100 - voltageArray[4]) / (10 - voltageArray[0]);
+            }
+            
+            double a = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
+            
+            _calibration = new CalibrationValue(a); // sætter CalibrationsValue til _a
 
-            return _hældningskoefficient;
         }
 
     }
