@@ -79,7 +79,10 @@ namespace Presentation
 
         private void FilterRB_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (FilterRB.Checked)
+            {
+                StartFilter(); //Mangler forbindelse til interface
+            }
         }
     }
 }
