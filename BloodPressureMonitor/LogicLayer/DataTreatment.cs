@@ -17,15 +17,14 @@ namespace LogicLayer // Consumer
 
         private BlockingCollection<RawData> _collection;
         private static Thread DataCollectorThread;
+        private static Thread GraphThread;
 
         public static List<RawData> FullList;
-        public static List<RawData> ShortRawList;
         public static List<RawData> DownsampledRawList;
         public static List<ConvertedData> ConvertedDataList;
         public static List<ConvertedData> GraphList;
       
         public static bool ShallStop { get; private set; }
-        public static bool FilterShallStop { get; private set; }
         private static double Total { get; set; }
         private static double Average { get; set; }
         private static int Time { get; set; } = 1;
@@ -36,14 +35,18 @@ namespace LogicLayer // Consumer
             _collection = collection;
             FullList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
-            DataCollectorThread = new Thread(GetRawData);
             DownsampledRawList = new List<RawData>();
+            GraphList = new List<ConvertedData>();
+
+            DataCollectorThread = new Thread(GetRawData);
+            GraphThread = new Thread(MakeShortRawList);
         }
 
         public void StartGraph()
         {
             ShallStop = false;
             DataCollectorThread.Start();
+            GraphThread.Start();
         }
 
         public void StopGraph()
@@ -78,6 +81,12 @@ namespace LogicLayer // Consumer
                         Average = Total / 17;
                         DownsampledRawList.Add(new RawData(Time, Average));
                         Time++;
+
+                        foreach (var sample in DownsampledRawList)
+                        {
+                            GraphList = ConvertAlgo(sample.Second, sample.Voltage);
+                        }
+
                     }
                 }
 
@@ -89,18 +98,7 @@ namespace LogicLayer // Consumer
                     }
                 }
 
-                Thread.Sleep(500); // Evt varier de 500
-            }
-        }
-
-        public void MakeGraphList() // This needs redoing; its only taking the firs 5000 samples of Converted DataList, it needs to take the last
-        {
-            while (FilterController.ShallStop == true)
-            {
-                foreach (var sample in DownsampledRawList)
-                {
-                    GraphList = ConvertAlgo(sample.Second, sample.Voltage);
-                }
+                Thread.Sleep(500); // Evt variér de 500
             }
         }
 

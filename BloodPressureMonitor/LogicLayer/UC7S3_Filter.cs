@@ -25,7 +25,7 @@ namespace LogicLayer
 
         public void StartFilter()
         {
-            //sættes fra eventhandler 
+            //Skal sættes fra eventhandler 
             ShallStop = false;
             FilterThread.Start();
         }
