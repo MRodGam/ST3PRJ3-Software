@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using DataLayer;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Domain;
 
 namespace DataLayer
 {
@@ -17,7 +18,8 @@ namespace DataLayer
         private SqlDataReader reader;
         private SqlCommand command;
         private const String DBlogin = "st-i4dab.E18ST3PRJ3Gr3";
-        public List<RawData> rawData; 
+        private List<RawData> bloodPressureList;
+        public List<RawData> GetCompletedMeasurement { get; private set; }
 
         public Database()
         {
@@ -25,7 +27,7 @@ namespace DataLayer
                                             ";Persist Security Info=True;User ID=" + DBlogin + ";Password=" + DBlogin + "");
         }
 
-        public List<ConvertedData> convertedDatas(string which)
+        public List<RawData> rawData(string which)
         {
             BinaryFormatter bf = new BinaryFormatter();
 
@@ -43,36 +45,34 @@ namespace DataLayer
 
             while (reader.Read())
             {
-                byte[] m = (byte[])(reader["MålingsListe"]);
+                byte[] m = (byte[])(reader["MeasurementList"]);
 
                 using (MemoryStream ms = new MemoryStream(m))
                 {
-                    bloodPressure = (List<Måling>)bf.Deserialize(ms);
+                    bloodPressureList = (List<RawData>)bf.Deserialize(ms);
                 }
 
                 //omdøb Gemtmåling
-                GemtMåling måling = new GemtMåling(Convert.ToString(reader["CPRno"]), Convert.ToString(reader["IDno"]),
-                    Convert.ToDateTime(reader["timeAndDate"]), bloodPressure, Convert.ToInt32(reader["Puls"]), Convert.ToInt32(reader["Systolic"]), Convert.ToInt32(reader["Diastolic"]), Convert.ToInt32(reader["Mean"]));
-                GetCompletedMeasurement.Add(måling);
+                SaveData saveData = new SaveData(Convert.ToString(reader["Idno"]), Convert.ToString(reader["Procedure"]), Convert.ToString(reader["CPRno"]), Convert.ToString(reader["Name"]),
+                    Convert.ToDateTime(reader["timeAndDate"]), bloodPressureList, Convert.ToDouble(reader["Calibrate"]));
+                GetCompletedMeasurement.Add(saveData);
             }
 
             //Lukke forbindelsen til DB
             connectionP.Close();
-            return GetRawData;
+            return GetCompletedMeasurement;
         }
 
-        public void SaveInDatabase(string CPRno, string IDno, DateTime date, byte[] GetCompletedMeasurement, int Systolic, int Diastolic, int Mean, int Puls)
+        public void SaveInDatabase(string IDno, string Procedure, string CPRno, DateTime timeAndDate, byte[] bloodpressureList, double Calibrate)
         {
             connectionP.Open();
-            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(IDno, CPRno, timeAndDate, getCompletedMeasurement, systolic, diastolic, mean, puls) VALUES(@IDno, @CPRno, @timeAndDate, @getCompletedMeasurement, @systolic, @diastolic, @mean, @puls)", connectionP);
+            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(IDno, Procedure, CPRno, Name, timeAndDate, CompletedMeasurement, Calibrate) VALUES(@IDno, @Procedure, @CPRno, @Name, @timeAndDate, @CompletedMeasurement, @Calibrate)", connectionP);
             command_.Parameters.AddWithValue("@IDno", IDno);
+            command_.Parameters.AddWithValue("@Procedure", Procedure);
             command_.Parameters.AddWithValue("@CPRno", CPRno);
-            command_.Parameters.AddWithValue("@timeAndDate", date);
-            command_.Parameters.AddWithValue("@getCompletedMeasurement", measure);
-            command_.Parameters.AddWithValue("@systolic", measure);
-            command_.Parameters.AddWithValue("@diastolic", measure);
-            command_.Parameters.AddWithValue("@mean", measure);
-            command_.Parameters.AddWithValue("@puls", Puls);
+            command_.Parameters.AddWithValue("@timeAndDate", timeAndDate);
+            command_.Parameters.AddWithValue("@getCompletedMeasurement", bloodPressureList);
+            command_.Parameters.AddWithValue("@Calibrate", Calibrate);
             command_.ExecuteNonQuery();
             connectionP.Close();
         }
