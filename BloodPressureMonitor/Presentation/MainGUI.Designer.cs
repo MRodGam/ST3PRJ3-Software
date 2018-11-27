@@ -114,7 +114,7 @@
             this.pauseB.ForeColor = System.Drawing.Color.White;
             this.pauseB.Location = new System.Drawing.Point(163, 310);
             this.pauseB.Name = "pauseB";
-            this.pauseB.Size = new System.Drawing.Size(425, 46);
+            this.pauseB.Size = new System.Drawing.Size(299, 46);
             this.pauseB.TabIndex = 4;
             this.pauseB.Text = "Kvitter alarm ";
             this.pauseB.UseVisualStyleBackColor = false;
@@ -136,20 +136,26 @@
             // 
             // chart1
             // 
+            this.chart1.BackColor = System.Drawing.Color.Black;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(12, 51);
             this.chart1.Name = "chart1";
+            series1.BackImageTransparentColor = System.Drawing.Color.Black;
+            series1.BackSecondaryColor = System.Drawing.Color.Black;
+            series1.BorderColor = System.Drawing.Color.Black;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Red;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(379, 242);
             this.chart1.TabIndex = 7;
             this.chart1.Text = "chart1";
+            this.chart1.Click += new System.EventHandler(this.chart1_Click_1);
             // 
             // filter
             // 
