@@ -10,6 +10,6 @@ namespace LogicLayer
     {
         // de to metoder som skal kunne kaldes andet sted fra
         void AddVoltageValue(int pressureValue);
-        double DoCalibrateRegression();
+        void DoCalibrateRegression();
     }
 }

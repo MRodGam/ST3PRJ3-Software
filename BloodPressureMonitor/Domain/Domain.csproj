@@ -54,7 +54,7 @@
     <Compile Include="BloodPressure.cs" />
     <Compile Include="BloodPressureAlgo.cs" />
     <Compile Include="BPandPulseMeasurement.cs" />
-    <Compile Include="Calibration.cs" />
+    <Compile Include="CalibrationValue.cs" />
     <Compile Include="ConvertAlgo.cs" />
     <Compile Include="ConvertedData.cs" />
     <Compile Include="FilterAlgo.cs" />
