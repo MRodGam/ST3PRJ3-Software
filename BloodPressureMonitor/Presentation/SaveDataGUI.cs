@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using Domain;
 
 namespace Presentation
 {
@@ -16,8 +17,6 @@ namespace Presentation
         private bool check = false;
         private int puls_;
         private int mean_;
-        private int systolic_;
-        private int diastolic_;
         private List<GetCompletMeasurement> getCompletMeasurements_; //omdøb
         private string procedure_;
         private string name_;
@@ -29,8 +28,6 @@ namespace Presentation
             name_ = "";
             puls_ = puls;
             mean_ = mean;
-            systolic_ = systolic;
-            diastolic_ = diastolic;
             getCompletMeasurements_ = getCompletMeasurements;
             timeAndDate.Format = DateTimePickerFormat.Custom;
             timeAndDate.CustomFormat = "dd/MM/yyyy HH:mm:ss";
@@ -40,9 +37,7 @@ namespace Presentation
         {
             InitializeComponent();
         }
-        
-        
-        // tjekker CPR-nummer 
+ 
         public bool checkCPR(string number) 
         {
             int[] integer = new int[10];
@@ -56,7 +51,6 @@ namespace Presentation
             if (counter != 10)
                 return false;
 
-
             for (int index = 0; index < 10; index++)
             {
                 if (number[index] < '0' || '9' < number[index])
@@ -69,16 +63,16 @@ namespace Presentation
                 return false;
             else
                 return true;
-        }
+        } // tjekker CPR-nummer
         private void textBox9_TextChanged(object sender, EventArgs e)
         {}
 
         private void label5_Click(object sender, EventArgs e)
-        {}
+        {} 
 
         private void SaveB_Click(object sender, EventArgs e)
         {
-            if (danMåling_.checkCPR(cprTB1.Text + cprTB2.Text) == false && tjek == false)
+            if (checkCPR(cprTB1.Text + cprTB2.Text) == false && check == false)
             {
                 MessageBox.Show("Tjek venligst, om CPR-nummeret er korrekt indtastet. \nHvis det er korrekt, tryk da på gem igen.");
                 check = true;
@@ -86,7 +80,7 @@ namespace Presentation
             else
             {
                 string cpr = cprTB1.Text + "-" + cprTB2.Text;
-                danMåling_.GemPrivat(cpr, medarbejderIDTB.Text, procedure_, timeAndDate.Value, måling_, puls_, mean_, diastolic_, systolic_, name_);
+                SaveData.Save(cpr, medarbejderIDTB.Text, procedure_, timeAndDate.Value, måling_, puls_, mean_, name_);
                 check = false;
                 this.Close();
             }

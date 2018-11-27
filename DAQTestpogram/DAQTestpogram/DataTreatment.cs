@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using DataLayer;
 using Domain;
 
-namespace LogicLayer // Consumer
+namespace LogicLayer 
 {
-    public class DataTreatment
+    public class DataTreatment // Consumer
     {
         private BlockingCollection<RawData> _collection;
         public List<RawData> TreatmentList;

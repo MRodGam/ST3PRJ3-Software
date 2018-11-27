@@ -20,7 +20,7 @@ namespace Domain
         public int DiaBP { get; private set; }
         public int MeanBP { get; private set; }
         private double value;
-        private int Window = 2000; // antal af samples (tryk-værdier) som der kigges på
+        private int Window = 2000; // antal af samples (tryk-værdier) som der kigges på. 
         private int CountConvertedDataList;
         private List<double> _windowList; 
 
@@ -45,10 +45,7 @@ namespace Domain
                         _windowList.Add(_convertedData[i].Pressure);
                     }
                         
-                    //_windowList.AddRange(_convertedData[_convertedData.Count - Window); // Tilføjer data til listen for window, som længere nede bliver kørt igennem
-                    // synes ikke det giver mening at man trækker 5000 fra længden af convertedData, fordi den liste bliver vel bare længere og længere med tiden. 
-                    // Det antal af værdier vi gerne vil tilføje til _windowList er vel 5000, og det bliver det ikke hvis koden er skrevet som nu??
-                    // er det bedre med array, hvor pladserne rykkes???
+                   
                 }
 
                 // for hvert sekund (for hver gang vi opdatere skærmen) skal disse metoder kaldes -> hvor skal det stå, i metoderne?

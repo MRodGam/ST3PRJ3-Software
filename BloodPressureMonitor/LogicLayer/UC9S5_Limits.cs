@@ -10,18 +10,19 @@ namespace LogicLayer
 {
     class UC9S5_Limits : ILimits
     {
-        private double _lowerLimit;
-        private double _upperLimit;
+        private double _sysLowerLimit;
+        private double _sysUpperLimit;
 
-        
+        //grænseværdierne sættes inde i eventhandler
+
         public double getLowerLimit()
         {
-            return _lowerLimit;
+            return _sysLowerLimit;
         }
 
         public double getUpperLimit()
         {
-            return _upperLimit;
+            return _sysUpperLimit;
         }
     }
 }

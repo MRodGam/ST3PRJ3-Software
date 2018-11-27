@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DataLayer;
 using Domain;
@@ -11,58 +12,104 @@ namespace LogicLayer // Consumer
 {
     public class DataTreatment : IDataTreatment
     {
+        private ConvertAlgo ConvertAlgo;
+        private UC7S3_Filter FilterController;
+
         private BlockingCollection<RawData> _collection;
-        public List<RawData> TreatmentList;
-        public List<ConvertedData> ConvertedDataList;
-        private double _data;
+        private static Thread DataCollectorThread;
+        private static Thread GraphThread;
+
+        public static List<RawData> FullList;
+        public static List<RawData> DownsampledRawList;
+        public static List<ConvertedData> ConvertedDataList;
+        public static List<ConvertedData> GraphList;
+      
+        public static bool ShallStop { get; private set; }
+        private static double Total { get; set; }
+        private static double Average { get; set; }
+        private static int Time { get; set; } = 1;
 
 
         public DataTreatment(BlockingCollection<RawData> collection)
         {
             _collection = collection;
-            TreatmentList = new List<RawData>();
+            FullList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
+            DownsampledRawList = new List<RawData>();
+            GraphList = new List<ConvertedData>();
+
+            DataCollectorThread = new Thread(GetRawData);
+            GraphThread = new Thread(MakeShortRawList);
         }
-        public List<ConvertedData> GetConvertedData()
+
+        public void StartGraph()
         {
-             while (true)
+            ShallStop = false;
+            DataCollectorThread.Start();
+            GraphThread.Start();
+        }
+
+        public void StopGraph()
+        {
+            ShallStop = true;
+        }
+
+        public void GetRawData()
+        {
+             while (!ShallStop)
              {
                  for (int i = 0; i < 1000; i++) // 1000 being the amount of samples we want to process at a time. We NEED make sure this is the right number
                  {
-                     TreatmentList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
+                     FullList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
                  }
-
-                 foreach (var obj in TreatmentList)
-                 {
-                     _data = ConvertAlgo.ConvertData(obj.Second,obj.Voltage);
-                     ConvertedDataList.Add(_data);   // ConvertData skal tilføjes til ConvertDataList, men det virker ikke helt ? (tænker jeg)
-                }
-                 
-                 
              }
-
-            return ConvertedDataList;
-
         }
 
-        public List<RawData> GetRawData()
+        public static void MakeShortRawList()
         {
-            return TreatmentList;
-        }
-
-        public void TreatData()
-        {
-            while (true)
+            while (!ShallStop)
             {
-                for (int i = 0; i < 1000; i++) // 1000 being the amount of samples we want to process at a time. We NEED make sure this is the right number
+                if (DownsampledRawList.Count < 300)
                 {
-                    TreatmentList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
-                } 
+                    for (int i = FullList.Count - 5016; i < FullList.Count; i+=17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
+                    {
+                        for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
+                        {
+                            Total = FullList[i + u].Voltage;
+                        }
 
-                // DataTreatment code
-                // This code should use the conversion algorithm written in a separate class
-                // Put into a list
+                        Average = Total / 17;
+                        DownsampledRawList.Add(new RawData(Time, Average));
+                        Time++;
+
+                        foreach (var sample in DownsampledRawList)
+                        {
+                            GraphList = ConvertAlgo(sample.Second, sample.Voltage);
+                        }
+
+                    }
+                }
+
+                if (DownsampledRawList.Count == 300) // 300 samples equals 5 sec on 60Hz
+                {
+                    for (int i = 0; i < 60; i++) // 60 samples is 1 sec on 60Hz
+                    {
+                        DownsampledRawList.RemoveAt(i);
+                    }
+                }
+
+                Thread.Sleep(500); // Evt variér de 500
             }
+        }
+
+        public List<ConvertedData> GetGraphList() // Skal returnere det nedsamplede converterede data
+        {
+           return GraphList;
+        }
+
+        public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata
+        {
+            return DownsampledRawList;
         }
     }
 }

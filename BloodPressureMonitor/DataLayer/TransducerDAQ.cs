@@ -29,8 +29,8 @@ namespace DataLayer
 
         public void Start()
         {
-            measurementThread.Start(); //
             ShallStop = false; // Sets  ShallStop back to false. 
+            measurementThread.Start(); //
         }
 
 

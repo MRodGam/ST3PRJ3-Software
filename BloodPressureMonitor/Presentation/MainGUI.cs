@@ -77,9 +77,12 @@ namespace Presentation
         {
             }
 
-        private void chart1_Click_1(object sender, EventArgs e)
+        private void FilterRB_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (FilterRB.Checked)
+            {
+                StartFilter(); //Mangler forbindelse til interface
+            }
         }
     }
 }

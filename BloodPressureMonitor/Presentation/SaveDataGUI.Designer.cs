@@ -32,8 +32,8 @@
             this.medarbejderIDTB = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.cprTB2 = new System.Windows.Forms.TextBox();
+            this.cprTB1 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -64,7 +64,7 @@
             this.medarbejderIDTB.Location = new System.Drawing.Point(159, 89);
             this.medarbejderIDTB.Margin = new System.Windows.Forms.Padding(2);
             this.medarbejderIDTB.Name = "medarbejderIDTB";
-            this.medarbejderIDTB.Size = new System.Drawing.Size(195, 28);
+            this.medarbejderIDTB.Size = new System.Drawing.Size(195, 34);
             this.medarbejderIDTB.TabIndex = 63;
             this.medarbejderIDTB.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
@@ -90,24 +90,24 @@
             this.label6.TabIndex = 61;
             this.label6.Text = "-";
             // 
-            // textBox4
+            // cprTB2
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(275, 175);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox4.MaxLength = 4;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(79, 28);
-            this.textBox4.TabIndex = 60;
+            this.cprTB2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cprTB2.Location = new System.Drawing.Point(275, 175);
+            this.cprTB2.Margin = new System.Windows.Forms.Padding(2);
+            this.cprTB2.MaxLength = 4;
+            this.cprTB2.Name = "cprTB2";
+            this.cprTB2.Size = new System.Drawing.Size(79, 34);
+            this.cprTB2.TabIndex = 60;
             // 
-            // textBox2
+            // cprTB1
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(159, 175);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(98, 28);
-            this.textBox2.TabIndex = 59;
+            this.cprTB1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cprTB1.Location = new System.Drawing.Point(159, 175);
+            this.cprTB1.Margin = new System.Windows.Forms.Padding(2);
+            this.cprTB1.Name = "cprTB1";
+            this.cprTB1.Size = new System.Drawing.Size(98, 34);
+            this.cprTB1.TabIndex = 59;
             // 
             // label5
             // 
@@ -116,7 +116,7 @@
             this.label5.Location = new System.Drawing.Point(16, 179);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 29);
+            this.label5.Size = new System.Drawing.Size(158, 29);
             this.label5.TabIndex = 58;
             this.label5.Text = "Patients CPR";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -139,7 +139,7 @@
             this.dateTimePicker1.Location = new System.Drawing.Point(159, 268);
             this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(195, 26);
+            this.dateTimePicker1.Size = new System.Drawing.Size(195, 30);
             this.dateTimePicker1.TabIndex = 56;
             // 
             // label1
@@ -181,7 +181,7 @@
             this.procedureTB.Location = new System.Drawing.Point(159, 129);
             this.procedureTB.Margin = new System.Windows.Forms.Padding(2);
             this.procedureTB.Name = "procedureTB";
-            this.procedureTB.Size = new System.Drawing.Size(195, 28);
+            this.procedureTB.Size = new System.Drawing.Size(195, 34);
             this.procedureTB.TabIndex = 67;
             // 
             // label3
@@ -197,7 +197,7 @@
             // 
             // SaveDataGUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(419, 385);
@@ -209,8 +209,8 @@
             this.Controls.Add(this.medarbejderIDTB);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.cprTB2);
+            this.Controls.Add(this.cprTB1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dateTimePicker1);
@@ -230,8 +230,8 @@
         private System.Windows.Forms.TextBox medarbejderIDTB;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox cprTB2;
+        private System.Windows.Forms.TextBox cprTB1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
