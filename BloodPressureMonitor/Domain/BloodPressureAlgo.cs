@@ -13,16 +13,23 @@ namespace Domain
         // dette skal køre så længe der måles, dvs. skal køre i en while(true)
 
         //DataTreatment dataTreatment = new DataTreatment(); // what?
-
-        private List<double> _windowOfConvertedData;// 
-
+        
         public int SysBP { get; private set; }
         public int DiaBP { get; private set; }
         public int MeanBP { get; private set; }
         private double value;
-        private int Window = 2000; // antal af samples (tryk-værdier) som der kigges på. 
-        private int CountConvertedDataList;
-        private List<double> _windowList; 
+
+        //private int Window = 2000; // antal af samples (tryk-værdier) som der kigges på. 
+        //private int CountConvertedDataList;
+
+
+        // bruges i metoden WindowOfConvertedData
+        private PulseAlgo pulseAlgo;
+        private List<double> _windowOfConvertedData;// 
+        private int _nSamplesPrMin = 60000; // antal samples pr. minut
+        private int _samplesPrPuls; // antal sample pr. puls
+        private List<double> _windowList = new List<double>(); // listen oprettes
+
 
 
         //public BloodPressureAlgo(List<ConvertedData> _convertedData)
@@ -30,25 +37,40 @@ namespace Domain
         //    _convertedData = new List<ConvertedData>();
         //}
 
-        public List<double> WindowOfConvertedData(List<ConvertedData> _convertedData)
+        public List<double> WindowOfConvertedData(List<ConvertedData> convertedData)
         {
             while (true) // så længe målingen kører -> hvordan skrives det, er der er properti der skal sættes til true i UCMeasure?
             {
-                CountConvertedDataList = _convertedData.Count; // længden af listen sættes lig med attributten "CountConvertedDataList"
+                //CountConvertedDataList = convertedData.Count; // længden af listen sættes lig med attributten "CountConvertedDataList"
 
-                if (CountConvertedDataList>Window) // hvis længden af listen for convertedData er længere end window (som er 2000)
+                _samplesPrPuls = _nSamplesPrMin / pulseAlgo.PulseValue; // beregner antallet af samples der er mellem hvert pulsslag
+
+                //if (CountConvertedDataList>Window) // hvis længden af listen for convertedData er længere end window (som er 2000)
+                //{
+                //    _windowList.Clear(); // Listen for window tømmes
+
+                //    for (int i = _convertedData.Count - Window; i < _convertedData.Count; i++) // tager listens længde og går så 2000 samples tilbage, og tilføjer samples herfra til windowList. Dvs. der tilføjes 2000 samples (tryk-værdier)
+                //    {
+                //        _windowList.Add(_convertedData[i].Pressure);
+                //    }
+
+
+                //}
+
+                if (convertedData.Count > _samplesPrPuls) // hvis længden af listen for convertedData er længere end _samplePrPuls
                 {
                     _windowList.Clear(); // Listen for window tømmes
 
-                    for (int i = _convertedData.Count - Window; i < _convertedData.Count; i++) // tager listens længde og går så 2000 samples tilbage, og tilføjer samples herfra til windowList. Dvs. der tilføjes 2000 samples (tryk-værdier)
+                    for (int i = convertedData.Count - _samplesPrPuls; i < convertedData.Count; i++) // tager listens længde og går så x antal samples tilbage, og tilføjer samples herfra til windowList. Dvs. der tilføjes 2000 samples (tryk-værdier)
                     {
-                        _windowList.Add(_convertedData[i].Pressure);
+                        _windowList.Add(convertedData[i].Pressure);
                     }
-                        
-                   
+
+
                 }
 
                 // for hvert sekund (for hver gang vi opdatere skærmen) skal disse metoder kaldes -> hvor skal det stå, i metoderne?
+                // Starter algoritmerne 
                 FindSystolic();
                 FindDiastolic();
                 FindMean();
