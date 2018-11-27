@@ -12,8 +12,9 @@ namespace LogicLayer // Consumer
 {
     public class DataTreatment : IDataTreatment
     {
-        private ConvertAlgo ConvertAlgo;
+        private ConvertAlgo ConvertAlgorithm;
         private UC7S3_Filter FilterController;
+        private UC1M1_ZeroAdjustment AdjustmentController;
 
         private BlockingCollection<RawData> _collection;
         private static Thread DataCollectorThread;
@@ -42,14 +43,14 @@ namespace LogicLayer // Consumer
             GraphThread = new Thread(MakeShortRawList);
         }
 
-        public void StartGraph()
+        public void StartGraphData()
         {
             ShallStop = false;
             DataCollectorThread.Start();
             GraphThread.Start();
         }
 
-        public void StopGraph()
+        public void StopGraphData()
         {
             ShallStop = true;
         }
@@ -71,22 +72,46 @@ namespace LogicLayer // Consumer
             {
                 if (DownsampledRawList.Count < 300)
                 {
-                    for (int i = FullList.Count - 5016; i < FullList.Count; i+=17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
+                    if (FullList.Count < 5016) // If the list is shorter than the 5 sec window in the graph
                     {
-                        for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
+                        for (int i = 1; i < 5016; i += 17)
                         {
-                            Total = FullList[i + u].Voltage;
+                            for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
+                            {
+                                Total = FullList[i + u].Voltage;
+                            }
+
+                            double zeroValue = AdjustmentController.GetZeroAdjustmentValue(); // Or whatever
+                            Average = (Total / 17) - zeroValue;
+                            DownsampledRawList.Add(new RawData(Time, Average));
+
+                            foreach (var sample in DownsampledRawList)
+                            {
+                                Time++;
+                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage))); ;
+                            }
                         }
-
-                        Average = Total / 17;
-                        DownsampledRawList.Add(new RawData(Time, Average));
-                        Time++;
-
-                        foreach (var sample in DownsampledRawList)
+                    }
+                    if (FullList.Count >= 5016) // If the list is longer than the 5 sec window in the graph
+                    {
+                        for (int i = FullList.Count - 5016; i < FullList.Count; i += 17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
                         {
-                            GraphList = ConvertAlgo(sample.Second, sample.Voltage);
-                        }
+                            for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
+                            {
+                                Total = FullList[i + u].Voltage;
+                            }
 
+                            double zeroValue = AdjustmentController.GetZeroAdjustmentValue(); // Or whatever
+                            Average = (Total / 17) - zeroValue;
+                            DownsampledRawList.Add(new RawData(Time, Average));
+
+                            foreach (var sample in DownsampledRawList)
+                            {
+                                Time++;
+                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage))); ;
+                            }
+
+                        }
                     }
                 }
 
@@ -102,12 +127,12 @@ namespace LogicLayer // Consumer
             }
         }
 
-        public List<ConvertedData> GetGraphList() // Skal returnere det nedsamplede converterede data
+        public List<ConvertedData> GetGraphList() // Skal returnere det nedsamplede converterede data fratrukket nulpunktsjusteringen
         {
            return GraphList;
         }
 
-        public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata
+        public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata fratrukket nulpunktsjusteringen
         {
             return DownsampledRawList;
         }
