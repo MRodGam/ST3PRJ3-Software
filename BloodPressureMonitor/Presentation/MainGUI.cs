@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogicLayer;
@@ -22,6 +23,7 @@ namespace Presentation
 
         private BackgroundWorker muteAlarmWorker;
         public bool Running { get; private set; } = false;
+        private Thread updateGraph;
         
         public int Counter { get; private set; } = 0;
 
@@ -32,7 +34,7 @@ namespace Presentation
             
         }
 
-        private void StartB_Click(object sender, EventArgs e)
+        private void StartB_Click(object sender, EventArgs e) // Der skal laves en delegate
         {
             Counter++;
 
@@ -43,6 +45,15 @@ namespace Presentation
                 Running = true;
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
+
+                List<ConvertedData> liste = dataTreatment.GetGraphList();
+                
+                 foreach (var sample in liste)
+                 {
+                     chart1.Series["Series"].Points.AddXY(sample.Second,sample.Pressure);
+
+                 }
+                
             }
             if (Counter % 2 != 0)
             {
@@ -74,14 +85,6 @@ namespace Presentation
 
         }
 
-        private void chart1_Click(object sender, EventArgs e)
-        {
-            while (Running == true)
-            {
-                chart1.Series["Series"].Points.AddXY(dataTreatment.GetGraphList());
-            }
-        }
-
         private void FilterRB_CheckedChanged(object sender, EventArgs e)
         {
             if (Running == true && FilterRB.Checked)
@@ -89,6 +92,5 @@ namespace Presentation
                 StartFilter(); //Mangler forbindelse til interface
             }
         }
-
     }
 }
