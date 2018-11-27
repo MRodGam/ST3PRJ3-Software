@@ -15,5 +15,11 @@ namespace LogicLayer
         void MakeShortRawList();
         List<ConvertedData> GetGraphList();
         List<RawData> GetFilterList();
+
+        //Filter
+        void StartFilter();
+        void StopFilter();
+        void FilterData();
+        List<RawData> GetFilterData(); 
     }
 }
