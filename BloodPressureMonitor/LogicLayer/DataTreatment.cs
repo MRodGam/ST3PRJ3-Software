@@ -29,6 +29,7 @@ namespace LogicLayer // Consumer
         private static double Total { get; set; }
         private static double Average { get; set; }
         private static int Time { get; set; } = 1;
+        public static bool isListFull { get; private set; } = false;
 
 
         public DataTreatment(BlockingCollection<RawData> collection)
@@ -72,6 +73,8 @@ namespace LogicLayer // Consumer
             {
                 if (DownsampledRawList.Count < 300)
                 {
+                    isListFull = false;
+
                     if (FullList.Count < 5016) // If the list is shorter than the 5 sec window in the graph
                     {
                         for (int i = 1; i < 5016; i += 17)
@@ -117,6 +120,8 @@ namespace LogicLayer // Consumer
 
                 if (DownsampledRawList.Count == 300) // 300 samples equals 5 sec on 60Hz
                 {
+                    isListFull = true;
+
                     for (int i = 0; i < 60; i++) // 60 samples is 1 sec on 60Hz
                     {
                         DownsampledRawList.RemoveAt(i);

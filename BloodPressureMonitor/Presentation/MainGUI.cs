@@ -46,13 +46,18 @@ namespace Presentation
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
 
-                List<ConvertedData> liste = dataTreatment.GetGraphList();
-                
-                 foreach (var sample in liste)
-                 {
-                     chart1.Series["Series"].Points.AddXY(sample.Second,sample.Pressure);
 
-                 }
+                if (dataTreatment.isListFull = true)
+                {
+                    List<ConvertedData> liste = dataTreatment.GetGraphList();
+
+                    foreach (var sample in liste)
+                    {
+                        chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
+
+                    }
+                }
+                 
                 
             }
             if (Counter % 2 != 0)
