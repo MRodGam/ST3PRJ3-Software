@@ -27,8 +27,8 @@ namespace Presentation
 
         private List<ConvertedData> graphList;
 
-
         public int Counter { get; private set; } = 0;
+        public bool Running { get; private set; } = false;
 
         public MainGUI(IDataTreatment data)
         {

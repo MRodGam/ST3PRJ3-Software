@@ -1,6 +1,6 @@
 ﻿namespace Presentation
 {
-    partial class filter
+    partial class MainGUI
     {
         /// <summary>
         /// Required designer variable.
