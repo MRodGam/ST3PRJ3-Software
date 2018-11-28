@@ -45,6 +45,9 @@ namespace Domain
         public string getName()
         {return name_;}
 
+        public double getCalibration()
+        {return calibrate_;}
+
 
     }
 }
