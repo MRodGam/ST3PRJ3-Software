@@ -9,7 +9,7 @@ using Domain;
 
 namespace LogicLayer
 {
-    public class UC7S3_Filter : IFilter //midlingsfilter 
+    public class UC7S3_Filter : IDataTreatment //midlingsfilter 
     {
         public List<RawData> BPFilter;
         public DataTreatment datatreatment_;
@@ -38,7 +38,7 @@ namespace LogicLayer
         {
             while (!ShallStop)
             {
-                List<RawData> BPRawData = datatreatment_.GetFilterList();
+                List<RawData> BPRawData = datatreatment_.GetFilterList(); // Skift til converted data  DTO type, for ellers giver det ballade i GUI
 
                 for (int i = 2; i < BPRawData.Count; i++)
                 {
@@ -48,10 +48,13 @@ namespace LogicLayer
                                                                            BPRawData[i].Voltage + BPRawData[i + 1].Voltage + BPRawData[i + 2].Voltage) / 5));
                     }
                 }
+
+                // Send data op her
             }  
+
         }
 
-        public List<RawData> GetFilterData()
+        public List<RawData> GetFilterData() // Skal slettes, skal ikke være en metode for sig
         {
             return BPFilter;
         }

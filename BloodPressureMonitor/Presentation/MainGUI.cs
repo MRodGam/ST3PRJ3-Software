@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogicLayer;
@@ -12,14 +14,18 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class filter : Form
+    public partial class filter : Form // what?
     {
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
+        private IDataTreatment dataTreatment;
 
         private BackgroundWorker muteAlarmWorker;
-        
+
+        private delegate void updateGraphDelegate(IDataTreatment dataInterface);
+
+
         public int Counter { get; private set; } = 0;
 
         public filter()
@@ -29,28 +35,46 @@ namespace Presentation
             
         }
 
-        private void StartB_Click(object sender, EventArgs e)
+        public void (IDataTreatment dataInterface)
         {
-            // Is missing a method to do the start/stop eventhandler
+            dataTreatment = dataInterface;
+        }
+
+        private static void UpdateGraph(List<ConvertedData> graphList)
+        {
+            if (chart1.InvokeRequired)
+            {
+                chart1.Invoke(new updateGraphDelegate(UpdateGraph), new object[]{graphList});
+            }
+            else
+            {
+                foreach (var sample in graphList)
+                {
+                    chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
+                }
+            }
+        }
+
+        private void StartB_Click(object sender, EventArgs e) // Der skal laves en delegate
+        {
             Counter++;
 
             if (Counter % 2 == 0)
             {
                 Measure.StartMeasurement();
-                
+
+                Running = true;
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
             }
             if (Counter % 2 != 0)
             {
                 Measure.StopMeasurement();
-                
+
+                Running = false;
                 StartB.BackColor = Color.ForestGreen;
                 StartB.Text = "START MÅLING";
             }
-
-
-           
         }
 
         private void pauseB_Click(object sender, EventArgs e)
@@ -73,15 +97,11 @@ namespace Presentation
 
         }
 
-        private void chart1_Click(object sender, EventArgs e)
-        {
-            }
-
         private void FilterRB_CheckedChanged(object sender, EventArgs e)
         {
-            if (FilterRB.Checked)
+            if (Running == true && FilterRB.Checked)
             {
-                StartFilter(); //Mangler forbindelse til interface
+                dataTreatment.StartFilter(); //Mangler forbindelse til interface
             }
         }
     }
