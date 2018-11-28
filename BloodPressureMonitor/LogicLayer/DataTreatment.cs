@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -55,6 +57,10 @@ namespace LogicLayer // Consumer
         {
             ShallStop = true;
         }
+        public void Done()
+        {
+            Notify();
+        }
 
         public void GetRawData()
         {
@@ -67,7 +73,12 @@ namespace LogicLayer // Consumer
              }
         }
 
-        public static void MakeShortRawList()
+        //void IDataTreatment.MakeShortRawList()
+        //{
+        //    MakeShortRawList();
+        //}
+
+        public static void MakeShortRawList() // Lav en observer som fortæller når den er fuld
         {
             while (!ShallStop)
             {
@@ -79,9 +90,10 @@ namespace LogicLayer // Consumer
                     {
                         for (int i = 1; i < 5016; i += 17)
                         {
+                            Total = 0;
                             for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
                             {
-                                Total = FullList[i + u].Voltage;
+                                Total += FullList[i + u].Voltage;
                             }
 
                             double zeroValue = AdjustmentController.GetZeroAdjustmentValue(); // Or whatever
@@ -99,9 +111,10 @@ namespace LogicLayer // Consumer
                     {
                         for (int i = FullList.Count - 5016; i < FullList.Count; i += 17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
                         {
+                            Total = 0;
                             for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
                             {
-                                Total = FullList[i + u].Voltage;
+                                Total += FullList[i + u].Voltage;
                             }
 
                             double zeroValue = AdjustmentController.GetZeroAdjustmentValue(); // Or whatever
@@ -113,14 +126,13 @@ namespace LogicLayer // Consumer
                                 Time++;
                                 GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage))); ;
                             }
-
                         }
                     }
                 }
 
                 if (DownsampledRawList.Count == 300) // 300 samples equals 5 sec on 60Hz
                 {
-                    isListFull = true;
+                    Done(); // ??????
 
                     for (int i = 0; i < 60; i++) // 60 samples is 1 sec on 60Hz
                     {
@@ -140,6 +152,26 @@ namespace LogicLayer // Consumer
         public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata fratrukket nulpunktsjusteringen
         {
             return DownsampledRawList;
+        }
+
+        public void StartFilter()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopFilter()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FilterData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<RawData> GetFilterData()
+        {
+            throw new NotImplementedException();
         }
     }
 }
