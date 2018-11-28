@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using DataLayer;
@@ -11,44 +12,70 @@ using Domain;
 
 namespace LogicLayer
 {
-    class UC5S1_Alarm : IAlarm
+    public class UC5S1_Alarm : IAlarm
     {
+        public DataTreatment datatreatment_;
+        public AutoResetEvent alarmThread { get; set; } // tråd som alarm klassen kører på
 
         UC9S5_Limits Limits = new UC9S5_Limits();
-        DataTreatment dataTreatment = new DataTreatment(); // hvad sker der her?
+        //IDataTreatment dataTreatment = new DataTreatment(); // hvad sker der her?
 
-        private IAlarmType alarmType; // korrekt at den er private ?
-        public bool IsAlarmActive { get; private set; } = false;
+        private IAlarmType alarmType = new HighAlarm(); // korrekt at den er private ?
 
-        public bool GetIsAlarmActive()
+        //public bool IsAlarmActive { get; private set; } = false;
+        public bool IsMeasureActive { get; set; }
+
+        public UC5S1_Alarm(DataTreatment dataTreatment)
         {
-            return IsAlarmActive;
+            datatreatment_ = dataTreatment;
+            
         }
-        
-        public void PlayAlarm() // metode der kontrollere alarmen
-        {
 
-            // hvis blodtryksværdi overskrider grænseværdier
-            if (dataTreatment.GetConvertedData() < Limits.getLowerLimit() ||
-                dataTreatment.GetConvertedData() > Limits.getUpperLimit())
+        
+
+        //public bool GetIsAlarmActive()
+        //{
+        //    return IsAlarmActive;
+        //}
+        
+        public void ControlAlarm() // metode der kontrollere alarmen
+        {
+            alarmThread.WaitOne(); //
+
+            while (IsMeasureActive)
             {
-                alarmType.RunAlarm();
-                IsAlarmActive = true;
+                // hvis blodtryksværdi overskrider grænseværdier
+                if (datatreatment_.GetGraphList()[datatreatment_.GetGraphList().Count - 1].Pressure < Limits.SysLowerLimit ||
+                    datatreatment_.GetGraphList()[datatreatment_.GetGraphList().Count - 1].Pressure > Limits.SysUpperLimit)
+                {
+                    alarmType.RunAlarm();
+                    //IsAlarmActive = true;
+                }
+
+                // alarmen stopper hvis værdierne for blodtrykket ligger indenfor grænseværdierne 
+                if (datatreatment_.GetGraphList()[datatreatment_.GetGraphList().Count - 1].Pressure >= Limits.SysLowerLimit  &&
+                    datatreatment_.GetGraphList()[datatreatment_.GetGraphList().Count - 1].Pressure <= Limits.SysUpperLimit)
+                {
+                    alarmType.StopAlarm();
+                    //IsAlarmActive = false;
+                }
+
             }
+
 
         }
 
         public void MuteAlarm()// denne metode kaldes inde i eventhandleren for knappen kvitteralarm
         {
-            Timer counter = new Timer(180);
+            //Timer counter = new Timer(180);
            
-            while (counter)
-            {
-                alarmType.StopAlarm();
-                IsAlarmActive = false;
-            }
-            alarmType.RunAlarm();
-            IsAlarmActive = true;
+            //while (counter)
+            //{
+            //    alarmType.StopAlarm();
+            //    IsAlarmActive = false;
+            //}
+            //alarmType.RunAlarm();
+            //IsAlarmActive = true;
 
 
         }
@@ -73,22 +100,13 @@ namespace LogicLayer
         //    }
         //}
 
-        public void StopAlarm()
-        {
-            // alarmen stoppe hvis værdierne for blodtrykket ligger indenfor grænseværdierne 
-            if (dataTreatment.GetConvertedData() >= Limits.getLowerLimit() &&
-                dataTreatment.GetConvertedData() <= Limits.getUpperLimit())
-            {
-                alarmType.StopAlarm();
-                IsAlarmActive = false;
-            }
+        //public void StopAlarm()
+        //{
+           
 
-            if ()
-            {
-                
-            }
+           
             
-        }
+        //}
 
 
             

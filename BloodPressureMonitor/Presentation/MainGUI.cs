@@ -14,7 +14,7 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class filter : Form
+    public partial class MainGUI : Form
     {
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
@@ -22,19 +22,44 @@ namespace Presentation
         private IDataTreatment dataTreatment;
 
         private BackgroundWorker muteAlarmWorker;
-        public bool Running { get; private set; } = false;
-        private Thread updateGraph;
-        
+
+        private delegate void updateGraphDelegate(IDataTreatment dataInterface);
+
+        private List<ConvertedData> graphList;
+
+
         public int Counter { get; private set; } = 0;
 
-        public filter()
+        public MainGUI(IDataTreatment data)
         {
             InitializeComponent();
             muteAlarmWorker = new BackgroundWorker();
-            
+            dataTreatment = data;
+            dataTreatment.Attach(this);
+            graphList = new List<ConvertedData>();
         }
 
-        private void StartB_Click(object sender, EventArgs e) // Der skal laves en delegate
+        public void Update(IDataTreatment dataInterface)
+        {
+            graphList = dataInterface.FilterData();
+        }
+
+        private static void UpdateGraph(List<ConvertedData> graphList)
+        {
+            if (chart1.InvokeRequired)
+            {
+                chart1.Invoke(new updateGraphDelegate(UpdateGraph), new object[]{graphList});
+            }
+            else
+            {
+                foreach (var sample in graphList)
+                {
+                    chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
+                }
+            }
+        }
+
+        private void StartB_Click(object sender, EventArgs e)
         {
             Counter++;
 
@@ -45,20 +70,6 @@ namespace Presentation
                 Running = true;
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
-
-
-                if (dataTreatment.isListFull = true)
-                {
-                    List<ConvertedData> liste = dataTreatment.GetGraphList();
-
-                    foreach (var sample in liste)
-                    {
-                        chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
-
-                    }
-                }
-                 
-                
             }
             if (Counter % 2 != 0)
             {
@@ -94,8 +105,13 @@ namespace Presentation
         {
             if (Running == true && FilterRB.Checked)
             {
-                StartFilter(); //Mangler forbindelse til interface
+                dataTreatment.StartFilter(); //Mangler forbindelse til interface
             }
+        }
+
+        private void StartB_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
