@@ -160,7 +160,7 @@
             this.label2.Location = new System.Drawing.Point(16, 218);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 29);
+            this.label2.Size = new System.Drawing.Size(158, 29);
             this.label2.TabIndex = 65;
             this.label2.Text = "Patients navn";
             // 

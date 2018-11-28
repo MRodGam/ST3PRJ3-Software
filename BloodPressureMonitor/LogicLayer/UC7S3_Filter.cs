@@ -53,7 +53,7 @@ namespace LogicLayer
 
         public List<RawData> GetFilterData()
         {
-            return BPFilter;
+            return BPFilter; //Skal retuneres på en tråd
         }
 
     }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Domain;
+using LogicLayer;
 
 namespace Presentation
 {
@@ -21,16 +22,11 @@ namespace Presentation
         private string procedure_;
         private string name_;
 
-        public SaveDataGUI(int puls, int mean, int systolic, int diastolic,
-            List<GetCompletMeasurement> getCompletMeasurements)
+        private ISave saveInterface;
+
+        public SaveDataGUI(ISave save)
         {
-            procedure_ = "";
-            name_ = "";
-            puls_ = puls;
-            mean_ = mean;
-            getCompletMeasurements_ = getCompletMeasurements;
-            timeAndDate.Format = DateTimePickerFormat.Custom;
-            timeAndDate.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            saveInterface = save;
         }
 
         public SaveDataGUI()
@@ -80,7 +76,7 @@ namespace Presentation
             else
             {
                 string cpr = cprTB1.Text + "-" + cprTB2.Text;
-                SaveData.Save(cpr, medarbejderIDTB.Text, procedure_, timeAndDate.Value, måling_, puls_, mean_, name_);
+                saveInterface.SaveDataLogic(navnTB.Text,cprTB1.Text, cprTB2.Text, medarbejderIDTB.Text, dateTimePicker1.Text);
                 check = false;
                 this.Close();
             }

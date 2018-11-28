@@ -7,8 +7,13 @@ using Domain;
 
 namespace DataLayer
 {
-    interface IData
+    public interface IData
     {
-        List<dataList> GetCompletedMeasurement(string which);  //Ændre dataliste her
+        void SaveInDatabase(string IDno, string Procedure, string CPRno, DateTime timeAndDate,
+            byte[] bloodpressureList, double Calibrate);
+
+        List<RawData> rawData(string which);
+
+        //List<RawData> GetCompletedMeasurement { get; private set; }
     }
 }
