@@ -7,16 +7,16 @@ using Domain;
 
 namespace LogicLayer
 {
-    class Observer
+    public class Observer 
     {
-        private List<IDataTreatment> _observers = new List<IDataTreatment>();
+        private List<IObserver> _observers = new List<IObserver>();
 
-        public void Attach(IDataTreatment observer)
+        public void Attach(IObserver observer)
         {
             _observers.Add(observer);
         }
 
-        public void Detach(IDataTreatment observer)
+        public void Detach(IObserver observer)
         {
             _observers.Remove(observer);
         }
@@ -27,57 +27,6 @@ namespace LogicLayer
             {
                 observer.Update();
             }
-        }
-
-
-        public void StartGraphData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StopGraphData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetRawData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MakeShortRawList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<ConvertedData> GetGraphList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<RawData> GetFilterList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StartFilter()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StopFilter()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FilterData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<RawData> GetFilterData()
-        {
-            throw new NotImplementedException();
         }
     }
 }

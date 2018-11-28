@@ -14,7 +14,7 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class MainGUI : Form
+    public partial class MainGUI : Form, IObserver
     {
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
@@ -35,7 +35,7 @@ namespace Presentation
             InitializeComponent();
             muteAlarmWorker = new BackgroundWorker();
             dataTreatment = data;
-            dataTreatment.Attach(this);
+            IObserver.Attach(this);
             graphList = new List<ConvertedData>();
         }
 
