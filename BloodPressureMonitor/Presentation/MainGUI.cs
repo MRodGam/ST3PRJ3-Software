@@ -14,7 +14,7 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class filter : Form
+    public partial class filter : Form // what?
     {
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
@@ -22,9 +22,10 @@ namespace Presentation
         private IDataTreatment dataTreatment;
 
         private BackgroundWorker muteAlarmWorker;
-        public bool Running { get; private set; } = false;
-        private Thread updateGraph;
-        
+
+        private delegate void updateGraphDelegate(IDataTreatment dataInterface);
+
+
         public int Counter { get; private set; } = 0;
 
         public filter()
@@ -32,6 +33,26 @@ namespace Presentation
             InitializeComponent();
             muteAlarmWorker = new BackgroundWorker();
             
+        }
+
+        public void (IDataTreatment dataInterface)
+        {
+            dataTreatment = dataInterface;
+        }
+
+        private static void UpdateGraph(List<ConvertedData> graphList)
+        {
+            if (chart1.InvokeRequired)
+            {
+                chart1.Invoke(new updateGraphDelegate(UpdateGraph), new object[]{graphList});
+            }
+            else
+            {
+                foreach (var sample in graphList)
+                {
+                    chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
+                }
+            }
         }
 
         private void StartB_Click(object sender, EventArgs e) // Der skal laves en delegate
@@ -45,20 +66,6 @@ namespace Presentation
                 Running = true;
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
-
-
-                if (dataTreatment.isListFull = true)
-                {
-                    List<ConvertedData> liste = dataTreatment.GetGraphList();
-
-                    foreach (var sample in liste)
-                    {
-                        chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
-
-                    }
-                }
-                 
-                
             }
             if (Counter % 2 != 0)
             {
@@ -94,7 +101,7 @@ namespace Presentation
         {
             if (Running == true && FilterRB.Checked)
             {
-                StartFilter(); //Mangler forbindelse til interface
+                dataTreatment.StartFilter(); //Mangler forbindelse til interface
             }
         }
     }
