@@ -79,7 +79,7 @@
             this.limitsB.Name = "limitsB";
             this.limitsB.Size = new System.Drawing.Size(120, 25);
             this.limitsB.TabIndex = 1;
-            this.limitsB.Text = "Grænseværdi";
+            this.limitsB.Text = "Juster grænseværdi";
             this.limitsB.UseVisualStyleBackColor = false;
             // 
             // saveB
@@ -124,15 +124,16 @@
             // FilterRB
             // 
             this.FilterRB.AutoSize = true;
+            this.FilterRB.BackColor = System.Drawing.Color.Transparent;
             this.FilterRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilterRB.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.FilterRB.Location = new System.Drawing.Point(348, 314);
+            this.FilterRB.Location = new System.Drawing.Point(468, 339);
             this.FilterRB.Name = "FilterRB";
             this.FilterRB.Size = new System.Drawing.Size(57, 17);
             this.FilterRB.TabIndex = 5;
             this.FilterRB.TabStop = true;
             this.FilterRB.Text = "Filtrer";
-            this.FilterRB.UseVisualStyleBackColor = true;
+            this.FilterRB.UseVisualStyleBackColor = false;
             // 
             // chart1
             // 
@@ -152,10 +153,9 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(379, 242);
+            this.chart1.Size = new System.Drawing.Size(450, 242);
             this.chart1.TabIndex = 7;
             this.chart1.Text = "chart1";
-            this.chart1.Click += new System.EventHandler(this.chart1_Click_1);
             // 
             // filter
             // 
