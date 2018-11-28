@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    interface IPulse
+    public interface IObserver
     {
-        int Pulse(double[] measurements, double samplefrequence);
+        void Update();
+        void Attach();
+
     }
 }

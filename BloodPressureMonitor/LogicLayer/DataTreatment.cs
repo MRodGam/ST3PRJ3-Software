@@ -12,11 +12,12 @@ using Domain;
 
 namespace LogicLayer // Consumer
 {
-    public class DataTreatment : IDataTreatment
+    public class DataTreatment : Observer, IDataTreatment
     {
         private ConvertAlgo ConvertAlgorithm;
         private UC7S3_Filter FilterController;
         private UC1M1_ZeroAdjustment AdjustmentController;
+        private Observer observer;
 
         private BlockingCollection<RawData> _collection;
         private static Thread DataCollectorThread;
@@ -34,9 +35,10 @@ namespace LogicLayer // Consumer
         public static bool isListFull { get; private set; } = false;
 
 
-        public DataTreatment(BlockingCollection<RawData> collection)
+        public DataTreatment(BlockingCollection<RawData> collection, Observer obs)
         {
             _collection = collection;
+            observer = obs;
             FullList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
             DownsampledRawList = new List<RawData>();
