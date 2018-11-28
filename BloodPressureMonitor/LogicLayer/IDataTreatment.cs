@@ -9,6 +9,8 @@ namespace LogicLayer
 {
     public interface IDataTreatment
     {
+        void Update();
+
         void StartGraphData();
         void StopGraphData();
         void GetRawData();
