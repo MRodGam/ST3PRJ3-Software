@@ -115,5 +115,10 @@ namespace Presentation
                 dataTreatment.StartFilter(); //Mangler forbindelse til interface
             }
         }
+
+        private void StartB_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

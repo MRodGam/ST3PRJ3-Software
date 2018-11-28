@@ -16,12 +16,16 @@ namespace LogicLayer
         private IDAQ Daq;
         private DataTreatment dataTreatment;
         private UC5S1_Alarm AlarmController;
+        private BloodPressureAlgo BloodPressureAlgo;
         
-        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController)
+        
+        
+        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController, BloodPressureAlgo bloodPressureAlgo)
         {
             Daq = actualDaq;
             dataTreatment = _dataTreatment;
             AlarmController = alarmController;
+            BloodPressureAlgo = bloodPressureAlgo;
         }
 
         public void StartMeasurement()
@@ -30,6 +34,7 @@ namespace LogicLayer
             dataTreatment.StartGraphData();
             AlarmController.alarmThread.Set(); // Alarm klassen starter
             AlarmController.IsMeasureActive = true;
+            BloodPressureAlgo.BloodPressureThread.Set(); // starter klassen for bloodPressureAlgo
         }
 
         public void StopMeasurement()
@@ -37,6 +42,7 @@ namespace LogicLayer
             Daq.Stop();
             dataTreatment.StopGraphData();
             AlarmController.IsMeasureActive = false;
+
         }
     }
 }
