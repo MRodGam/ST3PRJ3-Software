@@ -20,6 +20,7 @@ namespace Presentation
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
         private IDataTreatment dataTreatment;
+        private IAlarmType muteAlarm;
 
         private BackgroundWorker muteAlarmWorker;
 
@@ -34,6 +35,9 @@ namespace Presentation
         {
             InitializeComponent();
             muteAlarmWorker = new BackgroundWorker();
+            muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
+            muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
+            muteAlarm = new HighAlarm(); 
             dataTreatment = data;
             dataTreatment.Attach(this);
             graphList = new List<ConvertedData>();
@@ -83,22 +87,25 @@ namespace Presentation
 
         private void pauseB_Click(object sender, EventArgs e)
         {
-            //BackgroundWorker ??
-            // hvis alarmen er aktiv skal knappen være synlig 
-            if (alarm.GetIsAlarmActive() == true)
-            {
-                pauseB.Visible = true;
-            }
-
-            alarm.MuteAlarm(); // kalder metoden MuteAlarm inde i UC5S1_Alarm
-
+            // Lyd stop
+            // Tegn skal op
+            // Kvitterknap skal gøres usynlig
             
-            // hvis alarmen ikke er aktiv skal knappen være usynlig 
-            if (alarm.GetIsAlarmActive() == false)
-            {
-                pauseB.Visible = false;
-            }
+            pauseB.Visible = false;
+            muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
 
+        }
+
+        private void muteAlarmWorker_muteAlarm(object sender, DoWorkEventArgs e) // Denne metode bestemmer hvad der sker, imens backgroundworker kører. 
+        {
+            muteAlarm.StopAlarm();
+            Thread.Sleep(180000);
+            muteAlarm.RunAlarm();
+        }
+
+        private void muteAlarmWorker_completeMute(object sender, RunWorkerCompletedEventArgs e) // Denne metode kaldes når BackGroundWorker er færdig
+        {
+            pauseB.Visible = true;
         }
 
         private void FilterRB_CheckedChanged(object sender, EventArgs e)
@@ -108,5 +115,7 @@ namespace Presentation
                 dataTreatment.StartFilter(); //Mangler forbindelse til interface
             }
         }
+
+       
     }
 }

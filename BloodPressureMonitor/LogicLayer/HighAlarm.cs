@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    class HighAlarm : IAlarmType 
+    public class HighAlarm : IAlarmType 
     {
         // player reference oprettes
         SoundPlayer player = new SoundPlayer();
