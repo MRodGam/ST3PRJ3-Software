@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    interface ILimits
+    public interface ILimits
     {
+        // skal denne måske bare slettes???
+
+        //double GetLowerLimit(double sysLowerLimit);
+        //double GetUpperLimit(double sysUpperLimit);
     }
 }

@@ -56,7 +56,7 @@ namespace LogicLayer
 
         public List<RawData> GetFilterData() // Skal slettes, skal ikke være en metode for sig
         {
-            return BPFilter;
+            return BPFilter; //Skal retuneres på en tråd
         }
 
     }

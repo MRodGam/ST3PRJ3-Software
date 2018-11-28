@@ -15,22 +15,28 @@ namespace LogicLayer
     {
         private IDAQ Daq;
         private DataTreatment dataTreatment;
-
-        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment)
+        private UC5S1_Alarm AlarmController;
+        
+        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController)
         {
             Daq = actualDaq;
             dataTreatment = _dataTreatment;
+            AlarmController = alarmController;
         }
+
         public void StartMeasurement()
         {
             Daq.Start();
-            dataTreatment.StartGraph();
+            dataTreatment.StartGraphData();
+            AlarmController.alarmThread.Set(); // Alarm klassen starter
+            AlarmController.IsMeasureActive = true;
         }
 
         public void StopMeasurement()
         {
             Daq.Stop();
-            dataTreatment.StopGraph();
+            dataTreatment.StopGraphData();
+            AlarmController.IsMeasureActive = false;
         }
     }
 }

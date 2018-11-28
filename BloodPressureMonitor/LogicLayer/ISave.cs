@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 
 namespace LogicLayer
 {
-    interface ISave
+    public interface ISave
     {
-        void SaveInDatabase(string CPRno, string IDno, DateTime date, byte[] GetCompletedMeasurement);
-        
+        void SaveDataLogic(string IDno, string Procedure, string CPRno, DateTime timeAndDate, byte[] bloodpressureList, double Calibrate);
     }
 }

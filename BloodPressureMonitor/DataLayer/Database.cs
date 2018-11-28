@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using DataLayer;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using Domain;
+
 
 namespace DataLayer
 {
@@ -31,7 +31,7 @@ namespace DataLayer
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            List<RawData> rawData = new List<RawData>(); 
+            List<RawData> SaverawData = new List<RawData>(); 
 
             string a = "SELECT * FROM SaveData" + which;
             //Oprette SQL kommando
@@ -52,10 +52,13 @@ namespace DataLayer
                     bloodPressureList = (List<RawData>)bf.Deserialize(ms);
                 }
 
-                //omdøb Gemtmåling
-                SaveData saveData = new SaveData(Convert.ToString(reader["Idno"]), Convert.ToString(reader["Procedure"]), Convert.ToString(reader["CPRno"]), Convert.ToString(reader["Name"]),
-                    Convert.ToDateTime(reader["timeAndDate"]), bloodPressureList, Convert.ToDouble(reader["Calibrate"]));
-                GetCompletedMeasurement.Add(saveData);
+                //Data skrives til domain klasse SaveData
+                SaveData saveData = new SaveData(Convert.ToString(reader["Idno"]),
+                    Convert.ToString(reader["Procedure"]), Convert.ToString(reader["CPRno"]),
+                    Convert.ToString(reader["Name"]),
+                    Convert.ToDateTime(reader["timeAndDate"]), bloodPressureList,
+                    Convert.ToDouble(reader["Calibrate"]));
+                SaverawData.Add(SaveData);
             }
 
             //Lukke forbindelsen til DB
