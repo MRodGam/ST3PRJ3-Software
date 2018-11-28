@@ -13,6 +13,8 @@ namespace Domain
 {
     public class PulseAlgo
     {
+        public int PulseValue { get; private set; } // har tilføjet denne så jeg kan hente den fra en anden klasse (celia)
+
         public int Pulse(double[] measurements, double samplefrequence)
         {
             double samplefrequence_ = samplefrequence;
@@ -45,8 +47,8 @@ namespace Domain
             double frequence = (double) samplefrequence_ / measurements_.Length;
             double calcFrequence = frequence * index;
 
-            int pulse = (int) (calcFrequence * 60);
-            return pulse;
+            PulseValue = (int) (calcFrequence * 60);
+            return PulseValue; // evt slet da man nu kan hente værdien?
         } //returner pulse
     }
 }

@@ -21,9 +21,10 @@ namespace LogicLayer
         {
             dataTreatment = _dataTreatment;
         }
-        public int FindPulse()
+
+        public int FindPulse() // public int Pulse(double[] measurements, double samplefrequence)
         {
-            RawDataList= dataTreatment.GetRawData();
+            RawDataList = dataTreatment.GetRawData();
 
             for (int i = 0; i < RawDataList.Count; i++)
             {

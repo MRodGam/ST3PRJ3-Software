@@ -15,7 +15,7 @@ namespace LogicLayer
     {
        
         private BlockingCollection<RawData> _collection;
-        private List<RawData> voltageList = new List<RawData>();
+        
         private CalibrationValue _calibration;
 
         private double[] voltageArray = new double[4];
@@ -41,7 +41,8 @@ namespace LogicLayer
 
         public double GetOneVoltagePoint() // køres for hver volt måling (kaldes i metoden AddVoltage()
         {
-            UC2M2_UC3M3_Measure measure = new UC2M2_UC3M3_Measure();
+            IMeasure measure = new UC2M2_UC3M3_Measure();
+            //UC2M2_UC3M3_Measure measure = new UC2M2_UC3M3_Measure();
             double totalVoltageValue = 0;
             double _voltagePoint = 0.0;
             
