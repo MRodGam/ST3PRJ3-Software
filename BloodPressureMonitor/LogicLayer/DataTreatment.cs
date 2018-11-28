@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -55,6 +57,10 @@ namespace LogicLayer // Consumer
         {
             ShallStop = true;
         }
+        public void Done()
+        {
+            Notify();
+        }
 
         public void GetRawData()
         {
@@ -67,10 +73,10 @@ namespace LogicLayer // Consumer
              }
         }
 
-        void IDataTreatment.MakeShortRawList()
-        {
-            MakeShortRawList();
-        }
+        //void IDataTreatment.MakeShortRawList()
+        //{
+        //    MakeShortRawList();
+        //}
 
         public static void MakeShortRawList() // Lav en observer som fortæller når den er fuld
         {
@@ -120,14 +126,13 @@ namespace LogicLayer // Consumer
                                 Time++;
                                 GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage))); ;
                             }
-
                         }
                     }
                 }
 
                 if (DownsampledRawList.Count == 300) // 300 samples equals 5 sec on 60Hz
                 {
-                    isListFull = true;
+                    Done(); // ??????
 
                     for (int i = 0; i < 60; i++) // 60 samples is 1 sec on 60Hz
                     {

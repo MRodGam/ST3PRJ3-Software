@@ -14,7 +14,7 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class filter : Form // what?
+    public partial class MainGUI : Form
     {
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
@@ -25,19 +25,23 @@ namespace Presentation
 
         private delegate void updateGraphDelegate(IDataTreatment dataInterface);
 
+        private List<ConvertedData> graphList;
+
 
         public int Counter { get; private set; } = 0;
 
-        public filter()
+        public MainGUI(IDataTreatment data)
         {
             InitializeComponent();
             muteAlarmWorker = new BackgroundWorker();
-            
+            dataTreatment = data;
+            dataTreatment.Attach(this);
+            graphList = new List<ConvertedData>();
         }
 
-        public void (IDataTreatment dataInterface)
+        public void Update(IDataTreatment dataInterface)
         {
-            dataTreatment = dataInterface;
+            graphList = dataInterface.FilterData();
         }
 
         private static void UpdateGraph(List<ConvertedData> graphList)
@@ -55,7 +59,7 @@ namespace Presentation
             }
         }
 
-        private void StartB_Click(object sender, EventArgs e) // Der skal laves en delegate
+        private void StartB_Click(object sender, EventArgs e)
         {
             Counter++;
 
