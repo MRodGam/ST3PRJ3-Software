@@ -9,7 +9,7 @@ using DataLayer;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Net.Mail;
-
+using System.Data;
 
 namespace DataLayer
 {
@@ -20,6 +20,7 @@ namespace DataLayer
         private SqlCommand command;
         private const String DBlogin = "st-i4dab.E18ST3PRJ3Gr3";
         private List<RawData> bloodPressureList;
+        private double calibrateDatabaseValue;
         public List<RawData> GetCompletedMeasurement { get; private set; }
 
         public Database()
@@ -67,24 +68,36 @@ namespace DataLayer
             return GetCompletedMeasurement;
         }
 
-        public void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name, DateTime timeAndDate, List<RawData> bloodpressureList, double Calibrate)
+        public void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name, DateTime timeAndDate, List<RawData> bloodpressureList)
         {
             connectionP.Open();
-            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(IDno, Procedure, CPRno, Name, timeAndDate, CompletedMeasurement, Calibrate) VALUES(@IDno, @Procedure, @CPRno, @Name, @timeAndDate, @CompletedMeasurement, @Calibrate)", connectionP);
+            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(IDno, Procedure, CPRno, Name, timeAndDate, CompletedMeasurement) VALUES(@IDno, @Procedure, @CPRno, @Name, @timeAndDate, @CompletedMeasurement)", connectionP);
             command_.Parameters.AddWithValue("@IDno", IDno);
             command_.Parameters.AddWithValue("@Procedure", Procedure);
             command_.Parameters.AddWithValue("@CPRno", CPRno);
             command_.Parameters.AddWithValue("@timeAndDate", timeAndDate);
             command_.Parameters.AddWithValue("@getCompletedMeasurement", bloodPressureList);
-            command_.Parameters.AddWithValue("@Calibrate", Calibrate);
             command_.ExecuteNonQuery();
             connectionP.Close();
         }
 
-        public double GetCalibration()
+        public double GetCalibrateValue()
         {
-            AlternateView = "";
-            if()
+            command.CommandText = "select * from Calibrate where calibrate=@Calibrate";
+            command.Parameters.Add("Calibrate",SqlDbType.VarChar).Value = calibrateDatabaseValue;
+            connectionP.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            return calibrateDatabaseValue;
+        }
+
+        public void SaveCalibrateValue(double Calibrate)
+        {
+            //skal gemme clibrate-værdi
+            connectionP.Open(); //hvad sker der her? 
+            SqlCommand command_ = new SqlCommand("INSERT INTO SaveCalibrateValue (Calibrate) VALUES(@Calibrate)"), connectionP;
+            command_.Parameters.AddWithValue("@Calibrate", Calibrate);
+            command_.ExecuteNonQuery();
+            connectionP.Close();
         }
     }
 }
