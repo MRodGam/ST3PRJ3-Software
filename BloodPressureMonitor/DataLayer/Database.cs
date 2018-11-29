@@ -8,11 +8,12 @@ using System.Data.SqlClient;
 using DataLayer;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Net.Mail;
 
 
 namespace DataLayer
 {
-    class Database : IData
+    public class Database : IData
     {
         private SqlConnection connectionP;
         private SqlDataReader reader;
@@ -78,6 +79,12 @@ namespace DataLayer
             command_.Parameters.AddWithValue("@Calibrate", Calibrate);
             command_.ExecuteNonQuery();
             connectionP.Close();
+        }
+
+        public double GetCalibration()
+        {
+            AlternateView = "";
+            if()
         }
     }
 }
