@@ -16,7 +16,7 @@ namespace Domain
         // dette skal køre så længe der måles, dvs. skal køre i en while(true)
 
         //DataTreatment dataTreatment = new DataTreatment(); // what?
-        
+
         public int SysBP { get; private set; }
         public int DiaBP { get; private set; }
         public int MeanBP { get; private set; }

@@ -15,18 +15,18 @@ namespace LogicLayer
     {
        
         private BlockingCollection<RawData> _collection;
-        
-        private CalibrationValue _calibration;
-        private UC2M2_UC3M3_Measure Measure;
+        //private CalibrationValue _calibration;
+        private IMeasure Measure;
+        private IData Database;
 
         private double[] voltageArray = new double[4];
         private double[] pressureArray = new double[4];
         private int _tæller = 0;
         private double _voltagePoint;
-        private IData Database;
+       
         
 
-        public UC6S2_Calibrate(BlockingCollection<RawData> collection, UC2M2_UC3M3_Measure measure, IData database)
+        public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database)
         {
             _collection = collection;
             Measure = measure;

@@ -15,18 +15,19 @@ namespace LogicLayer
         public double SysUpperLimit { get; set; }
 
         //grænseværdierne sættes inde i eventhandler
-       
+        
 
-        //public double GetLowerLimit(double sysLowerLimit)
-        //{
-        //    _sysLowerLimit = sysLowerLimit;
-        //    return _sysLowerLimit;
-        //}
 
-        //public double GetUpperLimit(double sysUpperLimit)
-        //{
-        //    _sysUpperLimit = sysUpperLimit;
-        //    return _sysUpperLimit;
-        //}
+        public double GetLowerLimit()
+        {
+            
+            return SysLowerLimit;
+        }
+
+        public double GetUpperLimit()
+        {
+            
+            return SysUpperLimit;
+        }
     }
 }
