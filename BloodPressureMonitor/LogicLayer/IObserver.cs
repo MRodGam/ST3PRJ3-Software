@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    public interface IAlarmType
+    public interface IObserver
     {
-        void RunAlarm();
-        void MuteAlarm();
-        void StopAlarm();
+        void Update();
+        void Attach();
+
     }
 }

@@ -8,9 +8,9 @@ namespace Domain
 {
     public class BloodPressure
     {
-        double Systolic { get; set; }
-        double Diastolic { get; set; }
-        double Mean { get; set; }
+        public double Systolic { get; set; }
+        public double Diastolic { get; set; }
+        public double Mean { get; set; }
 
         public BloodPressure(double systolic, double diastolic, double mean)
         {

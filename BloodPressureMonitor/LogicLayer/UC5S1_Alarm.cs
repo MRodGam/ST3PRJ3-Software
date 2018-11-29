@@ -40,7 +40,7 @@ namespace LogicLayer
         
         public void ControlAlarm() // metode der kontrollere alarmen
         {
-            alarmThread.WaitOne(); //
+            alarmThread.WaitOne(); // kører i tråd, således den hele tiden tjekker om alarmen skal starte 
 
             while (IsMeasureActive)
             {

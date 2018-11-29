@@ -26,7 +26,6 @@ namespace LogicLayer
             _collection = collection;
 
         }
-
        
 
         public double GetZeroAdjustmentValue()

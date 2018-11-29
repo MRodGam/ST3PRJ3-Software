@@ -51,6 +51,7 @@
     <Compile Include="IFilter.cs" />
     <Compile Include="ILimits.cs" />
     <Compile Include="IMeasure.cs" />
+    <Compile Include="IObserver.cs" />
     <Compile Include="IPulse.cs" />
     <Compile Include="ISave.cs" />
     <Compile Include="IZeroAdjustment.cs" />
