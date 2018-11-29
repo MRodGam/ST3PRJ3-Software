@@ -1,6 +1,6 @@
 ﻿namespace Presentation
 {
-    partial class filter
+    partial class MainGUI
     {
         /// <summary>
         /// Required designer variable.
@@ -39,6 +39,9 @@
             this.pauseB = new System.Windows.Forms.Button();
             this.FilterRB = new System.Windows.Forms.RadioButton();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.pulsLabel = new System.Windows.Forms.Label();
+            this.blodtrykLabel = new System.Windows.Forms.Label();
+            this.middelLabel = new System.Windows.Forms.Label();
             button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
@@ -105,6 +108,7 @@
             this.clearB.TabIndex = 3;
             this.clearB.Text = "Ryd";
             this.clearB.UseVisualStyleBackColor = false;
+            this.clearB.Click += new System.EventHandler(this.clearB_Click);
             // 
             // pauseB
             // 
@@ -119,7 +123,6 @@
             this.pauseB.Text = "Kvitter alarm ";
             this.pauseB.UseVisualStyleBackColor = false;
             this.pauseB.Visible = false;
-            this.pauseB.Click += new System.EventHandler(this.pauseB_Click);
             // 
             // FilterRB
             // 
@@ -157,12 +160,48 @@
             this.chart1.TabIndex = 7;
             this.chart1.Text = "chart1";
             // 
-            // filter
+            // pulsLabel
+            // 
+            this.pulsLabel.AutoSize = true;
+            this.pulsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pulsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.pulsLabel.Location = new System.Drawing.Point(504, 35);
+            this.pulsLabel.Name = "pulsLabel";
+            this.pulsLabel.Size = new System.Drawing.Size(39, 20);
+            this.pulsLabel.TabIndex = 8;
+            this.pulsLabel.Text = "Puls";
+            // 
+            // blodtrykLabel
+            // 
+            this.blodtrykLabel.AutoSize = true;
+            this.blodtrykLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blodtrykLabel.ForeColor = System.Drawing.Color.Red;
+            this.blodtrykLabel.Location = new System.Drawing.Point(500, 104);
+            this.blodtrykLabel.Name = "blodtrykLabel";
+            this.blodtrykLabel.Size = new System.Drawing.Size(66, 20);
+            this.blodtrykLabel.TabIndex = 9;
+            this.blodtrykLabel.Text = "Blodtryk";
+            // 
+            // middelLabel
+            // 
+            this.middelLabel.AutoSize = true;
+            this.middelLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.middelLabel.ForeColor = System.Drawing.Color.Red;
+            this.middelLabel.Location = new System.Drawing.Point(500, 174);
+            this.middelLabel.Name = "middelLabel";
+            this.middelLabel.Size = new System.Drawing.Size(55, 20);
+            this.middelLabel.TabIndex = 10;
+            this.middelLabel.Text = "Middel";
+            // 
+            // MainGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.middelLabel);
+            this.Controls.Add(this.blodtrykLabel);
+            this.Controls.Add(this.pulsLabel);
             this.Controls.Add(this.chart1);
             this.Controls.Add(button1);
             this.Controls.Add(this.FilterRB);
@@ -172,7 +211,7 @@
             this.Controls.Add(this.limitsB);
             this.Controls.Add(this.StartB);
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "filter";
+            this.Name = "MainGUI";
             this.Text = "MainGUI";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
@@ -189,5 +228,8 @@
         private System.Windows.Forms.Button pauseB;
         private System.Windows.Forms.RadioButton FilterRB;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label pulsLabel;
+        private System.Windows.Forms.Label blodtrykLabel;
+        private System.Windows.Forms.Label middelLabel;
     }
 }
