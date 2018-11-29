@@ -17,10 +17,10 @@ namespace LogicLayer
         private DataTreatment dataTreatment;
         private UC5S1_Alarm AlarmController;
         private BloodPressureAlgo BloodPressureAlgo;
-        
+        private 
         
        
-        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController, BloodPressureAlgo bloodPressureAlgo)
+        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController, BloodPressureAlgo bloodPressureAlgo, )
         {
             Daq = actualDaq;
             dataTreatment = _dataTreatment;
@@ -30,6 +30,8 @@ namespace LogicLayer
 
         public void StartMeasurement()
         {
+            // skal hente calibration value
+
             Daq.Start();
             dataTreatment.StartGraphData();
             AlarmController.alarmThread.Set(); // Alarm klassen starter

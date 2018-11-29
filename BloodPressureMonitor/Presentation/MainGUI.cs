@@ -65,6 +65,7 @@ namespace Presentation
 
         private void StartB_Click(object sender, EventArgs e)
         {
+            
             Counter++;
 
             if (Counter % 2 == 0)
