@@ -31,7 +31,7 @@ namespace DataLayer
         {
             BinaryFormatter bf = new BinaryFormatter();
 
-            List<RawData> SaverawData = new List<RawData>(); 
+            List<SaveData> SaveData_ = new List<SaveData>();
 
             string a = "SELECT * FROM SaveData" + which;
             //Oprette SQL kommando
@@ -53,12 +53,12 @@ namespace DataLayer
                 }
 
                 //Data skrives til domain klasse SaveData
-                SaveData saveData = new SaveData(Convert.ToString(reader["Idno"]),
-                    Convert.ToString(reader["Procedure"]), Convert.ToString(reader["CPRno"]),
+                 SaveData saveData = new SaveData(Convert.ToString(reader["CPRno"]), Convert.ToString(reader["Idno"]),
+                    Convert.ToString(reader["Procedure"]), 
                     Convert.ToString(reader["Name"]),
                     Convert.ToDateTime(reader["timeAndDate"]), bloodPressureList,
                     Convert.ToDouble(reader["Calibrate"]));
-                SaverawData.Add(SaveData);
+                    SaveData_.Add(saveData);
             }
 
             //Lukke forbindelsen til DB
@@ -66,7 +66,7 @@ namespace DataLayer
             return GetCompletedMeasurement;
         }
 
-        public void SaveInDatabase(string IDno, string Procedure, string CPRno, DateTime timeAndDate, byte[] bloodpressureList, double Calibrate)
+        public void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name, DateTime timeAndDate, List<RawData> bloodpressureList, double Calibrate)
         {
             connectionP.Open();
             SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(IDno, Procedure, CPRno, Name, timeAndDate, CompletedMeasurement, Calibrate) VALUES(@IDno, @Procedure, @CPRno, @Name, @timeAndDate, @CompletedMeasurement, @Calibrate)", connectionP);

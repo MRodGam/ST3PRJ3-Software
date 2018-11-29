@@ -9,8 +9,9 @@ namespace DataLayer
 {
     public interface IData
     {
-        void SaveInDatabase(string IDno, string Procedure, string CPRno, DateTime timeAndDate,
-            byte[] bloodpressureList, double Calibrate);
+        void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name,  DateTime timeAndDate,
+            List<RawData> bloodpressureList, double Calibrate);
+        
 
         List<RawData> rawData(string which);
 
