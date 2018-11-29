@@ -6,7 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Domain
+    
 {
+    
     public class BloodPressureAlgo
     {
         //Converted data listen, som indeholder tryk-værdier, gennemløbes hvert sekund. Der puttes et "vindue" ned over listen, 
@@ -39,12 +41,12 @@ namespace Domain
         //    _convertedData = new List<ConvertedData>();
         //}
 
-        public List<double> WindowOfConvertedData(List<ConvertedData> convertedData)
+        public BloodPressure WindowOfConvertedData(List<ConvertedData> convertedData)
         {
-            BloodPressureThread.WaitOne(); // kører i tråd, således den hele tiden tjekker om alarmen skal starte. Startes i UCM2_UC3M3_Measure
+            //BloodPressureThread.WaitOne(); // kører i tråd, således den hele tiden tjekker om alarmen skal starte. Startes i UCM2_UC3M3_Measure
 
-            while (true) // så længe målingen kører -> hvordan skrives det, er der er properti der skal sættes til true i UCMeasure?
-            {
+            //while (true) // så længe målingen kører -> hvordan skrives det, er der er properti der skal sættes til true i UCMeasure?
+            
                 //CountConvertedDataList = convertedData.Count; // længden af listen sættes lig med attributten "CountConvertedDataList"
 
                 _samplesPrPuls = _nSamplesPrMin / pulseAlgo.PulseValue; // beregner antallet af samples der er mellem hvert pulsslag
@@ -78,8 +80,10 @@ namespace Domain
                 //FindSystolic();
                 //FindDiastolic();
                 //FindMean();
-                BloodPressure BP = new BloodPressure(FindSystolic(), FindDiastolic(), FindMean()); // er det rigtigt?
-            }
+            
+            
+                return new BloodPressure(FindSystolic(), FindDiastolic(), FindMean()); // er det rigtigt?
+            
 
             
         }
