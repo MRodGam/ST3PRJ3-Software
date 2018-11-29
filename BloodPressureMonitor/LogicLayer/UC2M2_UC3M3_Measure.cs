@@ -37,7 +37,7 @@ namespace LogicLayer
         public void StartMeasurement()
         {
             
-            CaliValue = Database.GetCalibration(); // henter værdien for kalibering i databasen og sætter lig med CaliValue 
+            CaliValue = Database.GetCalibrateValue(); // henter værdien for kalibering i databasen og sætter lig med CaliValue. OBS skal den sættes her? 
             
 
             Daq.Start();

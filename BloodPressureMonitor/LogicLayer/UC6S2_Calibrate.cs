@@ -51,7 +51,7 @@ namespace LogicLayer
             double _voltagePoint = 0.0;
             
             
-            measure.StartMeasurement(); // start måling 
+            Measure.StartMeasurement(); // start måling 
 
             //voltageList.AddRange(_collection.Take()); // Tilføj samples til liste, OBS virker ikke? 
             
@@ -65,7 +65,7 @@ namespace LogicLayer
 
             if (_voltagePoint != 0.0)
             {
-                measure.StopMeasurement();// slutter måling 
+                Measure.StopMeasurement();// slutter måling 
             }
             
             return _voltagePoint;

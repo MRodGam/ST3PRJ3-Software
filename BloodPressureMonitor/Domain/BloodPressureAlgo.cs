@@ -27,7 +27,7 @@ namespace Domain
 
 
         // bruges i metoden WindowOfConvertedData
-        private PulseAlgo pulseAlgo = new PulseAlgo();
+        private PulseAlgo PulseAlgo;
         //private List<double> _windowOfConvertedData;// 
         private int _nSamplesPrMin = 60000; // antal samples pr. minut
         private int _samplesPrPuls; // antal sample pr. puls
@@ -36,10 +36,11 @@ namespace Domain
 
 
 
-        //public BloodPressureAlgo(List<ConvertedData> _convertedData)
-        //{
-        //    _convertedData = new List<ConvertedData>();
-        //}
+        public BloodPressureAlgo(/*List<ConvertedData> _convertedData*/ PulseAlgo pulseAlgo)
+        {
+            //_convertedData = new List<ConvertedData>();
+            PulseAlgo = pulseAlgo;
+        }
 
         public BloodPressure WindowOfConvertedData(List<ConvertedData> convertedData)
         {
@@ -49,7 +50,7 @@ namespace Domain
             
                 //CountConvertedDataList = convertedData.Count; // længden af listen sættes lig med attributten "CountConvertedDataList"
 
-                _samplesPrPuls = _nSamplesPrMin / pulseAlgo.PulseValue; // beregner antallet af samples der er mellem hvert pulsslag
+                _samplesPrPuls = _nSamplesPrMin / PulseAlgo.PulseValue; // beregner antallet af samples der er mellem hvert pulsslag
 
                 //if (CountConvertedDataList>Window) // hvis længden af listen for convertedData er længere end window (som er 2000)
                 //{
