@@ -17,6 +17,7 @@ namespace LogicLayer
         private BlockingCollection<RawData> _collection;
         
         private CalibrationValue _calibration;
+        private UC2M2_UC3M3_Measure Measure;
 
         private double[] voltageArray = new double[4];
         private double[] pressureArray = new double[4];
@@ -24,9 +25,10 @@ namespace LogicLayer
         private double _voltagePoint;
         
 
-        public UC6S2_Calibrate(BlockingCollection<RawData> collection)
+        public UC6S2_Calibrate(BlockingCollection<RawData> collection, UC2M2_UC3M3_Measure measure)
         {
             _collection = collection;
+            Measure = measure;
 
         }
 
@@ -41,7 +43,7 @@ namespace LogicLayer
 
         public double GetOneVoltagePoint() // køres for hver volt måling (kaldes i metoden AddVoltage()
         {
-            IMeasure measure = new UC2M2_UC3M3_Measure();
+            
             //UC2M2_UC3M3_Measure measure = new UC2M2_UC3M3_Measure();
             double totalVoltageValue = 0;
             double _voltagePoint = 0.0;

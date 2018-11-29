@@ -19,7 +19,7 @@ namespace LogicLayer
         private BloodPressureAlgo BloodPressureAlgo;
         
         
-        
+       
         public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController, BloodPressureAlgo bloodPressureAlgo)
         {
             Daq = actualDaq;
