@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    interface IAlarmType
+    public interface IAlarmType
     {
         void RunAlarm();
         void MuteAlarm();

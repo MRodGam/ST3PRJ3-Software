@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    class HighAlarm : IAlarmType 
+    public class HighAlarm : IAlarmType 
     {
         // player reference oprettes
         SoundPlayer player = new SoundPlayer();
@@ -28,14 +28,15 @@ namespace LogicLayer
        
         public void StopAlarm()
         {
-            if (runAlarm == false) // alarm stopper
-            {
-                // lydfilen stopper
+            //if (runAlarm == false) // alarm stopper
+            //{
+
+                // lydfilen stopper når denne metode kaldes
                 player.Stop();
 
                 // brugergrænsefladen bliver normal igen (tal for blodtryk bliver grønne, knappen "kvitter alarm" usynliggøres)
 
-            }
+            //}
 
 
 

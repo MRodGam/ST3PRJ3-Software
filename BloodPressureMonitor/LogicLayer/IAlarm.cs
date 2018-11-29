@@ -8,9 +8,10 @@ namespace LogicLayer
 {
     public interface IAlarm
     {
-        void PlayAlarm();
-        void MuteAlarm();
-        void StopAlarm();
-        bool GetIsAlarmActive();
+        void ControlAlarm();
+        //void MuteAlarm();
+        //void StopAlarm();
+        //bool GetIsAlarmActive();
+
     }
 }

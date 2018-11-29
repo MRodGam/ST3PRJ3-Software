@@ -195,17 +195,19 @@
             // 
             this.lowerLimit.Location = new System.Drawing.Point(30, 131);
             this.lowerLimit.Name = "lowerLimit";
-            this.lowerLimit.Size = new System.Drawing.Size(100, 20);
+            this.lowerLimit.Size = new System.Drawing.Size(100, 26);
             this.lowerLimit.TabIndex = 11;
             this.lowerLimit.Click += new System.EventHandler(this.lowerLimit_Click);
+            this.lowerLimit.TextChanged += new System.EventHandler(this.lowerLimit_TextChanged);
             // 
             // upperLimit
             // 
             this.upperLimit.Location = new System.Drawing.Point(30, 84);
             this.upperLimit.Name = "upperLimit";
-            this.upperLimit.Size = new System.Drawing.Size(100, 20);
+            this.upperLimit.Size = new System.Drawing.Size(100, 26);
             this.upperLimit.TabIndex = 12;
             this.upperLimit.Click += new System.EventHandler(this.upperLimit_Click);
+            this.upperLimit.TextChanged += new System.EventHandler(this.upperLimit_TextChanged);
             // 
             // okB
             // 
@@ -219,6 +221,7 @@
             this.okB.TabIndex = 13;
             this.okB.Text = "OK";
             this.okB.UseVisualStyleBackColor = false;
+            this.okB.Click += new System.EventHandler(this.okB_Click);
             // 
             // label3
             // 
@@ -227,7 +230,7 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(30, 64);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 15);
+            this.label3.Size = new System.Drawing.Size(160, 22);
             this.label3.TabIndex = 14;
             this.label3.Text = "Øvre grænseværdi";
             // 
@@ -238,7 +241,7 @@
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(27, 113);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(116, 15);
+            this.label4.Size = new System.Drawing.Size(170, 22);
             this.label4.TabIndex = 15;
             this.label4.Text = "Nedre grænseværdi";
             // 
@@ -249,7 +252,7 @@
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(27, 35);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(146, 18);
+            this.label5.Size = new System.Drawing.Size(220, 29);
             this.label5.TabIndex = 16;
             this.label5.Text = "Grænseværdier";
             // 
