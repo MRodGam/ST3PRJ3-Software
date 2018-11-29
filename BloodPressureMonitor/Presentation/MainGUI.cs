@@ -121,9 +121,9 @@ namespace Presentation
 
         }
 
-        private void saveB_Click(object sender, EventArgs e)
+        private void clearB_Click(object sender, EventArgs e)
         {
-            //SaveDataGUI.Show();
+            cla
         }
     }
 }
