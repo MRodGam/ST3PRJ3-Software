@@ -124,7 +124,7 @@ namespace Presentation
 
         private void clearB_Click(object sender, EventArgs e)
         {
-            cla
+            
         }
     }
 }

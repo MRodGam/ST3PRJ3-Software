@@ -27,6 +27,8 @@ namespace DataLayer
         {
             connectionP = new SqlConnection("Data Source=st-i4dab.E18ST3PRJ3Gr3.dbo;Initial Catalog=" + DBlogin +
                                             ";Persist Security Info=True;User ID=" + DBlogin + ";Password=" + DBlogin + "");
+
+           
         }
 
         public List<RawData> rawData(string which)
@@ -58,9 +60,9 @@ namespace DataLayer
                  SaveData saveData = new SaveData(Convert.ToString(reader["CPRno"]), Convert.ToString(reader["Idno"]),
                     Convert.ToString(reader["Procedure"]), 
                     Convert.ToString(reader["Name"]),
-                    Convert.ToDateTime(reader["timeAndDate"]), bloodPressureList,
-                    Convert.ToDouble(reader["Calibrate"]));
-                    SaveData_.Add(saveData);
+                    Convert.ToDateTime(reader["timeAndDate"]), bloodPressureList);
+                //Convert.ToDouble(reader["Calibrate"]));
+                SaveData_.Add(saveData);
             }
 
             //Lukke forbindelsen til DB
@@ -81,7 +83,7 @@ namespace DataLayer
             connectionP.Close();
         }
 
-        public double GetCalibrateValue()
+        public double GetCalibrateValue() //henter kalibreringværdi
         {
             command.CommandText = "select * from Calibrate where calibrate=@Calibrate";
             command.Parameters.Add("Calibrate",SqlDbType.VarChar).Value = calibrateDatabaseValue;
@@ -90,7 +92,7 @@ namespace DataLayer
             return calibrateDatabaseValue;
         }
 
-        public void SaveCalibrateValue(double Calibrate)
+        public void SaveCalibrateValue(double Calibrate) //gemmer kalibreringsværdi
         {
             //skal gemme clibrate-værdi
             connectionP.Open(); //hvad sker der her? 
