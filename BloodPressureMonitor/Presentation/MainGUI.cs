@@ -46,6 +46,7 @@ namespace Presentation
         public void Update(IDataTreatment dataInterface)
         {
             graphList = dataInterface.FilterData();
+            
         }
 
         private static void UpdateGraph(List<ConvertedData> graphList)
@@ -60,7 +61,52 @@ namespace Presentation
                 {
                     chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
                 }
+
+                if (alarm.GetIsAlarmRunning()==true)
+                {
+                    ActiveAlarmUpdate(); // skal være static eller?
+                   
+                                        
+                }
+                // if sætning ift hvis Alarmen kvitteres 
+
+                if (alarm.GetIsAlarmRunning()==false)
+                {
+                    DeactiveAlarmUpdate();
+
+                }
             }
+        }
+
+        private void ActiveAlarmUpdate()// skal være static eller?
+        {
+           blodtryk_L.ForeColor = Color.Red;
+           middel_L.ForeColor = Color.Red;
+
+            while (alarm.GetIsAlarmRunning()==true)
+            {
+                // tallene for blodtryk skal blinke med en bestemt frekvens 
+                // billede for aktiv alarm skal være synlig
+            }
+
+
+        }
+
+        private void DeactiveAlarmUodate()
+        {
+            blodtryk_L.ForeColor = Color.DarkGreen;
+            middel_L.ForeColor = Color.DarkGreen;
+            // tallene for blodtryk skal STOPPE med at blinke
+
+            // alle billeder/tegn for alarm skal være usynlige igen 
+
+        }
+
+        private void MuteAlarmUpdate()
+        {
+            // design for GUI når alarmen kvitteres 
+
+            // billede for mute alarm skal være synlig 
         }
 
         private void StartB_Click(object sender, EventArgs e)
@@ -71,7 +117,7 @@ namespace Presentation
             if (Counter % 2 == 0)
             {
                 Measure.StartMeasurement();
-
+                
                 Running = true;
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
@@ -125,6 +171,11 @@ namespace Presentation
         private void clearB_Click(object sender, EventArgs e)
         {
             cla
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

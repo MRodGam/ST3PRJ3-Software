@@ -23,6 +23,7 @@ namespace LogicLayer
 
         //public bool IsAlarmActive { get; private set; } = false;
         public bool IsMeasureActive { get; set; } // sættes i UC2M2_UCM3_Measure
+        public bool IsAlarmRunning { get; private set; } = false;
 
         public UC5S1_Alarm(IDataTreatment dataTreatment,ILimits limits, BloodPressure bloodPressure, IAlarmType alarmType )
         {
@@ -53,7 +54,7 @@ namespace LogicLayer
                     BloodPressure.Systolic > Limits.GetUpperLimit() )
                 {
                     AlarmType.RunAlarm();
-                    //IsAlarmActive = true;
+                    IsAlarmRunning = true;
                 }
 
                 // alarmen stopper hvis værdierne for blodtrykket ligger indenfor grænseværdierne 
@@ -61,12 +62,17 @@ namespace LogicLayer
                     BloodPressure.Systolic <= Limits.GetUpperLimit())
                 {
                     AlarmType.StopAlarm();
-                    //IsAlarmActive = false;
+                    IsAlarmRunning = false;
                 }
 
             }
+            
 
+        }
 
+        public bool GetIsAlarmRunning()
+        {
+            return IsAlarmRunning;
         }
 
         public void MuteAlarm()// denne metode kaldes inde i eventhandleren for knappen kvitteralarm
