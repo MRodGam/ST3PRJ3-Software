@@ -170,7 +170,7 @@ namespace Presentation
 
         private void clearB_Click(object sender, EventArgs e)
         {
-            cla
+            
         }
 
         private void label2_Click(object sender, EventArgs e)

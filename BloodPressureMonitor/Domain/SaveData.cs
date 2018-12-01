@@ -17,7 +17,7 @@ namespace Domain
         private double calibrate_;
 
         public SaveData(string CPRno, string Idno, string procedure, string name,
-            DateTime timeAndDate, List<RawData> completedMeasurement,  double calibrate)
+            DateTime timeAndDate, List<RawData> completedMeasurement) //,  double calibrate)
         {
             CPRno_ = CPRno;
             Idno_ = Idno;
@@ -25,7 +25,7 @@ namespace Domain
             name_ = name;
             timeAndDate_ = timeAndDate.Date.ToString("MM/dd/yyyy");
             completedMeasurement_ = completedMeasurement;
-            calibrate_ = calibrate;
+            //calibrate_ = calibrate;
         }
 
         public SaveData()
