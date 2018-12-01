@@ -19,6 +19,7 @@ namespace LogicLayer
         private IMeasure Measure;
         private BlockingCollection<RawData> _collection;
         public double ZeroAdjustmentValue { get; private set; }
+        private double TotalValue=0;
 
 
         public UC1M1_ZeroAdjustment(BlockingCollection<RawData> collection, IMeasure measure)
@@ -35,9 +36,17 @@ namespace LogicLayer
 
             Measure.StartMeasurement(); // start måling 
 
-            ZeroAdjustmentValue = _collection.Take().Voltage; // sætter ZeroAdjustmentValue lig med det der måles
+           
 
-            if (ZeroAdjustmentValue != 90.00) // anden måde at tjekke det på?
+            for (int i = 0; i < 5; i++) // tager fem målinger
+            {
+                TotalValue = _collection.Take().Voltage; // sætter ZeroAdjustmentValue lig med det der måles
+                
+
+            }
+            ZeroAdjustmentValue = TotalValue / 5;
+
+            if (ZeroAdjustmentValue > -10) // ?? rigtig
             {
                 Measure.StopMeasurement();// slutter måling 
             }

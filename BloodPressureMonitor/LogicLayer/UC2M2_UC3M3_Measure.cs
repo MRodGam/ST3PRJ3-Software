@@ -37,9 +37,7 @@ namespace LogicLayer
         public void StartMeasurement()
         {
             
-            CaliValue = Database.GetCalibrateValue(); // henter værdien for kalibering i databasen og sætter lig med CaliValue. OBS skal den sættes her? 
-            
-
+            //CaliValue = Database.GetCalibrateValue(); // henter værdien for kalibering i databasen og sætter lig med CaliValue. OBS skal den sættes her? 
             Daq.Start();
             dataTreatment.StartGraphData();
             AlarmController.alarmThread.Set(); // Alarm klassen starter

@@ -15,9 +15,10 @@ namespace LogicLayer
     {
        
         private BlockingCollection<RawData> _collection;
-        //private CalibrationValue _calibration;
+        private CalibrationValue _calibration;
         private IMeasure Measure;
         private IData Database;
+        private ConvertedData ConvertData;
 
         private double[] voltageArray = new double[4];
         private double[] pressureArray = new double[4];
@@ -26,11 +27,12 @@ namespace LogicLayer
        
         
 
-        public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database)
+        public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database, ConvertedData convertData)
         {
             _collection = collection;
             Measure = measure;
             Database = database;
+            ConvertData = convertData;
 
         }
 
@@ -114,10 +116,13 @@ namespace LogicLayer
             }
             
             double a = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
-            
+
             // skal gemmes ned i en databasen
-            //_calibration = new CalibrationValue(a); // sætter CalibrationsValue til _a
+
+            _calibration = new CalibrationValue(a); // sætter CalibrationsValue til _a
+          
             Database.SaveCalibrateValue(a); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+
         }
 
     }

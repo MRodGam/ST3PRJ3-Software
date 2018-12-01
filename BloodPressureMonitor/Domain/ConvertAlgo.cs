@@ -12,15 +12,18 @@ namespace Domain
         public double Second { get; private set; }
         public double Voltage { get; private set; }
         public double Pressure { get; private set; }
-        private CalibrationValue calibration;
+        //private CalibrationValue calibration;
+        public double CalibrationValue { get; private set; }
+        
 
-        public double ConvertData(double second, double voltage)
+        public double ConvertData(double second, double voltage, double cal)
         {
             // Calculate pressure from voltage
             Voltage = voltage;
             Second = second;
+            CalibrationValue = cal;
 
-            return Pressure =  Voltage * calibration.Value;
+            return Pressure =  Voltage * CalibrationValue;
             
         }
 
