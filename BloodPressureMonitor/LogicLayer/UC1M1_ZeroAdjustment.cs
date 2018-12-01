@@ -18,7 +18,7 @@ namespace LogicLayer
 
         private IMeasure Measure;
         private BlockingCollection<RawData> _collection;
-        public double ZeroAdjustmentValue { get; private set; }
+        public double ZeroAdjustmentValue { get; private set; } = -11; // -11 fordi så kan den ikke gå ind i if-sætning hvis ikke den har lavet en måling og derved ændret værdien
         private double TotalValue=0;
 
 
@@ -46,7 +46,7 @@ namespace LogicLayer
             }
             ZeroAdjustmentValue = TotalValue / 5;
 
-            if (ZeroAdjustmentValue > -10) // ?? rigtig
+            if (ZeroAdjustmentValue > -10) // skrives på anden måde måske?
             {
                 Measure.StopMeasurement();// slutter måling 
             }

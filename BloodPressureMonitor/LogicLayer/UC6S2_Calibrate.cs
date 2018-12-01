@@ -20,13 +20,14 @@ namespace LogicLayer
         private IData Database;
         private ConvertedData ConvertData;
 
-        private double[] voltageArray = new double[4];
-        private double[] pressureArray = new double[4];
+        private double[] voltageArray = new double[5]; // array indeholder 5 pladser da vi tager fem målinger i kalibreringen
+        private double[] pressureArray = new double[5];
+
         private int _tæller = 0;
         private double _voltagePoint;
-       
-        
 
+        public bool IsAll5MeasureDone = false;
+        
         public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database, ConvertedData convertData)
         {
             _collection = collection;
@@ -78,13 +79,22 @@ namespace LogicLayer
             if (_tæller == 5) 
             {
                 _tæller = 0;
+                IsAll5MeasureDone = false;
             }
 
             voltageArray[_tæller] = voltage; // tilføjer volt værdi i array
             pressureArray[_tæller] = pressure; // tilføjer tryk-værdi i array
             _tæller++;
+            if (_tæller == 5)
+            {
+                IsAll5MeasureDone = true;
+            }
         }
 
+        public bool GetIsAll5MeasureDone()
+        {
+            return IsAll5MeasureDone;
+        }
 
         //lineær regrssion 
 
@@ -100,18 +110,16 @@ namespace LogicLayer
 
         public void DoCalibrateRegression()
         {
+           
             // regressions kode
-            double[] volt = new double[] {voltageArray[0], voltageArray[1], voltageArray[2], voltageArray[3], voltageArray[4]};
-            double[] pressure = new double[] {pressureArray[0],pressureArray[1], pressureArray[2],pressureArray[3],pressureArray[4]};
-
-            double n = volt.Length;
+            double n = voltageArray.Length;
             double sumxy = 0, sumx = 0, sumy = 0, sumx2 = 0;
-            for (int i = 0; i < volt.Length; i++)
+            for (int i = 0; i < voltageArray.Length; i++)
             {
-                sumxy += volt[i] * pressure[i];
-                sumx += volt[i];
-                sumy += pressure[i];
-                sumx2 += volt[i] * volt[i];
+                sumxy += voltageArray[i] * pressureArray[i];
+                sumx += voltageArray[i];
+                sumy += pressureArray[i];
+                sumx2 += voltageArray[i] * voltageArray[i];
 
             }
             
