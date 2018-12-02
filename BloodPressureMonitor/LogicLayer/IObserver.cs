@@ -9,7 +9,6 @@ namespace LogicLayer
     public interface IObserver
     {
         void Update();
-        void Attach();
 
     }
 }
