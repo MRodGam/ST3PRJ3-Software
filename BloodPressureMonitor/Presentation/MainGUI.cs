@@ -30,6 +30,7 @@ namespace Presentation
 
 
         public int Counter { get; private set; } = 0;
+        public bool Running { get; private set; } = false;
 
         public MainGUI(IDataTreatment data)
         {
@@ -39,13 +40,13 @@ namespace Presentation
             muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
             muteAlarm = new HighAlarm(); 
             dataTreatment = data;
-            dataTreatment.Attach(this);
+            dataTreatment.Attach(this); // Lars
             graphList = new List<ConvertedData>();
         }
 
-        public void Update(IDataTreatment dataInterface)
+        public void Update()
         {
-            graphList = dataInterface.FilterData();
+            graphList = dataTreatment.FilterData();
         }
 
         private static void UpdateGraph(List<ConvertedData> graphList)
@@ -53,12 +54,14 @@ namespace Presentation
             if (chart1.InvokeRequired)
             {
                 chart1.Invoke(new updateGraphDelegate(UpdateGraph), new object[]{graphList});
+                // get other values to update with
             }
             else
             {
                 foreach (var sample in graphList)
                 {
                     chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
+                    // Update other values
                 }
             }
         }
@@ -112,7 +115,7 @@ namespace Presentation
         {
             if (Running == true && FilterRB.Checked)
             {
-                dataTreatment.StartFilter(); //Mangler forbindelse til interface
+                dataTreatment.StartFilter(); // Mangler forbindelse til interface
             }
         }
     }
