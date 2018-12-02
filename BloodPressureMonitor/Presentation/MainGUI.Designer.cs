@@ -39,6 +39,9 @@
             this.pauseB = new System.Windows.Forms.Button();
             this.FilterRB = new System.Windows.Forms.RadioButton();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label1 = new System.Windows.Forms.Label();
+            this.middel_L = new System.Windows.Forms.Label();
+            this.blodtryk_L = new System.Windows.Forms.Label();
             button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +72,7 @@
             this.StartB.TabIndex = 0;
             this.StartB.Text = "START MÅLING";
             this.StartB.UseVisualStyleBackColor = false;
+            this.StartB.Click += new System.EventHandler(this.StartB_Click_1);
             // 
             // limitsB
             // 
@@ -108,6 +112,7 @@
             this.clearB.TabIndex = 3;
             this.clearB.Text = "Ryd";
             this.clearB.UseVisualStyleBackColor = false;
+            this.clearB.Click += new System.EventHandler(this.clearB_Click);
             // 
             // pauseB
             // 
@@ -115,7 +120,7 @@
             this.pauseB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.pauseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseB.ForeColor = System.Drawing.Color.White;
-            this.pauseB.Location = new System.Drawing.Point(244, 477);
+            this.pauseB.Location = new System.Drawing.Point(246, 477);
             this.pauseB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pauseB.Name = "pauseB";
             this.pauseB.Size = new System.Drawing.Size(448, 71);
@@ -163,12 +168,52 @@
             this.chart1.TabIndex = 7;
             this.chart1.Text = "chart1";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label1.Location = new System.Drawing.Point(723, 42);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 29);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Puls";
+            // 
+            // middel_L
+            // 
+            this.middel_L.AutoSize = true;
+            this.middel_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.middel_L.ForeColor = System.Drawing.Color.DarkGreen;
+            this.middel_L.Location = new System.Drawing.Point(723, 262);
+            this.middel_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.middel_L.Name = "middel_L";
+            this.middel_L.Size = new System.Drawing.Size(93, 29);
+            this.middel_L.TabIndex = 9;
+            this.middel_L.Text = "Middel";
+            this.middel_L.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // blodtryk_L
+            // 
+            this.blodtryk_L.AutoSize = true;
+            this.blodtryk_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blodtryk_L.ForeColor = System.Drawing.Color.DarkGreen;
+            this.blodtryk_L.Location = new System.Drawing.Point(723, 138);
+            this.blodtryk_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.blodtryk_L.Name = "blodtryk_L";
+            this.blodtryk_L.Size = new System.Drawing.Size(108, 29);
+            this.blodtryk_L.TabIndex = 11;
+            this.blodtryk_L.Text = "Blodtryk";
+            // 
             // MainGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(900, 563);
+            this.Controls.Add(this.blodtryk_L);
+            this.Controls.Add(this.middel_L);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chart1);
             this.Controls.Add(button1);
             this.Controls.Add(this.FilterRB);
@@ -179,7 +224,6 @@
             this.Controls.Add(this.StartB);
             this.Name = "MainGUI";
             this.Text = "MainGUI";
-          
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -195,5 +239,8 @@
         private System.Windows.Forms.Button pauseB;
         private System.Windows.Forms.RadioButton FilterRB;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label middel_L;
+        private System.Windows.Forms.Label blodtryk_L;
     }
 }

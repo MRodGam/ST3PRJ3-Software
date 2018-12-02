@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Domain
+    
 {
-    class BloodPressureAlgo
+    
+    public class BloodPressureAlgo
     {
         //Converted data listen, som indeholder tryk-værdier, gennemløbes hvert sekund. Der puttes et "vindue" ned over listen, 
         //således jeg tjekker tryk-værdier igennem for 1 sekund, og her finder henholdsvis maks og min og gennemsnit for disse værdier. 
         // dette skal køre så længe der måles, dvs. skal køre i en while(true)
 
         //DataTreatment dataTreatment = new DataTreatment(); // what?
-        
+
         public int SysBP { get; private set; }
         public int DiaBP { get; private set; }
         public int MeanBP { get; private set; }
@@ -24,26 +27,30 @@ namespace Domain
 
 
         // bruges i metoden WindowOfConvertedData
-        private PulseAlgo pulseAlgo;
-        private List<double> _windowOfConvertedData;// 
+        private PulseAlgo PulseAlgo;
+        //private List<double> _windowOfConvertedData;// 
         private int _nSamplesPrMin = 60000; // antal samples pr. minut
         private int _samplesPrPuls; // antal sample pr. puls
         private List<double> _windowList = new List<double>(); // listen oprettes
+        public AutoResetEvent BloodPressureThread { get; set; } // tråd som alarm klassen kører på
 
 
 
-        //public BloodPressureAlgo(List<ConvertedData> _convertedData)
-        //{
-        //    _convertedData = new List<ConvertedData>();
-        //}
-
-        public List<double> WindowOfConvertedData(List<ConvertedData> convertedData)
+        public BloodPressureAlgo(/*List<ConvertedData> _convertedData*/ PulseAlgo pulseAlgo)
         {
-            while (true) // så længe målingen kører -> hvordan skrives det, er der er properti der skal sættes til true i UCMeasure?
-            {
+            //_convertedData = new List<ConvertedData>();
+            PulseAlgo = pulseAlgo;
+        }
+
+        public BloodPressure WindowOfConvertedData(List<ConvertedData> convertedData)
+        {
+            //BloodPressureThread.WaitOne(); // kører i tråd, således den hele tiden tjekker om alarmen skal starte. Startes i UCM2_UC3M3_Measure
+
+            //while (true) // så længe målingen kører -> hvordan skrives det, er der er properti der skal sættes til true i UCMeasure?
+            
                 //CountConvertedDataList = convertedData.Count; // længden af listen sættes lig med attributten "CountConvertedDataList"
 
-                _samplesPrPuls = _nSamplesPrMin / pulseAlgo.PulseValue; // beregner antallet af samples der er mellem hvert pulsslag
+                _samplesPrPuls = _nSamplesPrMin / PulseAlgo.PulseValue; // beregner antallet af samples der er mellem hvert pulsslag
 
                 //if (CountConvertedDataList>Window) // hvis længden af listen for convertedData er længere end window (som er 2000)
                 //{
@@ -71,10 +78,13 @@ namespace Domain
 
                 // for hvert sekund (for hver gang vi opdatere skærmen) skal disse metoder kaldes -> hvor skal det stå, i metoderne?
                 // Starter algoritmerne 
-                FindSystolic();
-                FindDiastolic();
-                FindMean();
-            }
+                //FindSystolic();
+                //FindDiastolic();
+                //FindMean();
+            
+            
+                return new BloodPressure(FindSystolic(), FindDiastolic(), FindMean()); // er det rigtigt?
+            
 
             
         }
@@ -88,7 +98,7 @@ namespace Domain
 
             for (int i = 0; i < _windowList.Count; i++) // kommenter
             {
-                if (value <_windowOfConvertedData[i])
+                if (value <_windowList[i])
                 {
                     value = _windowList[i];
                 }
@@ -130,6 +140,8 @@ namespace Domain
 
             MeanBP = Convert.ToInt32(totalPressureValue / _windowList.Count); // gennemsnittet for trykværdierne findes
             return MeanBP;
+
+            
         }
     }
 }

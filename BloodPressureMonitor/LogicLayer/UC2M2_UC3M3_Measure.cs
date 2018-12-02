@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Policy;
@@ -16,20 +17,32 @@ namespace LogicLayer
         private IDAQ Daq;
         private DataTreatment dataTreatment;
         private UC5S1_Alarm AlarmController;
+        private BloodPressureAlgo BloodPressureAlgo;
+        private Database Database;
         
-        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController)
+
+        public double CaliValue { get; private set; }
+        
+       
+        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController, BloodPressureAlgo bloodPressureAlgo, Database database)
         {
             Daq = actualDaq;
             dataTreatment = _dataTreatment;
             AlarmController = alarmController;
+            BloodPressureAlgo = bloodPressureAlgo;
+            Database = database;
+            
         }
 
         public void StartMeasurement()
         {
+            
+            //CaliValue = Database.GetCalibrateValue(); // henter værdien for kalibering i databasen og sætter lig med CaliValue. OBS skal den sættes her? 
             Daq.Start();
             dataTreatment.StartGraphData();
             AlarmController.alarmThread.Set(); // Alarm klassen starter
             AlarmController.IsMeasureActive = true;
+            
         }
 
         public void StopMeasurement()
@@ -37,6 +50,7 @@ namespace LogicLayer
             Daq.Stop();
             dataTreatment.StopGraphData();
             AlarmController.IsMeasureActive = false;
+
         }
     }
 }

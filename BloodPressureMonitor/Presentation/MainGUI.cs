@@ -30,7 +30,6 @@ namespace Presentation
 
 
         public int Counter { get; private set; } = 0;
-        public bool Running { get; private set; } = false;
 
         public MainGUI(IDataTreatment data)
         {
@@ -40,13 +39,14 @@ namespace Presentation
             muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
             muteAlarm = new HighAlarm(); 
             dataTreatment = data;
-            dataTreatment.Attach(this); // Lars
+            dataTreatment.Attach(this);
             graphList = new List<ConvertedData>();
         }
 
-        public void Update()
+        public void Update(IDataTreatment dataInterface)
         {
-            graphList = dataTreatment.FilterData();
+            graphList = dataInterface.FilterData();
+            
         }
 
         private static void UpdateGraph(List<ConvertedData> graphList)
@@ -54,26 +54,70 @@ namespace Presentation
             if (chart1.InvokeRequired)
             {
                 chart1.Invoke(new updateGraphDelegate(UpdateGraph), new object[]{graphList});
-                // get other values to update with
             }
             else
             {
                 foreach (var sample in graphList)
                 {
                     chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
-                    // Update other values
+                }
+
+                if (alarm.GetIsAlarmRunning()==true)
+                {
+                    ActiveAlarmUpdate(); // skal være static eller?
+                   
+                                        
+                }
+                // if sætning ift hvis Alarmen kvitteres 
+
+                if (alarm.GetIsAlarmRunning()==false)
+                {
+                    DeactiveAlarmUpdate();
+
                 }
             }
         }
 
+        private void ActiveAlarmUpdate()// skal være static eller?
+        {
+           blodtryk_L.ForeColor = Color.Red;
+           middel_L.ForeColor = Color.Red;
+
+            while (alarm.GetIsAlarmRunning()==true)
+            {
+                // tallene for blodtryk skal blinke med en bestemt frekvens 
+                // billede for aktiv alarm skal være synlig
+            }
+
+
+        }
+
+        private void DeactiveAlarmUodate()
+        {
+            blodtryk_L.ForeColor = Color.DarkGreen;
+            middel_L.ForeColor = Color.DarkGreen;
+            // tallene for blodtryk skal STOPPE med at blinke
+
+            // alle billeder/tegn for alarm skal være usynlige igen 
+
+        }
+
+        private void MuteAlarmUpdate()
+        {
+            // design for GUI når alarmen kvitteres 
+
+            // billede for mute alarm skal være synlig 
+        }
+
         private void StartB_Click(object sender, EventArgs e)
         {
+            
             Counter++;
 
             if (Counter % 2 == 0)
             {
                 Measure.StartMeasurement();
-
+                
                 Running = true;
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
@@ -115,8 +159,23 @@ namespace Presentation
         {
             if (Running == true && FilterRB.Checked)
             {
-                dataTreatment.StartFilter(); // Mangler forbindelse til interface
+                dataTreatment.StartFilter(); //Mangler forbindelse til interface
             }
+        }
+
+        private void StartB_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clearB_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

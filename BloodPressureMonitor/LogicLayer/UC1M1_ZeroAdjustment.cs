@@ -12,37 +12,49 @@ namespace LogicLayer
     public class UC1M1_ZeroAdjustment : IZeroAdjustment
     {
         // når man trykke på nulpunktsjusterknappen skal målingen starte, og der tages en volt måling af collection
-                // det den måler skal den returner
+        // det den måler skal den returner
+        // det er meningen man blot skal måle ude i atmosfæren
 
 
-
-
+        private IMeasure Measure;
         private BlockingCollection<RawData> _collection;
-        public double ZeroAdjustmentValue { get; private set; }
+        public double ZeroAdjustmentValue { get; private set; } = -11; // -11 fordi så kan den ikke gå ind i if-sætning hvis ikke den har lavet en måling og derved ændret værdien
+        private double TotalValue=0;
 
 
-        public UC1M1_ZeroAdjustment(BlockingCollection<RawData> collection)
+        public UC1M1_ZeroAdjustment(BlockingCollection<RawData> collection, IMeasure measure)
         {
             _collection = collection;
+            Measure = measure;
 
         }
-
        
 
         public double GetZeroAdjustmentValue()
         {
-            IMeasure measure = new UC2M2_UC3M3_Measure(); // ???
+            
 
+            Measure.StartMeasurement(); // start måling 
 
-            measure.StartMeasurement(); // start måling 
+           
 
-            ZeroAdjustmentValue = _collection.Take().Voltage;
-
-            if (ZeroAdjustmentValue != 90.00) // anden måde at tjekke det på?
+            for (int i = 0; i < 5; i++) // tager fem målinger
             {
-                measure.StopMeasurement();// slutter måling 
+                TotalValue = _collection.Take().Voltage; // sætter ZeroAdjustmentValue lig med det der måles
+                
+
+            }
+            ZeroAdjustmentValue = TotalValue / 5;
+
+            if (ZeroAdjustmentValue > -10) // skrives på anden måde måske?
+            {
+                Measure.StopMeasurement();// slutter måling 
             }
             return ZeroAdjustmentValue;
+
+
+            // OBS skal give fejlmelding hvis det målete tryk overstiger normaltrykket med +%5. 
+            // Men hvad er normaltrykket? 0???
         }
 
 

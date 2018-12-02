@@ -18,6 +18,7 @@ namespace LogicLayer // Consumer
         private UC7S3_Filter FilterController;
         private UC1M1_ZeroAdjustment AdjustmentController;
         private Observer observer;
+        private IData DataInterface;
 
         private BlockingCollection<RawData> _collection;
         private static Thread DataCollectorThread;
@@ -27,6 +28,8 @@ namespace LogicLayer // Consumer
         public static List<RawData> DownsampledRawList;
         public static List<ConvertedData> ConvertedDataList;
         public static List<ConvertedData> GraphList;
+
+        public static double CaliValue { get; private set; }
       
         public static bool ShallStop { get; private set; }
         private static double Total { get; set; }
@@ -35,14 +38,16 @@ namespace LogicLayer // Consumer
         public static bool isListFull { get; private set; } = false;
 
 
-        public DataTreatment(BlockingCollection<RawData> collection, Observer obs)
+        public DataTreatment(BlockingCollection<RawData> collection, Observer obs, IData iData )
         {
+            DataInterface = iData;
             _collection = collection;
             observer = obs;
             FullList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
             DownsampledRawList = new List<RawData>();
             GraphList = new List<ConvertedData>();
+
 
             DataCollectorThread = new Thread(GetRawData);
             GraphThread = new Thread(MakeShortRawList);
@@ -82,6 +87,8 @@ namespace LogicLayer // Consumer
 
         public static void MakeShortRawList() // Lav en observer som fortæller når den er fuld
         {
+            CaliValue = DataInterface.GetCalibrateValue();
+
             while (!ShallStop)
             {
                 if (DownsampledRawList.Count < 300)
@@ -105,7 +112,7 @@ namespace LogicLayer // Consumer
                             foreach (var sample in DownsampledRawList)
                             {
                                 Time++;
-                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage))); ;
+                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage, CaliValue))); ;
                             }
                         }
                     }
@@ -126,7 +133,7 @@ namespace LogicLayer // Consumer
                             foreach (var sample in DownsampledRawList)
                             {
                                 Time++;
-                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage))); ;
+                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage, CaliValue))); ;
                             }
                         }
                     }

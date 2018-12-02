@@ -16,9 +16,7 @@ namespace Presentation
     public partial class SaveDataGUI : Form
     {
         private bool check = false;
-        private int puls_;
-        private int mean_;
-        private List<GetCompletMeasurement> getCompletMeasurements_; //omdøb
+        private string Idno_;
         private string procedure_;
         private string name_;
 
@@ -76,7 +74,8 @@ namespace Presentation
             else
             {
                 string cpr = cprTB1.Text + "-" + cprTB2.Text;
-                saveInterface.SaveDataLogic(navnTB.Text,cprTB1.Text, cprTB2.Text, medarbejderIDTB.Text, dateTimePicker1.Text);
+                saveInterface.SaveDataLogic(medarbejderIDTB.Text, procedureTB.Text, cpr, navnTB.Text,
+                    Convert.ToDateTime(dateTimePicker1.Text));
                 check = false;
                 this.Close();
             }
