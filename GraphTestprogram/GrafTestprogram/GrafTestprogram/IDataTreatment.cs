@@ -11,15 +11,15 @@ namespace LogicLayer
     {
         void StartGraphData();
         void StopGraphData();
+        void GetRawData();
         void MakeShortRawList();
         List<ConvertedData> GetGraphList();
         List<RawData> GetFilterList();
-        
 
         //Filter
-        void StartFilter();
-        void StopFilter();
-        void FilterData();
-        List<RawData> GetFilterData(); 
+        //void StartFilter();
+        //void StopFilter();
+        //void FilterData();
+        //List<RawData> GetFilterData(); 
     }
 }

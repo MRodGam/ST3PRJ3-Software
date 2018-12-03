@@ -14,13 +14,14 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class MainGUI : Form
+    public partial class MainGUI : Form, IObserver
     {
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
         private IDataTreatment dataTreatment;
         private IAlarmType muteAlarm;
+        private Observer observer;
 
         private BackgroundWorker muteAlarmWorker;
 
@@ -28,28 +29,34 @@ namespace Presentation
 
         private List<ConvertedData> graphList;
 
+        public bool Running { get; private set; }
+
 
         public int Counter { get; private set; } = 0;
 
         public MainGUI(IDataTreatment data)
         {
             InitializeComponent();
+
+            dataTreatment = data;
+            dataTreatment.Attach(this);
+
             muteAlarmWorker = new BackgroundWorker();
             muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
             muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
             muteAlarm = new HighAlarm(); 
-            dataTreatment = data;
-            dataTreatment.Attach(this);
+
             graphList = new List<ConvertedData>();
         }
 
         public void Update(IDataTreatment dataInterface)
         {
             graphList = dataInterface.FilterData();
+            UpdateGraph(graphList);
             
         }
 
-        private static void UpdateGraph(List<ConvertedData> graphList)
+        private static void UpdateGraph(List<ConvertedData> graphList) // Giver fejl, forid den er static - snak med Lars
         {
             if (chart1.InvokeRequired)
             {
@@ -114,7 +121,7 @@ namespace Presentation
             
             Counter++;
 
-            if (Counter % 2 == 0)
+            if (Counter % 2 != 0)
             {
                 Measure.StartMeasurement();
                 
@@ -122,7 +129,7 @@ namespace Presentation
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
             }
-            if (Counter % 2 != 0)
+            else
             {
                 Measure.StopMeasurement();
 

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    public interface IObserver
+    public interface IMeasure
     {
-        void Update();
-
+        void StartMeasurement();
+        void StopMeasurement();
     }
 }

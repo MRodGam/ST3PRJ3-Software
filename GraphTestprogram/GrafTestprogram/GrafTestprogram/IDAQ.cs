@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 
-namespace LogicLayer
+namespace DataLayer
 {
-    public interface IObserver
+    public interface IDAQ
     {
-        void Update();
+        void Start();
+        void Stop();
+        void GetRawData();
 
     }
 }
