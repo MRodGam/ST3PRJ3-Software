@@ -66,11 +66,11 @@
             this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.StartB.Location = new System.Drawing.Point(10, 310);
-            this.StartB.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.StartB.Margin = new System.Windows.Forms.Padding(2);
             this.StartB.Name = "StartB";
             this.StartB.Size = new System.Drawing.Size(148, 46);
             this.StartB.TabIndex = 0;
-            this.StartB.Text = "START MÅLING";
+            this.StartB.Text = "STARTMÅLING";
             this.StartB.UseVisualStyleBackColor = false;
             this.StartB.Click += new System.EventHandler(this.StartB_Click_1);
             // 
@@ -107,7 +107,7 @@
             this.clearB.Name = "clearB";
             this.clearB.Size = new System.Drawing.Size(120, 25);
             this.clearB.TabIndex = 3;
-            this.clearB.Text = "Ryd";
+            this.clearB.Text = "Ryd indstillinger";
             this.clearB.UseVisualStyleBackColor = false;
             this.clearB.Click += new System.EventHandler(this.clearB_Click);
             // 
@@ -189,7 +189,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label4.Location = new System.Drawing.Point(482, 90);
+            this.label4.Location = new System.Drawing.Point(482, 96);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 20);
             this.label4.TabIndex = 11;
@@ -212,7 +212,7 @@
             this.Controls.Add(this.saveB);
             this.Controls.Add(this.limitsB);
             this.Controls.Add(this.StartB);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainGUI";
             this.Text = "MainGUI";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
