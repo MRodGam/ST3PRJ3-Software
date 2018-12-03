@@ -89,14 +89,14 @@ namespace LogicLayer // Consumer
                     for (int i = 0; i < 60; i++)
                     {
                         Time = ((1 / 60) * i) + 10;
-                        GraphList.Add(new ConvertedData(Time, 1));
+                        GraphList.Add(new ConvertedData(Time, 0));
                     }
 
                     Done();
                 }
 
 
-                else if(FullList.Count >2000) // If the list is longer than the 5 sec window in the graph
+                else if (FullList.Count > 2000) // If the list is longer than the 5 sec window in the graph
                 {
                     for (int i = FullList.Count - 1000; i < FullList.Count; i += 17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
                     {
@@ -124,10 +124,10 @@ namespace LogicLayer // Consumer
                         {
                             foreach (var sample in DownsampledRawList)
                             {
-                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage,calibrationVal))); ;
+                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage, calibrationVal))); ;
                             }
 
-                            
+
                         }
                         else if (DownsampledRawList.Count == 300)
                         {
@@ -138,12 +138,13 @@ namespace LogicLayer // Consumer
                             }
                         }
                     }
-                    
-                    }
+
+
                     // Thread.Sleep(500); // Evt variér de 500
                 }
             }
 
+        } 
         public List<ConvertedData> GetGraphList() 
         {
             return GraphList;
