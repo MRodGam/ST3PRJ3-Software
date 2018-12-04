@@ -15,6 +15,7 @@ namespace Presentation
         public ZeroAdjustmentGUI()
         {
             InitializeComponent();
+            axWindowsMediaPlayer1.settings.setMode("loop", true);
         }
 
         private void zeroB_Click(object sender, EventArgs e)
