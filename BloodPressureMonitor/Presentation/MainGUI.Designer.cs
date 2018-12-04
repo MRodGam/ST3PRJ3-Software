@@ -42,8 +42,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.middel_L = new System.Windows.Forms.Label();
             this.blodtryk_L = new System.Windows.Forms.Label();
+            this.AlarmPausedPictureBox = new System.Windows.Forms.PictureBox();
+            this.AlarmPictureBox = new System.Windows.Forms.PictureBox();
             button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlarmPausedPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlarmPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -205,12 +209,36 @@
             this.blodtryk_L.TabIndex = 11;
             this.blodtryk_L.Text = "Blodtryk";
             // 
+            // AlarmPausedPictureBox
+            // 
+            this.AlarmPausedPictureBox.Image = global::Presentation.Properties.Resources.AlarmPaused;
+            this.AlarmPausedPictureBox.Location = new System.Drawing.Point(577, 172);
+            this.AlarmPausedPictureBox.Name = "AlarmPausedPictureBox";
+            this.AlarmPausedPictureBox.Size = new System.Drawing.Size(90, 90);
+            this.AlarmPausedPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.AlarmPausedPictureBox.TabIndex = 13;
+            this.AlarmPausedPictureBox.TabStop = false;
+            this.AlarmPausedPictureBox.Visible = false;
+            // 
+            // AlarmPictureBox
+            // 
+            this.AlarmPictureBox.Image = global::Presentation.Properties.Resources.Alarm;
+            this.AlarmPictureBox.Location = new System.Drawing.Point(577, 172);
+            this.AlarmPictureBox.Name = "AlarmPictureBox";
+            this.AlarmPictureBox.Size = new System.Drawing.Size(90, 90);
+            this.AlarmPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.AlarmPictureBox.TabIndex = 12;
+            this.AlarmPictureBox.TabStop = false;
+            this.AlarmPictureBox.Visible = false;
+            // 
             // MainGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(900, 563);
+            this.Controls.Add(this.AlarmPausedPictureBox);
+            this.Controls.Add(this.AlarmPictureBox);
             this.Controls.Add(this.blodtryk_L);
             this.Controls.Add(this.middel_L);
             this.Controls.Add(this.label1);
@@ -226,6 +254,8 @@
             this.Text = "MainGUI";
             this.Load += new System.EventHandler(this.MainGUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlarmPausedPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlarmPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,5 +273,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label middel_L;
         private System.Windows.Forms.Label blodtryk_L;
+        private System.Windows.Forms.PictureBox AlarmPictureBox;
+        private System.Windows.Forms.PictureBox AlarmPausedPictureBox;
     }
 }

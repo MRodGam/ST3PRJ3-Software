@@ -95,6 +95,8 @@ namespace Presentation
            blodtryk_L.ForeColor = Color.Red;
            middel_L.ForeColor = Color.Red;
 
+            AlarmPictureBox.Visible = true;
+
             ActiveAlarm.RunWorkerAsync();
 
             //while (alarm.GetIsAlarmRunning()==true)
@@ -110,7 +112,7 @@ namespace Presentation
         {
             while (alarm.GetIsAlarmRunning() == true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(500);      // Tallene blinker med en frekvens på 2 Hz, da den skal ligge mellem 1.4-2.8, og med en duty cycle på 50%
                 if (blodtryk_L.ForeColor == Color.Red)
                 {
                     blodtryk_L.ForeColor = Color.Black;
@@ -134,8 +136,9 @@ namespace Presentation
             // tallene for blodtryk skal STOPPE med at blinke
 
             // alle billeder/tegn for alarm skal være usynlige igen
-            
-        
+
+            AlarmPictureBox.Visible = false;
+            AlarmPausedPictureBox.Visible = false;
 
         }
 
@@ -176,6 +179,8 @@ namespace Presentation
             // Kvitterknap skal gøres usynlig
             
             pauseB.Visible = false;
+            AlarmPictureBox.Visible = false;
+            AlarmPausedPictureBox.Visible = true;
             muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
 
         }

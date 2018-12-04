@@ -124,5 +124,11 @@
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Alarm.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\AlarmPaused.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
