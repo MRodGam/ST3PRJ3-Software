@@ -224,6 +224,7 @@
             this.Controls.Add(this.StartB);
             this.Name = "MainGUI";
             this.Text = "MainGUI";
+            this.Load += new System.EventHandler(this.MainGUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
