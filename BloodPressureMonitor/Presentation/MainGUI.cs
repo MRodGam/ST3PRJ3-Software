@@ -125,27 +125,27 @@ namespace Presentation
                 "Ryd instillinger", MessageBoxButtons.OKCancel);
             if (dialog == DialogResult.OK)
             {
-                clear();
+                Application.Restart();
+                Application.Run();
+                Refresh();
             }
             else if (dialog == DialogResult.Cancel)
             {
-                e.Cancel = true;
+                e. Cancel= true;
             }
 
-
-
         }
 
-        void clear()
-        {
-            FilterRB. //mangler 
-            lowerlimit.text(""); //mangler forbindelse 
-            upperLimit.text(""); //mangler forbindelse 
-            puls_L.ResetText();
-            blodtryk_L.ResetText();
-            middel_L.ResetText();
-            chart1.//mangler 
-        }
+        //void clear()
+        //{
+          //  FilterRB. //mangler 
+            //lowerlimit.text(""); //mangler forbindelse 
+            //upperLimit.text(""); //mangler forbindelse 
+            //puls_L.ResetText();
+            //blodtryk_L.ResetText();
+            //middel_L.ResetText();
+            //chart1.//mangler 
+       // }
 
 
 
