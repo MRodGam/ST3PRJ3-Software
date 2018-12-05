@@ -26,16 +26,16 @@ namespace LogicLayer
 
         public void StartMeasurement()
         {
-            Daq.Start();
             dataTreatment.StartGraphData();
+            Daq.Start();
             // AlarmController.alarmThread.Set(); // Alarm klassen starter
             // AlarmController.IsMeasureActive = true;
         }
 
         public void StopMeasurement()
         {
-            Daq.Stop();
             dataTreatment.StopGraphData();
+            Daq.Stop();
             // AlarmController.IsMeasureActive = false;
         }
     }

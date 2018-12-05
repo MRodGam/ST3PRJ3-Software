@@ -23,20 +23,21 @@ namespace DataLayer
             localDAQ = actualDAQ;
             _collection = collection;
             RawDataList = new List<RawData>();
-            measurementThread = new Thread(GetRawData);
         }
 
 
         public void Start()
         {
             ShallStop = false; // Sets  ShallStop back to false. 
+            measurementThread = new Thread(GetRawData);
             measurementThread.Start(); //
         }
 
 
         public void Stop()
         {
-            ShallStop = true; // Stops thread. 
+            ShallStop = true; // Stops thread.
+            measurementThread.Join();
         }
 
         public void GetRawData() // This method is used exclusively by the measuring thread 
