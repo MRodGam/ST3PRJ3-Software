@@ -58,6 +58,12 @@ namespace LogicLayer
         }
 
 
+        public double ZeroAdjust(double rawData)
+        {
+            return rawData - ZeroAdjustmentValue;
+        }
+
+
 
 
 

@@ -50,14 +50,14 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(776, 230);
+            this.chart1.Size = new System.Drawing.Size(1311, 356);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(66, 304);
+            this.button1.Location = new System.Drawing.Point(12, 374);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 64);
             this.button1.TabIndex = 1;
@@ -68,7 +68,7 @@
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(579, 279);
+            this.textBox1.Location = new System.Drawing.Point(178, 416);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(99, 22);
             this.textBox1.TabIndex = 2;
@@ -77,7 +77,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1335, 450);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chart1);

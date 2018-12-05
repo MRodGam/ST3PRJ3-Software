@@ -20,7 +20,8 @@ namespace Domain
             Voltage = voltage;
             Second = second;
 
-            return Pressure = Voltage * calibrationValue;
+            //return Pressure = Voltage * calibrationValue;
+            return Pressure = Voltage * 5;
         }
 
 

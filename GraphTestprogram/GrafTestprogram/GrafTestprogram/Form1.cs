@@ -18,7 +18,7 @@ namespace GrafTestprogram
 {
     public partial class Form1 : Form, IObserver
     {
-        private IDataTreatment dataTreatment;
+        private DataTreatment dataTreatment;
         private Subject observer;
         private ConvertAlgo converter;
         private delegate void updateGraphDelegate(List<ConvertedData> graphList);
@@ -38,7 +38,7 @@ namespace GrafTestprogram
             DAQ daq = new DAQ();
             converter = new ConvertAlgo();
             IDAQ transducerdaq = new TransducerDAQ(daq, rawData);
-            DataTreatment dataTreatment = new DataTreatment(rawData, converter);
+            dataTreatment = new DataTreatment(rawData, converter);
             Measure = new UC2M2_UC3M3_Measure(transducerdaq, dataTreatment);
             InitializeComponent();
             dataTreatment.Attach(this); // Lars
@@ -65,7 +65,7 @@ namespace GrafTestprogram
             {
                 foreach (var sample in GUIgraphList)
                 {
-                    chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
+                    chart1.Series["Series1"].Points.AddXY(sample.Second, sample.Pressure);
                 }
 
                 textBox1.Text = Convert.ToString(Updates);

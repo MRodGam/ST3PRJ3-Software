@@ -96,7 +96,7 @@ namespace DataLayer
         {
             //skal gemme clibrate-værdi
             connectionP.Open(); //hvad sker der her? 
-            SqlCommand command_ = new SqlCommand("INSERT INTO SaveCalibrateValue (Calibrate) VALUES(@Calibrate)"), connectionP;
+            SqlCommand command_ = new SqlCommand("INSERT INTO SaveCalibrateValue (Calibrate) VALUES(@Calibrate)", connectionP);
             command_.Parameters.AddWithValue("@Calibrate", Calibrate);
             command_.ExecuteNonQuery();
             connectionP.Close();
