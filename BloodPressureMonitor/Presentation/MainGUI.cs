@@ -43,7 +43,7 @@ namespace Presentation
             muteAlarm = new HighAlarm();
 
             ActiveAlarm = new BackgroundWorker();
-            ActiveAlarm.DoWork += new DoWorkEventHandler(ActiveAlarmUpdate_dowork);
+            ActiveAlarm.DoWork += new DoWorkEventHandler(ActiveAlarmUpdate_doWork);
             ActiveAlarm.RunWorkerCompleted += new RunWorkerCompletedEventHandler(DeactiveAlarmUpdate);
 
             dataTreatment = data;
@@ -122,7 +122,7 @@ namespace Presentation
             }
         }
 
-        private void DeactiveAlarmUodate(object sender, RunWorkerCompletedEventArgs e)
+        private void DeactiveAlarmUpdate(object sender, RunWorkerCompletedEventArgs e)
         {
 
             blodtryk_L.ForeColor = Color.DarkGreen;
