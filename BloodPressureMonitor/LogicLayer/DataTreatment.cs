@@ -30,13 +30,13 @@ namespace LogicLayer // Consumer
         public static List<ConvertedData> GraphList;
 
         public static double CaliValue { get; private set; }
-      
         public static bool ShallStop { get; private set; }
         private static double Total { get; set; }
-        private static double Average { get; set; }
+        private static double ZeroAdjustedAverage { get; set; }
         private static int Time { get; set; } = 1;
         public static int Counter { get; set; } = 0;
         public double calibrationVal { get; private set; }
+
 
 
         public DataTreatment(BlockingCollection<RawData> collection, Observer obs, IData iData )
@@ -180,7 +180,7 @@ namespace LogicLayer // Consumer
                     for (int i = FullList.Count - 1000; i < FullList.Count; i += 17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
                     {
                         Total = 0;
-                        Average = 0;
+                        ZeroAdjustedAverage = 0;
                         for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
                         {
                             int placement = FullList.Count - 1000 + u;
@@ -189,10 +189,10 @@ namespace LogicLayer // Consumer
 
                         //double zeroValue = AdjustmentController.GetZeroAdjustmentValue(); // Or whatever
                         // Average = (Total / 17) - zeroValue;
-                        Average = (Total / 17);
+                        ZeroAdjustedAverage = AdjustmentController.ZeroAdjust((Total / 17));
                         Time += (1 / 60) * 17;
 
-                        DownsampledRawList.Add(new RawData(Time, Average));
+                        DownsampledRawList.Add(new RawData(Time, ZeroAdjustedAverage));
 
                         if (DownsampledRawList.Count == 120)
                         {

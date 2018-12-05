@@ -39,6 +39,20 @@
             // 
             // chart1
             // 
+            chartArea1.AxisX.Interval = 5D;
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.AxisX.LabelAutoFitMaxFontSize = 5;
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorGrid.Interval = 0.5D;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gray;
+            chartArea1.AxisX.MajorTickMark.Interval = 1D;
+            chartArea1.AxisX.MaximumAutoSize = 5F;
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisX.MinorGrid.Interval = 0.1D;
+            chartArea1.AxisX.MinorTickMark.Enabled = true;
+            chartArea1.AxisX.MinorTickMark.Interval = 1D;
+            chartArea1.AxisY.IsLabelAutoFit = false;
+            chartArea1.AxisY.MaximumAutoSize = 4F;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -46,7 +60,7 @@
             this.chart1.Location = new System.Drawing.Point(12, 12);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
@@ -54,6 +68,11 @@
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
+            //
+            // Scrollbar
+            //
+            //chart1.ChartAreas["ChartArea1"].AxisX.ScaleView.Zoomable = true;
+            //chart1.ChartAreas["ChartArea1"].AxisX.ScaleView.Zoom(0, 9);
             // 
             // button1
             // 
