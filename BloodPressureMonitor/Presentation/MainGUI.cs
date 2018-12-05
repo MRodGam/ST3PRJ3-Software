@@ -12,25 +12,24 @@ using System.Windows.Forms;
 using LogicLayer;
 using Domain;
 
+
+
 namespace Presentation
 {
-    public partial class MainGUI : Form, IObserver
+    public partial class MainGUI : Form
     {
+        // test kommentar
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
         private IDataTreatment dataTreatment;
         private IAlarmType muteAlarm;
-        private Observer observer;
 
         private BackgroundWorker muteAlarmWorker;
-        private BackgroundWorker ActiveAlarm;
 
         private delegate void updateGraphDelegate(IDataTreatment dataInterface);
 
         private List<ConvertedData> graphList;
-
-        public bool Running { get; private set; }
 
 
         public int Counter { get; private set; } = 0;
@@ -38,30 +37,21 @@ namespace Presentation
         public MainGUI(IDataTreatment data)
         {
             InitializeComponent();
-
-            dataTreatment = data;
-            dataTreatment.Attach(this);
-
             muteAlarmWorker = new BackgroundWorker();
             muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
             muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
-            muteAlarm = new HighAlarm();
-
-            ActiveAlarm = new BackgroundWorker();
-            ActiveAlarm.DoWork += new DoWorkEventHandler(ActiveAlarmUpdate_doWork);
-            ActiveAlarm.RunWorkerCompleted+=new RunWorkerCompletedEventHandler(DeactiveAlarmUodate);
-
+            muteAlarm = new HighAlarm(); 
+            dataTreatment = data;
+            dataTreatment.Attach(this);
             graphList = new List<ConvertedData>();
         }
 
         public void Update(IDataTreatment dataInterface)
         {
             graphList = dataInterface.FilterData();
-            UpdateGraph(graphList);
-            
         }
 
-        private static void UpdateGraph(List<ConvertedData> graphList) // Giver fejl, forid den er static - snak med Lars
+        private static void UpdateGraph(List<ConvertedData> graphList)
         {
             if (chart1.InvokeRequired)
             {
@@ -73,96 +63,22 @@ namespace Presentation
                 {
                     chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
                 }
-
-                if (alarm.GetIsAlarmRunning()==true)
-                {
-                    ActiveAlarmUpdate(); // skal være static eller?
-                   
-                                        
-                }
-                // if sætning ift hvis Alarmen kvitteres 
-
-                if (alarm.GetIsAlarmRunning()==false)
-                {
-                    DeactiveAlarmUpdate();
-
-                }
             }
-        }
-
-        private void ActiveAlarmUpdate()// skal være static eller?
-        {
-           blodtryk_L.ForeColor = Color.Red;
-           middel_L.ForeColor = Color.Red;
-
-            AlarmPictureBox.Visible = true;
-
-            ActiveAlarm.RunWorkerAsync();
-
-            //while (alarm.GetIsAlarmRunning()==true)
-            //{
-            //    // tallene for blodtryk skal blinke med en bestemt frekvens 
-            //    // billede for aktiv alarm skal være synlig
-            //}
-
-
-        }
-
-        private void ActiveAlarmUpdate_doWork(object sender, DoWorkEventArgs e)
-        {
-            while (alarm.GetIsAlarmRunning() == true)
-            {
-                Thread.Sleep(500);      // Tallene blinker med en frekvens på 2 Hz, da den skal ligge mellem 1.4-2.8, og med en duty cycle på 50%
-                if (blodtryk_L.ForeColor == Color.Red)
-                {
-                    blodtryk_L.ForeColor = Color.Black;
-                    middel_L.ForeColor = Color.Black;
-                }
-                else
-                {
-                    blodtryk_L.ForeColor = Color.Red;
-                    middel_L.ForeColor = Color.Red;
-                }
-            }
-
-            
-        }
-
-        private void DeactiveAlarmUodate(object sender, RunWorkerCompletedEventArgs e)
-        {
-            
-            blodtryk_L.ForeColor = Color.DarkGreen;
-            middel_L.ForeColor = Color.DarkGreen;
-            // tallene for blodtryk skal STOPPE med at blinke
-
-            // alle billeder/tegn for alarm skal være usynlige igen
-
-            AlarmPictureBox.Visible = false;
-            AlarmPausedPictureBox.Visible = false;
-
-        }
-
-        private void MuteAlarmUpdate()
-        {
-            // design for GUI når alarmen kvitteres 
-
-            // billede for mute alarm skal være synlig 
         }
 
         private void StartB_Click(object sender, EventArgs e)
         {
-            
             Counter++;
 
-            if (Counter % 2 != 0)
+            if (Counter % 2 == 0)
             {
                 Measure.StartMeasurement();
-                
+
                 Running = true;
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
             }
-            else
+            if (Counter % 2 != 0)
             {
                 Measure.StopMeasurement();
 
@@ -179,8 +95,6 @@ namespace Presentation
             // Kvitterknap skal gøres usynlig
             
             pauseB.Visible = false;
-            AlarmPictureBox.Visible = false;
-            AlarmPausedPictureBox.Visible = true;
             muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
 
         }
@@ -205,24 +119,52 @@ namespace Presentation
             }
         }
 
+
+        private void clearB_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde instillerne?", "Ryd instillinger", MessageBoxButtons.YesNo);
+
+            if (dialog == DialogResult.Yes)
+            {
+                Application.Restart();
+                Refresh(); // hardcoded, kan laves om hvis der er tid 
+            }
+            else
+            {
+                dialog = DialogResult.Cancel;
+            }
+
+
+        }
+
         private void StartB_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        private void clearB_Click(object sender, EventArgs e)
-        {
-            
-        }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
 
-        }
 
-        private void MainGUI_Load(object sender, EventArgs e)
-        {
 
-        }
+
+
+        //void clear()
+        //{
+        //  FilterRB. //mangler 
+        //lowerlimit.text(""); //mangler forbindelse 
+        //upperLimit.text(""); //mangler forbindelse 
+        //puls_L.ResetText();
+        //blodtryk_L.ResetText();
+        //middel_L.ResetText();
+        //chart1.//mangler 
+        // }
+
+
+
+
+
+
+
     }
+    
 }

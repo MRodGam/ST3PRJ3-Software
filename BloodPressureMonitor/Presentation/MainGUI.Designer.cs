@@ -39,15 +39,11 @@
             this.pauseB = new System.Windows.Forms.Button();
             this.FilterRB = new System.Windows.Forms.RadioButton();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label1 = new System.Windows.Forms.Label();
+            this.puls_L = new System.Windows.Forms.Label();
             this.middel_L = new System.Windows.Forms.Label();
             this.blodtryk_L = new System.Windows.Forms.Label();
-            this.AlarmPausedPictureBox = new System.Windows.Forms.PictureBox();
-            this.AlarmPictureBox = new System.Windows.Forms.PictureBox();
             button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlarmPausedPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlarmPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -116,7 +112,6 @@
             this.clearB.TabIndex = 3;
             this.clearB.Text = "Ryd";
             this.clearB.UseVisualStyleBackColor = false;
-            this.clearB.Click += new System.EventHandler(this.clearB_Click);
             // 
             // pauseB
             // 
@@ -172,17 +167,17 @@
             this.chart1.TabIndex = 7;
             this.chart1.Text = "chart1";
             // 
-            // label1
+            // puls_L
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.label1.Location = new System.Drawing.Point(723, 42);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 29);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Puls";
+            this.puls_L.AutoSize = true;
+            this.puls_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.puls_L.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.puls_L.Location = new System.Drawing.Point(723, 42);
+            this.puls_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.puls_L.Name = "puls_L";
+            this.puls_L.Size = new System.Drawing.Size(64, 29);
+            this.puls_L.TabIndex = 8;
+            this.puls_L.Text = "Puls";
             // 
             // middel_L
             // 
@@ -195,7 +190,6 @@
             this.middel_L.Size = new System.Drawing.Size(93, 29);
             this.middel_L.TabIndex = 9;
             this.middel_L.Text = "Middel";
-            this.middel_L.Click += new System.EventHandler(this.label2_Click);
             // 
             // blodtryk_L
             // 
@@ -209,39 +203,15 @@
             this.blodtryk_L.TabIndex = 11;
             this.blodtryk_L.Text = "Blodtryk";
             // 
-            // AlarmPausedPictureBox
-            // 
-            this.AlarmPausedPictureBox.Image = global::Presentation.Properties.Resources.AlarmPaused;
-            this.AlarmPausedPictureBox.Location = new System.Drawing.Point(577, 172);
-            this.AlarmPausedPictureBox.Name = "AlarmPausedPictureBox";
-            this.AlarmPausedPictureBox.Size = new System.Drawing.Size(90, 90);
-            this.AlarmPausedPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.AlarmPausedPictureBox.TabIndex = 13;
-            this.AlarmPausedPictureBox.TabStop = false;
-            this.AlarmPausedPictureBox.Visible = false;
-            // 
-            // AlarmPictureBox
-            // 
-            this.AlarmPictureBox.Image = global::Presentation.Properties.Resources.Alarm;
-            this.AlarmPictureBox.Location = new System.Drawing.Point(577, 172);
-            this.AlarmPictureBox.Name = "AlarmPictureBox";
-            this.AlarmPictureBox.Size = new System.Drawing.Size(90, 90);
-            this.AlarmPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.AlarmPictureBox.TabIndex = 12;
-            this.AlarmPictureBox.TabStop = false;
-            this.AlarmPictureBox.Visible = false;
-            // 
             // MainGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(900, 563);
-            this.Controls.Add(this.AlarmPausedPictureBox);
-            this.Controls.Add(this.AlarmPictureBox);
             this.Controls.Add(this.blodtryk_L);
             this.Controls.Add(this.middel_L);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.puls_L);
             this.Controls.Add(this.chart1);
             this.Controls.Add(button1);
             this.Controls.Add(this.FilterRB);
@@ -252,10 +222,7 @@
             this.Controls.Add(this.StartB);
             this.Name = "MainGUI";
             this.Text = "MainGUI";
-            this.Load += new System.EventHandler(this.MainGUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlarmPausedPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlarmPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,10 +237,8 @@
         private System.Windows.Forms.Button pauseB;
         private System.Windows.Forms.RadioButton FilterRB;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label puls_L;
         private System.Windows.Forms.Label middel_L;
         private System.Windows.Forms.Label blodtryk_L;
-        private System.Windows.Forms.PictureBox AlarmPictureBox;
-        private System.Windows.Forms.PictureBox AlarmPausedPictureBox;
     }
 }

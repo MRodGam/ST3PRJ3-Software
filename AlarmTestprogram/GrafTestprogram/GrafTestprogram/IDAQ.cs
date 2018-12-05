@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataLayer;
 using Domain;
 
-namespace LogicLayer
+namespace DataLayer
 {
-    public partial class UC10S6_Clear
+    public interface IDAQ
     {
-
+        void Start();
+        void Stop();
+        void GetRawData();
 
     }
+}
