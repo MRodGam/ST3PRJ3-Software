@@ -95,7 +95,7 @@ namespace DataLayer
         public void SaveCalibrateValue(double Calibrate) //gemmer kalibreringsværdi
         {
             //skal gemme clibrate-værdi
-            connectionP.Open(); //hvad sker der her? 
+            connectionP.Open(); 
             SqlCommand command_ = new SqlCommand("INSERT INTO SaveCalibrateValue (Calibrate) VALUES(@Calibrate)", connectionP);
             command_.Parameters.AddWithValue("@Calibrate", Calibrate);
             command_.ExecuteNonQuery();
