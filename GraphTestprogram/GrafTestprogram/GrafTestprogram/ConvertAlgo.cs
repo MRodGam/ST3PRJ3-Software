@@ -14,14 +14,14 @@ namespace Domain
         public double Pressure { get; private set; }
         public double calibrationValue { get; private set; }
 
-        public double ConvertData(double second, double voltage, double cal)
+        public double ConvertData( double voltage)
         {
-            calibrationValue = cal;
+            // calibrationValue = cal;
             Voltage = voltage;
-            Second = second;
+            // Second = second;
 
             //return Pressure = Voltage * calibrationValue;
-            return Pressure = Voltage * 5;
+            return Pressure = Voltage * 1;
         }
 
 

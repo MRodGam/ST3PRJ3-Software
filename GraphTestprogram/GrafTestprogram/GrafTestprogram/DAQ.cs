@@ -45,7 +45,7 @@ namespace DataLayer
 
             for (int i = 0; i < Raw1000DataArray.Length; i++)
             {
-                double second = 0.001 * (i + 1); // It is the timespacing between the given samples.
+                double second = 0.001 * i; // It is the timespacing between the given samples.
                     // plus 1 because arrays start at 0 and we start counting samples at the first sample.
 
                 ShortSampleDataList.Add(new RawData(second, Math.Round((Raw1000DataArray[i]), 3)));

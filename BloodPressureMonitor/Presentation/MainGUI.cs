@@ -121,31 +121,37 @@ namespace Presentation
 
         private void clearB_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde instillerne?",
-                "Ryd instillinger", MessageBoxButtons.OKCancel);
-            if (dialog == DialogResult.OK)
-            {
-                clear();
-            }
-            else if (dialog == DialogResult.Cancel)
-            {
-                e.Cancel = true;
-            }
+            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde instillerne?", "Ryd instillinger", MessageBoxButtons.YesNo);
 
+            if (dialog == DialogResult.Yes)
+            {
+                Application.Restart();
+                Refresh(); // hardcoded, kan laves om hvis der er tid 
+            }
+            else
+            {
+                dialog = DialogResult.Cancel;
+            }
 
 
         }
 
-        void clear()
-        {
-            FilterRB. //mangler 
-            lowerlimit.text(""); //mangler forbindelse 
-            upperLimit.text(""); //mangler forbindelse 
-            puls_L.ResetText();
-            blodtryk_L.ResetText();
-            middel_L.ResetText();
-            chart1.//mangler 
-        }
+
+
+
+
+
+
+        //void clear()
+        //{
+        //  FilterRB. //mangler 
+        //lowerlimit.text(""); //mangler forbindelse 
+        //upperLimit.text(""); //mangler forbindelse 
+        //puls_L.ResetText();
+        //blodtryk_L.ResetText();
+        //middel_L.ResetText();
+        //chart1.//mangler 
+        // }
 
 
 

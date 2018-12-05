@@ -22,11 +22,13 @@ namespace GrafTestprogram
         private Subject observer;
         private ConvertAlgo converter;
         private delegate void updateGraphDelegate(List<ConvertedData> graphList);
+        // private delegate void updateGraphDelegate(List<RawData> graphList);
 
         private UC2M2_UC3M3_Measure Measure;
 
 
         private List<ConvertedData> GUIgraphList;
+        //private List<RawData> testGraphList;
 
         public int Counter { get; private set; } = 0;
         public int Updates { get; private set; } = 0;
@@ -43,13 +45,16 @@ namespace GrafTestprogram
             InitializeComponent();
             dataTreatment.Attach(this); // Lars
             GUIgraphList = new List<ConvertedData>();
+            //testGraphList = new List<RawData>();
         }
 
         public void Update()
         {
             GUIgraphList = dataTreatment.GetGraphList();
-            UpdateGraph(GUIgraphList);
+            // testGraphList = dataTreatment.GetFilterList();
 
+            UpdateGraph(GUIgraphList);
+            // UpdateGraph(GUIgraphList);
 
             Updates++;
         }
@@ -65,7 +70,7 @@ namespace GrafTestprogram
             {
                 foreach (var sample in GUIgraphList)
                 {
-                    chart1.Series["Series1"].Points.AddXY(sample.Second, sample.Pressure);
+                    chart1.Series["Series1"].Points.AddXY(sample.Second,sample.Pressure);
                 }
 
                 textBox1.Text = Convert.ToString(Updates);
@@ -77,7 +82,7 @@ namespace GrafTestprogram
         {
 
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             Counter++;
