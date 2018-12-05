@@ -12,6 +12,8 @@ using System.Windows.Forms;
 using LogicLayer;
 using Domain;
 
+
+
 namespace Presentation
 {
     public partial class MainGUI : Form
@@ -116,14 +118,41 @@ namespace Presentation
             }
         }
 
-        private void StartB_Click_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void clearB_Click(object sender, EventArgs e)
         {
-            
+            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde instillerne?",
+                "Ryd instillinger", MessageBoxButtons.OKCancel);
+            if (dialog == DialogResult.OK)
+            {
+                clear();
+            }
+            else if (dialog == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+
+
+
         }
+
+        void clear()
+        {
+            FilterRB. //mangler 
+            lowerlimit.text(""); //mangler forbindelse 
+            upperLimit.text(""); //mangler forbindelse 
+            puls_L.ResetText();
+            blodtryk_L.ResetText();
+            middel_L.ResetText();
+            chart1.//mangler 
+        }
+
+
+
+
+
+
+
     }
+    
 }

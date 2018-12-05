@@ -8,7 +8,8 @@ using Domain;
 
 namespace LogicLayer
 {
-    class UC10S6_Clear
+    public partial class UC10S6_Clear
     {
+
+
     }
-}
