@@ -54,6 +54,7 @@ namespace Presentation
         public void Update(IDataTreatment dataInterface)
         {
             graphList = dataInterface.FilterData();
+            UpdateGraph(graphList);
         }
 
         private static void UpdateGraph(List<ConvertedData> graphList)
