@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class SaveData
+    public class SaveData
     {
         private string CPRno_;
         private string Idno_;
@@ -14,12 +14,10 @@ namespace Domain
         private string name_;
         private string timeAndDate_;
         private List<RawData> completedMeasurement_;
-        private int mean_;
-        private int pulse_;
         private double calibrate_;
 
         public SaveData(string CPRno, string Idno, string procedure, string name,
-            DateTime timeAndDate, List<RawData> completedMeasurement, int mean, int pulse, double calibrate)
+            DateTime timeAndDate, List<RawData> completedMeasurement) //,  double calibrate)
         {
             CPRno_ = CPRno;
             Idno_ = Idno;
@@ -27,7 +25,7 @@ namespace Domain
             name_ = name;
             timeAndDate_ = timeAndDate.Date.ToString("MM/dd/yyyy");
             completedMeasurement_ = completedMeasurement;
-            calibrate_ = calibrate;
+            //calibrate_ = calibrate;
         }
 
         public SaveData()

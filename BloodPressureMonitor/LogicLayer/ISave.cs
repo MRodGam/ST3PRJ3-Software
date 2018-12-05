@@ -9,6 +9,7 @@ namespace LogicLayer
 {
     public interface ISave
     {
-        void SaveDataLogic(string IDno, string Procedure, string CPRno, DateTime timeAndDate, byte[] bloodpressureList, double Calibrate);
+        void SaveDataLogic(string IDno, string Procedure, string CPRno, string Name, DateTime timeAndDate);//byte[] bloodpressureList, double Calibrate);
     }
 }
+

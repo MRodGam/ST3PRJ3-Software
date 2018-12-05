@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class TotalMeasurementsLists
+    public class TotalMeasurementsLists
     {
         public List<BloodPressure> TotalRawList = new List<BloodPressure>();
         public List<BloodPressure> TotalConvertedList = new List<BloodPressure>();

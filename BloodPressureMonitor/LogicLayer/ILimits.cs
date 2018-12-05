@@ -10,7 +10,7 @@ namespace LogicLayer
     {
         // skal denne måske bare slettes???
 
-        //double GetLowerLimit(double sysLowerLimit);
-        //double GetUpperLimit(double sysUpperLimit);
+        double GetLowerLimit();
+        double GetUpperLimit();
     }
 }

@@ -14,21 +14,24 @@ namespace LogicLayer
 {
     public class UC5S1_Alarm : IAlarm
     {
-        public DataTreatment datatreatment_;
+        public IDataTreatment datatreatment_;
         public AutoResetEvent alarmThread { get; set; } // tråd som alarm klassen kører på
 
-        UC9S5_Limits Limits = new UC9S5_Limits();
-        //IDataTreatment dataTreatment = new DataTreatment(); // hvad sker der her?
-
-        private IAlarmType alarmType = new HighAlarm(); // korrekt at den er private ?
+        private ILimits Limits;
+        private BloodPressure BloodPressure;
+        private IAlarmType AlarmType; // typen vælges i parameteren når man opretter klassen UC5S1_Alarm
 
         //public bool IsAlarmActive { get; private set; } = false;
-        public bool IsMeasureActive { get; set; }
+        public bool IsMeasureActive { get; set; } // sættes i UC2M2_UCM3_Measure
+        public bool IsAlarmRunning { get; private set; } = false;
 
-        public UC5S1_Alarm(DataTreatment dataTreatment)
+        public UC5S1_Alarm(IDataTreatment dataTreatment,ILimits limits, BloodPressure bloodPressure, IAlarmType alarmType )
         {
             datatreatment_ = dataTreatment;
-            
+            Limits = limits;
+            BloodPressure = bloodPressure;
+            AlarmType = alarmType; 
+
         }
 
         
@@ -44,25 +47,32 @@ namespace LogicLayer
 
             while (IsMeasureActive)
             {
+
                 // hvis blodtryksværdi overskrider grænseværdier
-                if (datatreatment_.GetGraphList()[datatreatment_.GetGraphList().Count - 1].Pressure < Limits.SysLowerLimit ||
-                    datatreatment_.GetGraphList()[datatreatment_.GetGraphList().Count - 1].Pressure > Limits.SysUpperLimit)
+                // henter systolisk værdi i Domæne klassen "BloodPressure" og tjekker i forhold til limits-værdierne 
+                if (BloodPressure.Systolic < Limits.GetLowerLimit() ||
+                    BloodPressure.Systolic > Limits.GetUpperLimit() )
                 {
-                    alarmType.RunAlarm();
-                    //IsAlarmActive = true;
+                    AlarmType.RunAlarm();
+                    IsAlarmRunning = true;
                 }
 
                 // alarmen stopper hvis værdierne for blodtrykket ligger indenfor grænseværdierne 
-                if (datatreatment_.GetGraphList()[datatreatment_.GetGraphList().Count - 1].Pressure >= Limits.SysLowerLimit  &&
-                    datatreatment_.GetGraphList()[datatreatment_.GetGraphList().Count - 1].Pressure <= Limits.SysUpperLimit)
+                if (BloodPressure.Systolic >= Limits.GetLowerLimit() &&
+                    BloodPressure.Systolic <= Limits.GetUpperLimit())
                 {
-                    alarmType.StopAlarm();
-                    //IsAlarmActive = false;
+                    AlarmType.StopAlarm();
+                    IsAlarmRunning = false;
                 }
 
             }
+            
 
+        }
 
+        public bool GetIsAlarmRunning()
+        {
+            return IsAlarmRunning;
         }
 
         public void MuteAlarm()// denne metode kaldes inde i eventhandleren for knappen kvitteralarm
