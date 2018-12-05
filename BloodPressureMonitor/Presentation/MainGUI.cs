@@ -19,7 +19,7 @@ namespace Presentation
     public partial class MainGUI : Form
     {
         
-        private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
+        private IAlarm alarm; // Denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
         private IDataTreatment dataTreatment;
         private IAlarmType muteAlarm;
