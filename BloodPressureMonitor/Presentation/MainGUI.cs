@@ -18,6 +18,7 @@ namespace Presentation
 {
     public partial class MainGUI : Form
     {
+        // test kommentar
         
         private IAlarm alarm; // denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
