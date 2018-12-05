@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Button button1;
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.StartB = new System.Windows.Forms.Button();
             this.limitsB = new System.Windows.Forms.Button();
             this.saveB = new System.Windows.Forms.Button();
@@ -42,12 +42,8 @@
             this.puls_L = new System.Windows.Forms.Label();
             this.middel_L = new System.Windows.Forms.Label();
             this.blodtryk_L = new System.Windows.Forms.Label();
-            this.AlarmPictureBox = new System.Windows.Forms.PictureBox();
-            this.AlarmPausedPictureBox = new System.Windows.Forms.PictureBox();
             button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlarmPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlarmPausedPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -76,6 +72,7 @@
             this.StartB.TabIndex = 0;
             this.StartB.Text = "START MÅLING";
             this.StartB.UseVisualStyleBackColor = false;
+            this.StartB.Click += new System.EventHandler(this.StartB_Click_1);
             // 
             // limitsB
             // 
@@ -150,22 +147,22 @@
             // chart1
             // 
             this.chart1.BackColor = System.Drawing.Color.Black;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(18, 78);
             this.chart1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chart1.Name = "chart1";
-            series2.BackImageTransparentColor = System.Drawing.Color.Black;
-            series2.BackSecondaryColor = System.Drawing.Color.Black;
-            series2.BorderColor = System.Drawing.Color.Black;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Color = System.Drawing.Color.Red;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
+            series1.BackImageTransparentColor = System.Drawing.Color.Black;
+            series1.BackSecondaryColor = System.Drawing.Color.Black;
+            series1.BorderColor = System.Drawing.Color.Black;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Red;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(675, 372);
             this.chart1.TabIndex = 7;
             this.chart1.Text = "chart1";
@@ -206,36 +203,12 @@
             this.blodtryk_L.TabIndex = 11;
             this.blodtryk_L.Text = "Blodtryk";
             // 
-            // AlarmPictureBox
-            // 
-            this.AlarmPictureBox.Image = global::Presentation.Properties.Resources.Alarm;
-            this.AlarmPictureBox.Location = new System.Drawing.Point(585, 138);
-            this.AlarmPictureBox.Name = "AlarmPictureBox";
-            this.AlarmPictureBox.Size = new System.Drawing.Size(90, 90);
-            this.AlarmPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.AlarmPictureBox.TabIndex = 12;
-            this.AlarmPictureBox.TabStop = false;
-            this.AlarmPictureBox.Visible = false;
-            // 
-            // AlarmPausedPictureBox
-            // 
-            this.AlarmPausedPictureBox.Image = global::Presentation.Properties.Resources.AlarmPaused;
-            this.AlarmPausedPictureBox.Location = new System.Drawing.Point(585, 138);
-            this.AlarmPausedPictureBox.Name = "AlarmPausedPictureBox";
-            this.AlarmPausedPictureBox.Size = new System.Drawing.Size(90, 90);
-            this.AlarmPausedPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.AlarmPausedPictureBox.TabIndex = 13;
-            this.AlarmPausedPictureBox.TabStop = false;
-            this.AlarmPausedPictureBox.Visible = false;
-            // 
             // MainGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(900, 563);
-            this.Controls.Add(this.AlarmPausedPictureBox);
-            this.Controls.Add(this.AlarmPictureBox);
             this.Controls.Add(this.blodtryk_L);
             this.Controls.Add(this.middel_L);
             this.Controls.Add(this.puls_L);
@@ -250,8 +223,6 @@
             this.Name = "MainGUI";
             this.Text = "MainGUI";
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlarmPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AlarmPausedPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -269,7 +240,5 @@
         private System.Windows.Forms.Label puls_L;
         private System.Windows.Forms.Label middel_L;
         private System.Windows.Forms.Label blodtryk_L;
-        private System.Windows.Forms.PictureBox AlarmPictureBox;
-        private System.Windows.Forms.PictureBox AlarmPausedPictureBox;
     }
 }

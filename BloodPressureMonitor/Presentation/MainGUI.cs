@@ -25,7 +25,6 @@ namespace Presentation
         private IAlarmType muteAlarm;
 
         private BackgroundWorker muteAlarmWorker;
-        private BackgroundWorker ActiveAlarm;
 
         private delegate void updateGraphDelegate(IDataTreatment dataInterface);
 
@@ -40,12 +39,7 @@ namespace Presentation
             muteAlarmWorker = new BackgroundWorker();
             muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
             muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
-            muteAlarm = new HighAlarm();
-
-            ActiveAlarm = new BackgroundWorker();
-            ActiveAlarm.DoWork += new DoWorkEventHandler(ActiveAlarmUpdate_doWork);
-            ActiveAlarm.RunWorkerCompleted += new RunWorkerCompletedEventHandler(DeactiveAlarmUodate);
-
+            muteAlarm = new HighAlarm(); 
             dataTreatment = data;
             dataTreatment.Attach(this);
             graphList = new List<ConvertedData>();
@@ -93,49 +87,6 @@ namespace Presentation
             }
         }
 
-        private void ActiveAlarmUpdate()
-        {
-            blodtryk_L.ForeColor = Color.Red;
-            middel_L.ForeColor = Color.Red;
-            AlarmPictureBox.Visible = true;
-            ActiveAlarm.RunWorkerAsync();
-        }
-
-        private void ActiveAlarmUpdate_doWork(object sender, DoWorkEventArgs e)
-        {
-            while (alarm.GetIsAlarmRunning() == true)
-            {
-                // tallene for blodtryk skal blinke med en bestemt frekvens 
-                // billede for aktiv alarm skal være synlig
-                
-                if (blodtryk_L.ForeColor == Color.Red)
-                {
-                    blodtryk_L.ForeColor = Color.Black;
-                    middel_L.ForeColor = Color.Black;
-                }
-                else
-                {
-                    blodtryk_L.ForeColor = Color.Red;
-                    middel_L.ForeColor = Color.Red;
-                }
-                Thread.Sleep(500);  // Tallene blinker med en frekvens på 2 Hz, da den skal ligge mellem 1.4-2.8, og med en duty cycle på 50%
-            }
-        }
-
-        private void DeactiveAlarmUodate(object sender, RunWorkerCompletedEventArgs e)
-        {
-
-            blodtryk_L.ForeColor = Color.DarkGreen;
-            middel_L.ForeColor = Color.DarkGreen;
-            AlarmPictureBox.Visible = false;
-            AlarmPausedPictureBox.Visible = false;
-            // tallene for blodtryk skal STOPPE med at blinke
-            // alle billeder/tegn for alarm skal være usynlige igen 
-            // alle billeder/tegn for alarm skal være usynlige igen
-
-
-        }
-
         private void pauseB_Click(object sender, EventArgs e)
         {
             // Lyd stop
@@ -143,8 +94,6 @@ namespace Presentation
             // Kvitterknap skal gøres usynlig
             
             pauseB.Visible = false;
-            AlarmPictureBox.Visible = false;
-            AlarmPausedPictureBox.Visible = true;
             muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
 
         }
@@ -184,6 +133,11 @@ namespace Presentation
                 dialog = DialogResult.Cancel;
             }
 
+
+        }
+
+        private void StartB_Click_1(object sender, EventArgs e)
+        {
 
         }
 
