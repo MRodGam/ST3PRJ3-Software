@@ -20,6 +20,7 @@ namespace LogicLayer // Consumer
         private Observer observer;
         private IData DataInterface;
 
+        private static object myLock = new object();
         private BlockingCollection<RawData> _collection;
         private static Thread DataCollectorThread;
         private static Thread GraphThread;
@@ -27,7 +28,26 @@ namespace LogicLayer // Consumer
         public static List<RawData> FullList;
         public static List<RawData> DownsampledRawList;
         public static List<ConvertedData> ConvertedDataList;
-        public static List<ConvertedData> GraphList;
+        public static List<ConvertedData> GraphList
+        {
+            get
+            {
+                lock (myLock)
+                {
+                    return graphList;
+                }
+            }
+
+            private set
+            {
+                lock (myLock)
+                {
+                    graphList = value;
+                }
+            }
+        }
+
+        private static List<ConvertedData> graphList;
 
         public static double CaliValue { get; private set; }
         public static bool ShallStop { get; private set; }
@@ -39,24 +59,27 @@ namespace LogicLayer // Consumer
 
 
 
-        public DataTreatment(BlockingCollection<RawData> collection, Observer obs, IData iData )
+        public DataTreatment(BlockingCollection<RawData> collection, Observer obs, IData iData, ConcertAlgo conv)
         {
             DataInterface = iData;
             _collection = collection;
             observer = obs;
+            ConvertAlgorithm = conv;
 
             FullList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
             DownsampledRawList = new List<RawData>();
             GraphList = new List<ConvertedData>();
-
-            DataCollectorThread = new Thread(MakeShortRawList);
         }
 
         public void StartGraphData()
         {
             ShallStop = false;
+            DataCollectorThread = new Thread(MakeShortRawList);
+            GraphThread = new Thread(MakeGraphList);
+
             DataCollectorThread.Start();
+            GraphThread.Start();
         }
 
         public void StopGraphData()
@@ -163,66 +186,69 @@ namespace LogicLayer // Consumer
                     FullList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
                 }
 
-                if (FullList.Count == 2000) // Downsampling starter først, når der er 5 sekunders data
-                {
-                    for (int i = 0; i < 60; i++)
-                    {
-                        Time = ((1 / 60) * i) + 10;
-                        GraphList.Add(new ConvertedData(Time, 1));
-                    }
-
-                    Done();
-                }
-
-
-                else if (FullList.Count > 2000) // If the list is longer than the 5 sec window in the graph
+                if (FullList.Count > 2000) // If the list is longer than the 5 sec window in the graph
                 {
                     for (int i = FullList.Count - 1000; i < FullList.Count; i += 17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
                     {
                         Total = 0;
                         ZeroAdjustedAverage = 0;
-                        for (int u = -8; u <= 8; u++) // Downsampling 17, 8 + 1 + 8.
-                        {
-                            int placement = FullList.Count - 1000 + u;
-                            Total += FullList[placement].Voltage;
-                        }
+
+                        Total = FullList[i - 8].Voltage + FullList[i - 7].Voltage + FullList[i - 6].Voltage + FullList[i - 5].Voltage + FullList[i - 4].Voltage + FullList[i - 3].Voltage + FullList[i - 2].Voltage + FullList[i - 1].Voltage + FullList[i].Voltage + FullList[i + 1].Voltage + FullList[i + 2].Voltage + FullList[i + 3].Voltage + FullList[i + 4].Voltage + FullList[i + 5].Voltage + FullList[i + 6].Voltage + FullList[i + 7].Voltage + FullList[i + 8].Voltage;
 
                         //double zeroValue = AdjustmentController.GetZeroAdjustmentValue(); // Or whatever
                         // Average = (Total / 17) - zeroValue;
-                        ZeroAdjustedAverage = AdjustmentController.ZeroAdjust((Total / 17));
+                        ZeroAdjustedAverage = (Total / 17);
                         Time += (1 / 60) * 17;
+
 
                         DownsampledRawList.Add(new RawData(Time, ZeroAdjustedAverage));
 
-                        if (DownsampledRawList.Count == 120)
-                        {
-                            Done();
-                        }
+                        //if (DownsampledRawList.Count == 120)
+                        //{
+                        //    Done();
+                        //}
 
-                        if (DownsampledRawList.Count < 300)
-                        {
-                            foreach (var sample in DownsampledRawList)
-                            {
-                                GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage, calibrationVal))); ;
-                            }
+                        //if (DownsampledRawList.Count < 300)
+                        //{
+                        //    //foreach (var sample in DownsampledRawList)
+                        //    //{
+                        //    //    GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage, calibrationVal))); ;
+                        //    //}
 
 
-                        }
-                        else if (DownsampledRawList.Count == 300)
-                        {
-                            for (int y = 0; y < 60; y++) // 60 samples is 1 sec on 60Hz
-                            {
-                                DownsampledRawList.RemoveAt(y);
-                                GraphList.RemoveAt(y);
-                            }
-                        }
+                        //}
+                        //else if (DownsampledRawList.Count == 300)
+                        //{
+                        //    for (int y = 0; y < 60; y++) // 60 samples is 1 sec on 60Hz
+                        //    {
+                        //        DownsampledRawList.RemoveAt(y);
+                        //        GraphList.RemoveAt(y);
+                        //    }
+                        //}
                     }
-                    // Thread.Sleep(500); // Evt variér de 500
-                }
+                } 
             }
-
         }
 
+        public void MakeGraphList()
+        {
+            while (!ShallStop)
+            {
+                Thread.Sleep(20);
+                
+                // if (60 < DownsampledRawList.Count && DownsampledRawList.Count < 300)
+                if (60 <= DownsampledRawList.Count)
+                {
+                    for (int i = DownsampledRawList.Count - 60; i < DownsampledRawList.Count; i++)
+                    {
+                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Voltage)));
+                        GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
+                    }
+
+                    Done();
+                }
+            }
+        }
 
         public List<ConvertedData> GetGraphList() // Skal returnere det nedsamplede converterede data fratrukket nulpunktsjusteringen
         {
