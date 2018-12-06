@@ -26,8 +26,8 @@ namespace LogicLayer // Consumer
         private static Thread GraphThread;
 
         public List<RawData> FullList { get; private set; } // har fjernet static da man ellers ikke kan kalde den fra UC_savedata
-        public static List<RawData> DownsampledRawList;
-        public static List<ConvertedData> ConvertedDataList;
+        public List<RawData> DownsampledRawList;
+        public List<ConvertedData> ConvertedDataList;
         public static List<ConvertedData> GraphList
         {
             get

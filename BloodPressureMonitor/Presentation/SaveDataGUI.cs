@@ -78,6 +78,18 @@ namespace Presentation
             }
         }
 
-    
+        private void button1_Click(object sender, EventArgs e) //annuller-knap
+        {
+            DialogResult dialog = MessageBox.Show("Målingen er ikke gemt. Ønsker du at afbryde?", "Ja", MessageBoxButtons.YesNo);
+
+            if (dialog == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else
+            {
+                SaveDataGUI.Close();
+            }
+        }
     }
 }

@@ -36,5 +36,10 @@ namespace LogicLayer
             return pulse;
 
         }
+
+        public int Pulse(double[] measurements, double samplefrequence)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
