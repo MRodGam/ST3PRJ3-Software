@@ -18,7 +18,7 @@ namespace DataLayer
         private SqlConnection connectionP;
         private SqlDataReader reader;
         private SqlCommand command;
-        private const String DBlogin = "st-i4dab.E18ST3PRJ3Gr3";
+        private const String DBlogin = "E18ST3PRJ3Gr3";
         private List<RawData> bloodPressureList;
         private double calibrateDatabaseValue;
         public List<RawData> GetCompletedMeasurement { get; private set; }
@@ -26,7 +26,7 @@ namespace DataLayer
         public Database()
         {
             connectionP = new SqlConnection("Data Source=st-i4dab.E18ST3PRJ3Gr3.dbo;Initial Catalog=" + DBlogin +
-                                            ";Persist Security Info=True;User ID=" + DBlogin + ";Password=" + DBlogin + "");
+                                            ";Persist Security Info=True;User ID=" + DBlogin + ";Password=" + DBlogin + ""); //ret
 
            
         }
