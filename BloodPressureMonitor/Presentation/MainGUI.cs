@@ -16,26 +16,27 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class MainGUI : Form
+    public partial class MainGUI : Form, IObserver
     {
         
         private IAlarm alarm; // Denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
-        private IDataTreatment dataTreatment;
+        private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
         private IAlarmType muteAlarm;
         private ZeroAdjustmentGUI ZeroAdjustmentGui;
 
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
 
-        private delegate void updateGraphDelegate(IDataTreatment dataInterface);
+        private delegate void updateGraphDelegate(List<ConvertedData> graphList);
 
         private List<ConvertedData> graphList;
 
 
         public int Counter { get; private set; } = 0;
+        public bool Running { get; set; } = false;
 
-        public MainGUI(IDataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui)
+        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui)
         {
             InitializeComponent();
             ZeroAdjustmentGui = zeroAdjustmentGui;
@@ -63,7 +64,7 @@ namespace Presentation
             ActiveAlarm.RunWorkerCompleted += new RunWorkerCompletedEventHandler(DeactiveAlarmUpdate);
 
             dataTreatment = data;
-            dataTreatment.Attach(this);
+            dataTreatment.Attach(this); // metoden findes ikke (virker nu da IDataTreatment er udkommenteret, og det isetdet er DataTreatment vi kalder igennem)
             graphList = new List<ConvertedData>();
 
 
@@ -71,13 +72,13 @@ namespace Presentation
             
     }
 
-        public void Update(IDataTreatment dataInterface)
+        public void Update(DataTreatment dataTreatmentRef)
         {
-            graphList = dataInterface.FilterData();
+            graphList = dataTreatmentRef.GetGraphList(); //dataTreatmentRef.FilterData(); // filterData er void, hvis den skal retunere skal den være en liste
             UpdateGraph(graphList);
         }
 
-        private static void UpdateGraph(List<ConvertedData> graphList)
+        private  void UpdateGraph(List<ConvertedData> graphList) // skal ikke være static
         {
             if (chart1.InvokeRequired)
             {

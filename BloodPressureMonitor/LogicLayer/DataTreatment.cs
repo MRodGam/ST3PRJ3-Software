@@ -12,12 +12,12 @@ using Domain;
 
 namespace LogicLayer // Consumer
 {
-    public class DataTreatment : Observer, IDataTreatment
+    public class DataTreatment : Subject//, IDataTreatment
     {
         private ConvertAlgo ConvertAlgorithm;
         private UC7S3_Filter FilterController;
         private UC1M1_ZeroAdjustment AdjustmentController;
-        private Observer observer;
+        private Subject observer;
         private IData DataInterface;
 
         private static object myLock = new object();
@@ -57,9 +57,9 @@ namespace LogicLayer // Consumer
         public static int Counter { get; set; } = 0;
         public double calibrationVal { get; private set; }
 
+        
 
-
-        public DataTreatment(BlockingCollection<RawData> collection, Observer obs, IData iData, ConcertAlgo conv)
+        public DataTreatment(BlockingCollection<RawData> collection, Subject obs, IData iData, ConvertAlgo conv)
         {
             DataInterface = iData;
             _collection = collection;

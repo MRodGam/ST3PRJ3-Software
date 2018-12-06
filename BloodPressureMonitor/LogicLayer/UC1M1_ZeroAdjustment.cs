@@ -39,7 +39,7 @@ namespace LogicLayer
 
             if (ZeroAdjustmentValue == 0.0) // hvis ikke der er åbnet for transduceren
             {
-                IsTransducerOpen = false;
+                IsMeasureDoneRight = false;
             }
            
 
@@ -54,7 +54,7 @@ namespace LogicLayer
             if (ZeroAdjustmentValue > -10) // skrives på anden måde måske?
             {
                 Measure.StopMeasurement();// slutter måling 
-                IsTransducerOpen = true;
+                IsMeasureDoneRight = true;
             }
             return ZeroAdjustmentValue;
 

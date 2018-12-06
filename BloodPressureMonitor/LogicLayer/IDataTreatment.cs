@@ -7,7 +7,7 @@ using Domain;
 
 namespace LogicLayer
 {
-    public interface IDataTreatment
+    public interface IDataTreatment // evt slette denne klasse. Da den lige nu ligger mellem Subjet og den konkrete sunbjet (DataTreatment)
     {
         void StartGraphData();
         void StopGraphData();

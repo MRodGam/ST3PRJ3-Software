@@ -9,7 +9,7 @@ using Domain;
 
 namespace LogicLayer
 {
-    public class UC7S3_Filter : IDataTreatment //midlingsfilter 
+    public class UC7S3_Filter : IFilter //: IDataTreatment //midlingsfilter 
     {
         public List<RawData> BPFilter;
         public DataTreatment datatreatment_;
