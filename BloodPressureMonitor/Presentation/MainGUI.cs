@@ -23,6 +23,7 @@ namespace Presentation
         private IMeasure Measure;
         private IDataTreatment dataTreatment;
         private IAlarmType muteAlarm;
+        private ZeroAdjustmentGUI ZeroAdjustmentGui;
 
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
@@ -34,10 +35,25 @@ namespace Presentation
 
         public int Counter { get; private set; } = 0;
 
-        public MainGUI(IDataTreatment data)
+        public MainGUI(IDataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui)
         {
             InitializeComponent();
-            muteAlarmWorker = new BackgroundWorker();
+            ZeroAdjustmentGui = zeroAdjustmentGui;
+
+            this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
+
+
+            ZeroAdjustmentGui.ShowDialog();
+
+            if (ZeroAdjustmentGui.IsZeroAdjustmentMeasured == true)
+            {
+                this.Visible = true;
+            }
+            else
+                this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
+        
+            
+        muteAlarmWorker = new BackgroundWorker();
             muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
             muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
             muteAlarm = new HighAlarm();
@@ -49,7 +65,11 @@ namespace Presentation
             dataTreatment = data;
             dataTreatment.Attach(this);
             graphList = new List<ConvertedData>();
-        }
+
+
+            
+            
+    }
 
         public void Update(IDataTreatment dataInterface)
         {
