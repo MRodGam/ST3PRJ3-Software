@@ -19,7 +19,7 @@ namespace LogicLayer
         private IMeasure Measure;
         private BlockingCollection<RawData> _collection;
         public double ZeroAdjustmentValue { get; private set; } = -11; // -11 fordi så kan den ikke gå ind i if-sætning hvis ikke den har lavet en måling og derved ændret værdien
-        public bool IsMeasureDoneRight { get; private set; } = false;
+        public bool IsZeroAdjustDone { get; private set; } = false;
         private double TotalValue=0;
 
 
@@ -37,10 +37,11 @@ namespace LogicLayer
 
             Measure.StartMeasurement(); // start måling 
 
-            if (ZeroAdjustmentValue == 0.0) // hvis ikke der er åbnet for transduceren
-            {
-                IsMeasureDoneRight = false;
-            }
+            
+            //if (ZeroAdjustmentValue == 0.0) // hvis ikke der er åbnet for transduceren -> kan ikke fungere!
+            //{
+            //    IsMeasureDoneRight = false;
+            //}
            
 
             for (int i = 0; i < 5; i++) // tager fem målinger
@@ -54,7 +55,7 @@ namespace LogicLayer
             if (ZeroAdjustmentValue > -10) // skrives på anden måde måske?
             {
                 Measure.StopMeasurement();// slutter måling 
-                IsMeasureDoneRight = true;
+                IsZeroAdjustDone = true;
             }
             return ZeroAdjustmentValue;
 
