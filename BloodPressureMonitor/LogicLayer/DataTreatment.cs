@@ -26,8 +26,9 @@ namespace LogicLayer // Consumer
         private static Thread GraphThread;
 
         public List<RawData> FullList { get; private set; } // har fjernet static da man ellers ikke kan kalde den fra UC_savedata
-        public List<RawData> DownsampledRawList;
-        public List<ConvertedData> ConvertedDataList;
+        public static List<RawData> DownsampledRawList;
+        public static List<ConvertedData> ConvertedDataList;
+
         public static List<ConvertedData> GraphList
         {
             get
@@ -47,7 +48,8 @@ namespace LogicLayer // Consumer
             }
         }
 
-        private static List<ConvertedData> graphList;
+        private static List<ConvertedData> graphList; // bliver denne brugt?
+
 
         public static double CaliValue { get; private set; }
         public static bool ShallStop { get; private set; }
@@ -70,6 +72,7 @@ namespace LogicLayer // Consumer
             ConvertedDataList = new List<ConvertedData>();
             DownsampledRawList = new List<RawData>();
             GraphList = new List<ConvertedData>();
+           
         }
 
         public void StartGraphData()
@@ -230,7 +233,7 @@ namespace LogicLayer // Consumer
             }
         }
 
-        public void MakeGraphList()
+        public void MakeGraphList() // konverterer data 
         {
             while (!ShallStop)
             {
@@ -242,7 +245,7 @@ namespace LogicLayer // Consumer
                     for (int i = DownsampledRawList.Count - 60; i < DownsampledRawList.Count; i++)
                     {
                         //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Voltage)));
-                        GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
+                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
                     }
 
                     Done();
@@ -250,12 +253,14 @@ namespace LogicLayer // Consumer
             }
         }
 
+
+
         public List<ConvertedData> GetGraphList() // Skal returnere det nedsamplede converterede data fratrukket nulpunktsjusteringen
         {
            return GraphList;
         }
 
-        public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata fratrukket nulpunktsjusteringen
+        public List<RawData> GetDownsampledList() // Skal returnere det nedsamplede rådata fratrukket nulpunktsjusteringen
         {
             return DownsampledRawList;
         }

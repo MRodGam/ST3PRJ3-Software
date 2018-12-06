@@ -24,6 +24,7 @@ namespace Presentation
         private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
         private IAlarmType muteAlarm;
         private ZeroAdjustmentGUI ZeroAdjustmentGui;
+        private IFilter FilterRef;
 
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
@@ -36,7 +37,7 @@ namespace Presentation
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
 
-        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui)
+        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, IFilter filterRef)
         {
             InitializeComponent();
             ZeroAdjustmentGui = zeroAdjustmentGui;
@@ -67,10 +68,10 @@ namespace Presentation
             dataTreatment.Attach(this); // metoden findes ikke (virker nu da IDataTreatment er udkommenteret, og det isetdet er DataTreatment vi kalder igennem)
             graphList = new List<ConvertedData>();
 
+            //filterRef = new UC7S3_Filter();
+            FilterRef = filterRef;
 
-            
-            
-    }
+        }
 
         public void Update(DataTreatment dataTreatmentRef)
         {
@@ -184,13 +185,13 @@ namespace Presentation
             AlarmPausedPictureBox.Visible = false;
         }
 
-        private void FilterRB_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Running == true && FilterRB.Checked)
-            {
-                dataTreatment.StartFilter(); //Mangler forbindelse til interface
-            }
-        }
+        //private void FilterRB_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (Running == true && FilterRB.Checked)
+        //    {
+        //        dataTreatment.StartFilter(); //Mangler forbindelse til interface
+        //    }
+        //}
 
 
         private void clearB_Click(object sender, EventArgs e)
@@ -213,6 +214,18 @@ namespace Presentation
         private void StartB_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void FilterRB_CheckedChanged_1(object sender, EventArgs e) // den gældende
+        {
+            if (Running == true && FilterRB.Checked)
+            {
+                FilterRef.StartFilter(); 
+            }
+            if (Running == true && FilterRB.Checked==false)
+            {
+                FilterRef.StopFilter();
+            }
         }
 
 

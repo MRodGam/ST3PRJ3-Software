@@ -31,17 +31,16 @@ namespace Presentation
         {
             _zeroAdjustment.GetZeroAdjustmentValue();
 
-            if (_uc1M1Zero.IsMeasureDoneRight == true)
+            if (_uc1M1Zero.IsZeroAdjustDone == true)
             {
                 IsZeroAdjustmentMeasured = true;
                 this.Close();
             }
-            if (_uc1M1Zero.IsMeasureDoneRight == false)
+            else if (_uc1M1Zero.IsZeroAdjustDone == false)
             {
                 MessageBox.Show("Nulpunktsjustering ikke foretaget korrekt, se videoen igen");
             }
-            else
-                MessageBox.Show("Nogete gik galt");
+           
 
 
         }
