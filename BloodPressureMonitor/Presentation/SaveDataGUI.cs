@@ -25,13 +25,9 @@ namespace Presentation
         public SaveDataGUI(ISave save)
         {
             saveInterface = save;
-        }
-
-        public SaveDataGUI()
-        {
             InitializeComponent();
         }
- 
+        
         public bool checkCPR(string number) 
         {
             int[] integer = new int[10];
@@ -77,6 +73,7 @@ namespace Presentation
                 saveInterface.SaveDataLogic(medarbejderIDTB.Text, procedureTB.Text, cpr, navnTB.Text,
                     Convert.ToDateTime(dateTimePicker1.Text));
                 check = false;
+                MessageBox.Show("Data blev gemt i databasen");
                 this.Close();
             }
         }

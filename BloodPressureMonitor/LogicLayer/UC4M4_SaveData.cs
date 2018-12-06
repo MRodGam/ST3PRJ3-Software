@@ -19,10 +19,9 @@ namespace LogicLayer
         private DataTreatment dataTreatment_;
 
      
-        public UC4M4_SaveData(ISave save, IData datalayer, CalibrationValue value, DataTreatment data)
+        public UC4M4_SaveData(IData datalayer, CalibrationValue value, DataTreatment data)
         {
             dataTreatment_ = data;
-            guiInterface = save;
             datalayerInterface = datalayer;
             value_ = value;
         }
@@ -32,7 +31,7 @@ namespace LogicLayer
         public void SaveDataLogic(string IDno, string Procedure, string CPRno, string name, DateTime timeAndDate) //, byte[] bloodpressureList, double Calibrate) //
         {
             //bloodpressureList = new List<TotalRawList>(); //skal gemme den totale RawList 
-            datalayerInterface.SaveInDatabase(IDno, Procedure, CPRno, name, timeAndDate, dataTreatment_.GetFullList(), value_.Value  ); // Lav GetFullList i datatreatment
+            datalayerInterface.SaveInDatabase(IDno, Procedure, CPRno, name, timeAndDate, dataTreatment_.FullList, value_.Value  ); // Lav GetFullList i datatreatment
         }
 
 
