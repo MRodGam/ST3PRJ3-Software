@@ -59,5 +59,8 @@ namespace LogicLayer
             return BPFilter; //Skal retuneres på en tråd
         }
 
+        // metode der laver grafliste for filtreret data
+        public List<>
+
     }
 }

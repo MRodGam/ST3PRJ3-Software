@@ -250,6 +250,8 @@ namespace LogicLayer // Consumer
             }
         }
 
+
+
         public List<ConvertedData> GetGraphList() // Skal returnere det nedsamplede converterede data fratrukket nulpunktsjusteringen
         {
            return GraphList;
