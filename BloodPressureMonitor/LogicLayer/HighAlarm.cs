@@ -15,17 +15,20 @@ namespace LogicLayer
         public void GetFileSound()
         {
             // lydfil hentes
-            player.SoundLocation = @"C: \Users\Celia\Documents\UNI\3 semester\Semesterprojekt 3(blodtrykmålesystem)\Github\BloodPressureMonitor\LogicLayer\bin\Debug\foghorn - daniel_simon.wav";
-            // filnavnet : "foghorn - daniel_simon.wav" erstattes med filnavn fra DSB projekt 
+            player.SoundLocation = "alarmMedPause.wav"; 
         }
 
         public void RunAlarm()
         {
-            player.Play();
+            //lyden skal afspilles i et interval på 5 sekunder  
+            player.PlayLooping();
+            
             //Brugergrænseflade ændre udseende (tal for blodtryk bliver rød, knappen "kvitter alarm" bliver synlig)
         }
 
        
+
+
         public void StopAlarm()
         {
             //if (runAlarm == false) // alarm stopper

@@ -19,6 +19,7 @@ namespace LogicLayer // Consumer
         private UC1M1_ZeroAdjustment AdjustmentController;
         private Subject observer;
         private IData DataInterface;
+        private CalibrationValue CaliValue;
 
         private static object myLock = new object();
         private BlockingCollection<RawData> _collection;
@@ -51,22 +52,23 @@ namespace LogicLayer // Consumer
         private static List<ConvertedData> graphList; // bliver denne brugt?
 
 
-        public static double CaliValue { get; private set; }
+        //public static double CaliValue { get; set; } // mangles at blive sat et sted!
         public static bool ShallStop { get; private set; }
         private static double Total { get; set; }
         private static double ZeroAdjustedAverage { get; set; }
         private static int Time { get; set; } = 1;
         public static int Counter { get; set; } = 0;
-        public double calibrationVal { get; private set; }
+        //public double calibrationVal { get; private set; }
 
         
 
-        public DataTreatment(BlockingCollection<RawData> collection, Subject obs, IData iData, ConvertAlgo conv)
+        public DataTreatment(BlockingCollection<RawData> collection, Subject obs, IData iData, ConvertAlgo conv, CalibrationValue caliValue)
         {
             DataInterface = iData;
             _collection = collection;
             observer = obs;
             ConvertAlgorithm = conv;
+            CaliValue = caliValue;
 
             FullList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
@@ -233,18 +235,18 @@ namespace LogicLayer // Consumer
             }
         }
 
-        public void MakeGraphList() // konverterer data 
+        public void MakeGraphList(/*List<RawData> liste*/) // konverterer data 
         {
             while (!ShallStop)
             {
                 Thread.Sleep(20);
                 
                 // if (60 < DownsampledRawList.Count && DownsampledRawList.Count < 300)
-                if (60 <= DownsampledRawList.Count)
+                if (60 <= DownsampledRawList/*liste*/.Count)
                 {
                     for (int i = DownsampledRawList.Count - 60; i < DownsampledRawList.Count; i++)
                     {
-                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Voltage)));
+                        GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage, CaliValue.Value)));
                         //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
                     }
 

@@ -9,12 +9,16 @@ using Domain;
 
 namespace LogicLayer
 {
-    public class UC7S3_Filter : IFilter //: IDataTreatment //midlingsfilter 
+    public class UC7S3_Filter : Subject //: IDataTreatment //midlingsfilter 
     {
-        public List<RawData> BPFilterList { get; set; };
+        private ConvertAlgo convertAlgo;
+        public List<RawData> BPFilterList { get; set; }
         public DataTreatment datatreatment_;
         public bool ShallStop { get; private set; }
         private static Thread FilterThread;
+        private static object myLock = new object();
+
+        private CalibrationValue _CalibrationValue; 
 
         public static List<ConvertedData> GraphFiltredList
         {
@@ -35,11 +39,14 @@ namespace LogicLayer
             }
         }
 
-        private static List<ConvertedData> graphList; // bliver denne brugt?
+        private static List<ConvertedData> graphFiltredList; // bliver denne brugt?
 
-        public UC7S3_Filter(DataTreatment datatreatment)
+        public UC7S3_Filter(DataTreatment datatreatment, ConvertAlgo conv, CalibrationValue calibrationValue)
         {
             datatreatment_ = datatreatment;
+            _CalibrationValue = calibrationValue;
+
+            convertAlgo = conv;
             BPFilterList = new List<RawData>();
             FilterThread = new Thread(FilterData);
 
@@ -63,7 +70,8 @@ namespace LogicLayer
             while (!ShallStop)
             {
                 List<RawData>
-                    BPRawData = datatreatment_.GetDownsampledList(); // Skift til converted data  DTO type, for ellers giver det ballade i GUI
+                    BPRawData = datatreatment_
+                        .GetDownsampledList(); // Skift til converted data  DTO type, for ellers giver det ballade i GUI
 
                 for (int i = 2; i < BPRawData.Count; i++)
                 {
@@ -78,7 +86,7 @@ namespace LogicLayer
                 //return BPFilterList;
                 // Send data op her
             }
-            
+
         }
 
         public void ConvertFiltredData()
@@ -92,27 +100,37 @@ namespace LogicLayer
                 {
                     for (int i = BPFilterList.Count - 60; i < BPFilterList.Count; i++)
                     {
-                        GraphFiltredList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Voltage)));
-                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
+                        GraphFiltredList.Add(new ConvertedData(BPFilterList[i].Second, convertAlgo.ConvertData(BPFilterList[i].Second, BPFilterList[i].Voltage, _CalibrationValue.Value)));
+                        
                     }
 
                     Done();
                 }
             }
 
-        //    public List<RawData> ConvertFiltredData()
-        //{
-        //    return 
-        //}
+            //    public List<RawData> ConvertFiltredData()
+            //{
+            //    return 
+            //}
 
-        //public List<RawData> GetFilterData() // Skal slettes, skal ikke være en metode for sig
-        //{
-        //    return BPFilter; //Skal retuneres på en tråd
-        //}
+            //public List<RawData> GetFilterData() // Skal slettes, skal ikke være en metode for sig
+            //{
+            //    return BPFilter; //Skal retuneres på en tråd
+            //}
 
-        // metode der laver grafliste for filtreret data
+            // metode der laver grafliste for filtreret data
+        }
+
+
+        public List<ConvertedData> GetFiltredGraphList()
+        {
+            return GraphFiltredList;
+        }
+
+        public void Done()
+        {
+            Notify();
+        }
+
     }
-
-
-
 }
