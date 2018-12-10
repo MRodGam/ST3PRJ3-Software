@@ -14,7 +14,7 @@ namespace Domain
         public double Pressure { get; private set; }
         public double calibrationValue { get; private set; }
 
-        public double ConvertData( double voltage)
+        public double ConvertData(double voltage)
         {
             // calibrationValue = cal;
             Voltage = voltage;

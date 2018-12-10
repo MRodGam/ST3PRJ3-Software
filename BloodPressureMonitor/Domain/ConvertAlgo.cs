@@ -16,11 +16,10 @@ namespace Domain
         public double CalibrationValue { get; private set; }
         
 
-        public double ConvertData(double second, double voltage, double cal)
+        public double ConvertData(double voltage, double cal)
         {
             // Calculate pressure from voltage
             Voltage = voltage;
-            Second = second;
             CalibrationValue = cal;
 
             return Pressure =  Voltage * CalibrationValue;
