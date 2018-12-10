@@ -12,16 +12,13 @@ using Domain;
 
 namespace LogicLayer // Consumer
 {
-    public class DataTreatment : Subject//, IDataTreatment
+    public class DataTreatment : Subject //, IDataTreatment
     {
         // Classes and interfaces
         private ConvertAlgo ConvertAlgorithm;
         private UC7S3_Filter FilterController;
         private UC1M1_ZeroAdjustment AdjustmentController;
-        private Subject observer;
         private IData DataInterface;
-        private CalibrationValue CaliValue;
-        private Database Database;
 
         // Objects 
         private static object myLock = new object();
@@ -29,6 +26,7 @@ namespace LogicLayer // Consumer
         // Blocking collections
         private BlockingCollection<RawData> _collection; // Take from TransducerDAQ
         private BlockingCollection<RawData> _graphCollection; // Take from DataTreamtment, Add to graphList 
+        private BlockingCollection<RawData> _filterCollection;
 
         // Threads
         private static Thread DataCollectorThread; // Datacollection thread (downsampling)
@@ -36,6 +34,7 @@ namespace LogicLayer // Consumer
 
         // Lists
         public List<RawData> FullList { get; private set; } // Complete measurement
+
         public static List<RawData> DownsampledRawList
         {
             get
@@ -46,14 +45,15 @@ namespace LogicLayer // Consumer
                 }
             }
 
-        private set
-        {
-            lock (myLock)
+            private set
             {
-                downsampledRawList = value;
+                lock (myLock)
+                {
+                    downsampledRawList = value;
+                }
             }
-        }
-    } // Downsampled list (with a Lock)
+        } // Downsampled list (with a Lock)
+
         private static List<RawData> downsampledRawList; // Same list defined as an attribute, this is necessary in order to put a lock on it
 
         public static List<ConvertedData> GraphList
@@ -74,27 +74,29 @@ namespace LogicLayer // Consumer
                 }
             }
         } // Converted list (with a Lock)
+
         private static List<ConvertedData> graphList; // Same list defined as an attribute, this is necessary in order to put a lock on it
 
         // Properties
         //public static double CaliValue { get; set; } // mangles at blive sat et sted!
-        public static bool ShallStop { get; private set; } 
+        public static bool ShallStop { get; private set; }
         private static double Total { get; set; }
         private static double ZeroAdjustedAverage { get; set; }
         public double calibrationVal { get; private set; }
         public double zeroadjustmentVal { get; private set; }
+        public double ConvertedValue { get; private set; }
 
         //
         //
 
-        public DataTreatment(BlockingCollection<RawData> collection,BlockingCollection<RawData> graphCollection, Subject obs, IData iData, ConvertAlgo conv, CalibrationValue caliValue)
+        public DataTreatment(BlockingCollection<RawData> collection, BlockingCollection<RawData> graphCollection,BlockingCollection<RawData> filterCollection, IData iData, ConvertAlgo conv)
         {
             _collection = collection;
             _graphCollection = graphCollection;
-            observer = obs;
+            _filterCollection = filterCollection;
+
             DataInterface = iData;
             ConvertAlgorithm = conv;
-            CaliValue = caliValue;
 
             FullList = new List<RawData>();
             DownsampledRawList = new List<RawData>();
@@ -115,6 +117,7 @@ namespace LogicLayer // Consumer
         {
             ShallStop = true;
         }
+
         public void Done()
         {
             Notify();
@@ -130,21 +133,27 @@ namespace LogicLayer // Consumer
                 {
                     FullList.Add(_collection.Take()); // Adda 1000 samples into the treatment list.
                 }
+
                 if (FullList.Count >= 1000) // If the list is longer than the 5 sec window in the graph
                 {
-                    for (int i = FullList.Count - 1000; i < FullList.Count - 16; i += 17) // Runs to full count minus 16, because otherwise the downsampling would stop. Does this mean we loose 16 points of data / one downsampled point?
+                    for (int i = FullList.Count - 1000;
+                        i < FullList.Count - 16;
+                        i += 17) // Runs to full count minus 16, because otherwise the downsampling would stop. Does this mean we loose 16 points of data / one downsampled point?
                     {
                         Total = 0;
                         ZeroAdjustedAverage = 0;
 
                         Total = FullList[i].Voltage + FullList[i + 16].Voltage + FullList[i + 15].Voltage +
-                                FullList[i + 14].Voltage + FullList[i + 13].Voltage + FullList[i + 12].Voltage + FullList[i + 11].Voltage + FullList[i + 10].Voltage + FullList[i + 9].Voltage
-                                + FullList[i + 8].Voltage + FullList[i + 7].Voltage + FullList[i + 6].Voltage + FullList[i + 5].Voltage + FullList[i + 4].Voltage + FullList[i + 3].Voltage
+                                FullList[i + 14].Voltage + FullList[i + 13].Voltage + FullList[i + 12].Voltage +
+                                FullList[i + 11].Voltage + FullList[i + 10].Voltage + FullList[i + 9].Voltage
+                                + FullList[i + 8].Voltage + FullList[i + 7].Voltage + FullList[i + 6].Voltage +
+                                FullList[i + 5].Voltage + FullList[i + 4].Voltage + FullList[i + 3].Voltage
                                 + FullList[i + 2].Voltage + FullList[i + 1].Voltage;
 
                         ZeroAdjustedAverage = (Total / 17) - zeroadjustmentVal;
 
                         _graphCollection.Add(new RawData(0, ZeroAdjustedAverage)); // There is not added a time stamp.
+                        _filterCollection.Add(new RawData(0, ZeroAdjustedAverage));
                     }
                 }
             }
@@ -152,7 +161,7 @@ namespace LogicLayer // Consumer
 
         public void MakeGraphList()
         {
-            calibrationVal = Database.GetCalibrateValue();
+            calibrationVal = DataInterface.GetCalibrateValue();
 
             while (!ShallStop)
             {
@@ -160,7 +169,8 @@ namespace LogicLayer // Consumer
                 {
                     for (int i = 0; i < 60; i++) // Adds 60 datapoints at a time
                     {
-                        graphList.Add(new ConvertedData(0, ConvertAlgorithm.ConvertData(_graphCollection.Take().Voltage, calibrationVal))); // Takes from graphCollection and converts to mmHg
+                        ConvertedValue = ConvertAlgorithm.ConvertData(_graphCollection.Take().Voltage, calibrationVal);
+                        graphList.Add(new ConvertedData(0, ConvertedValue)); // Takes from graphCollection and converts to mmHg
                     }
 
                     Done(); // Updates graph
@@ -178,12 +188,12 @@ namespace LogicLayer // Consumer
 
         public List<ConvertedData> GetGraphList()
         {
-           return GraphList;
+            return graphList;
         }
 
         public List<RawData> GetDownsampledList()
         {
-            return DownsampledRawList;
+            return downsampledRawList;
         }
     }
 }
