@@ -22,7 +22,7 @@ namespace LogicLayer
         public bool IsZeroAdjustDone { get; private set; } = false;
         private double TotalValue=0;
 
-        public int IsMeasureRight { set; get; } = 0;
+        //public int IsMeasureRight { set; get; } = 0;
 
 
         public UC1M1_ZeroAdjustment(BlockingCollection<RawData> collection, IMeasure measure)
@@ -35,9 +35,9 @@ namespace LogicLayer
 
         public double GetZeroAdjustmentValue()
         {
-            IsMeasureRight = 0;
-            double normalUpper = 1.2*1.05; // normalværdie for volt + 5 procent 
-            double normalUnder = 1.2 * 0.95; // normalværdie for volt - 5 procent 
+            //IsMeasureRight = 0;
+            //double normalUpper = 1.2*1.05; // normalværdie for volt + 5 procent 
+            //double normalUnder = 1.2 * 0.95; // normalværdie for volt - 5 procent 
 
             Measure.StartMeasurement(); // start måling 
 
@@ -57,6 +57,7 @@ namespace LogicLayer
                 Measure.StopMeasurement();// slutter måling 
                 IsZeroAdjustDone = true;
             }
+            return ZeroAdjustmentValue;
 
 
 
@@ -64,12 +65,12 @@ namespace LogicLayer
             // OBS skal give fejlmelding hvis det målete tryk overstiger normaltrykket med +%5. 
             // Men hvad er normaltrykket? 0???
 
-            if (ZeroAdjustmentValue <= normalUpper && normalUnder <= ZeroAdjustmentValue) // hvis værdien varierer mere end +-5%
-            {
-                return ZeroAdjustmentValue;
+            //if (ZeroAdjustmentValue <= normalUpper && normalUnder <= ZeroAdjustmentValue) // hvis værdien varierer mere end +-5%
+            //{
+            //    return ZeroAdjustmentValue;
 
-            }
-            else return IsMeasureRight = 1;
+            //}
+            //else return IsMeasureRight = 1;
 
         }
 

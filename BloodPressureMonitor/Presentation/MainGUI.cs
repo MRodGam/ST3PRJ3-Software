@@ -50,6 +50,7 @@ namespace Presentation
             if (ZeroAdjustmentGui.IsZeroAdjustmentMeasured == true)
             {
                 this.Visible = true;
+                StartB.Enabled = true; // knappen er til at starte med ikke enable, bliver først hvis nulpunktsjusteringen udføres
             }
             else
                 this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
