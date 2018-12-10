@@ -42,6 +42,7 @@
             this.navnTB = new System.Windows.Forms.TextBox();
             this.procedureTB = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.AnnullerB = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // SaveB
@@ -50,10 +51,10 @@
             this.SaveB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.SaveB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SaveB.ForeColor = System.Drawing.Color.White;
-            this.SaveB.Location = new System.Drawing.Point(254, 336);
+            this.SaveB.Location = new System.Drawing.Point(249, 324);
             this.SaveB.Margin = new System.Windows.Forms.Padding(0);
             this.SaveB.Name = "SaveB";
-            this.SaveB.Size = new System.Drawing.Size(136, 30);
+            this.SaveB.Size = new System.Drawing.Size(136, 42);
             this.SaveB.TabIndex = 64;
             this.SaveB.Text = "Gem";
             this.SaveB.UseVisualStyleBackColor = false;
@@ -196,12 +197,28 @@
             this.label3.TabIndex = 68;
             this.label3.Text = "Procedure";
             // 
+            // AnnullerB
+            // 
+            this.AnnullerB.BackColor = System.Drawing.Color.Gray;
+            this.AnnullerB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.AnnullerB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnnullerB.ForeColor = System.Drawing.Color.White;
+            this.AnnullerB.Location = new System.Drawing.Point(132, 336);
+            this.AnnullerB.Margin = new System.Windows.Forms.Padding(0);
+            this.AnnullerB.Name = "AnnullerB";
+            this.AnnullerB.Size = new System.Drawing.Size(97, 30);
+            this.AnnullerB.TabIndex = 69;
+            this.AnnullerB.Text = "Annuller";
+            this.AnnullerB.UseVisualStyleBackColor = false;
+            this.AnnullerB.Click += new System.EventHandler(this.button1_Click);
+            // 
             // SaveDataGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(486, 430);
+            this.Controls.Add(this.AnnullerB);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.procedureTB);
             this.Controls.Add(this.navnTB);
@@ -241,5 +258,6 @@
         private System.Windows.Forms.TextBox navnTB;
         private System.Windows.Forms.TextBox procedureTB;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button AnnullerB;
     }
 }

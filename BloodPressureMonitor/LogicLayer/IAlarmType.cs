@@ -9,7 +9,7 @@ namespace LogicLayer
     public interface IAlarmType
     {
         void RunAlarm();
-        void MuteAlarm();
+        //void MuteAlarm();
         void StopAlarm();
     }
 }

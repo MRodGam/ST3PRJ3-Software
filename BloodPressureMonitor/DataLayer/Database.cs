@@ -18,17 +18,24 @@ namespace DataLayer
         private SqlConnection connectionP;
         private SqlDataReader reader;
         private SqlCommand command;
-        private const String DBlogin = "st-i4dab.E18ST3PRJ3Gr3";
-        private List<RawData> bloodPressureList;
+        private const String DBlogin = "E18ST3PRJ3Gr3";
+        public List<RawData> bloodPressureList;
         private double calibrateDatabaseValue;
         public List<RawData> GetCompletedMeasurement { get; private set; }
 
-        public Database()
+        public Database() //st-i4da.
         {
-            connectionP = new SqlConnection("Data Source=st-i4dab.E18ST3PRJ3Gr3.dbo;Initial Catalog=" + DBlogin +
-                                            ";Persist Security Info=True;User ID=" + DBlogin + ";Password=" + DBlogin + "");
+            connectionP = new SqlConnection("Data Source=st-i4dab.uni.au.dk;Initial Catalog=E18ST3PRJ3Gr3;Persist Security Info=True;User ID=E18ST3PRJ3Gr3;Password=E18ST3PRJ3Gr3");
+            
+        }
 
-           
+        private static byte[] GetBytes(List<RawData> dataList)
+        {
+            if (dataList == null) return null;
+            BinaryFormatter bf = new BinaryFormatter();
+            MemoryStream ms = new MemoryStream();
+            bf.Serialize(ms, dataList);
+            return ms.ToArray();
         }
 
         public List<RawData> rawData(string which)
@@ -57,10 +64,10 @@ namespace DataLayer
                 }
 
                 //Data skrives til domain klasse SaveData
-                 SaveData saveData = new SaveData(Convert.ToString(reader["CPRno"]), Convert.ToString(reader["Idno"]),
-                    Convert.ToString(reader["Procedure"]), 
-                    Convert.ToString(reader["Name"]),
-                    Convert.ToDateTime(reader["timeAndDate"]), bloodPressureList);
+                SaveData saveData = new SaveData(Convert.ToString(reader["CPRno"]), Convert.ToString(reader["Idno"]),
+                   Convert.ToString(reader["Procedure"]),
+                   Convert.ToString(reader["Name"]),
+                   Convert.ToDateTime(reader["timeAndDate"]), bloodPressureList);
                 //Convert.ToDouble(reader["Calibrate"]));
                 SaveData_.Add(saveData);
             }
@@ -70,15 +77,16 @@ namespace DataLayer
             return GetCompletedMeasurement;
         }
 
-        public void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name, DateTime timeAndDate, List<RawData> bloodpressureList)
+        public void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name, DateTime timeAndDate, List<RawData> bloodPressureList) //,    
         {
             connectionP.Open();
-            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(IDno, Procedure, CPRno, Name, timeAndDate, CompletedMeasurement) VALUES(@IDno, @Procedure, @CPRno, @Name, @timeAndDate, @CompletedMeasurement)", connectionP);
-            command_.Parameters.AddWithValue("@IDno", IDno);
+            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(Idno, Procedures, CPRno, Name, timeAndDate, CompletedMeasurement) VALUES(@Idno, @Procedure, @CPRno, @Name, @timeAndDate, @CompletedMeasurement)", connectionP);
+            command_.Parameters.AddWithValue("@Idno", IDno);
             command_.Parameters.AddWithValue("@Procedure", Procedure);
             command_.Parameters.AddWithValue("@CPRno", CPRno);
+            command_.Parameters.AddWithValue("@Name", Name);
             command_.Parameters.AddWithValue("@timeAndDate", timeAndDate);
-            command_.Parameters.AddWithValue("@getCompletedMeasurement", bloodPressureList);
+            command_.Parameters.AddWithValue("@CompletedMeasurement", GetBytes(bloodPressureList));
             command_.ExecuteNonQuery();
             connectionP.Close();
         }
@@ -86,7 +94,7 @@ namespace DataLayer
         public double GetCalibrateValue() //henter kalibreringværdi
         {
             command.CommandText = "select * from Calibrate where calibrate=@Calibrate";
-            command.Parameters.Add("Calibrate",SqlDbType.VarChar).Value = calibrateDatabaseValue;
+            command.Parameters.Add("Calibrate", SqlDbType.VarChar).Value = calibrateDatabaseValue;
             connectionP.Open();
             SqlDataReader reader = command.ExecuteReader();
             return calibrateDatabaseValue;
@@ -95,7 +103,7 @@ namespace DataLayer
         public void SaveCalibrateValue(double Calibrate) //gemmer kalibreringsværdi
         {
             //skal gemme clibrate-værdi
-            connectionP.Open(); 
+            connectionP.Open();
             SqlCommand command_ = new SqlCommand("INSERT INTO SaveCalibrateValue (Calibrate) VALUES(@Calibrate)", connectionP);
             command_.Parameters.AddWithValue("@Calibrate", Calibrate);
             command_.ExecuteNonQuery();

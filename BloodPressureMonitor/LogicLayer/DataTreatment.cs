@@ -12,13 +12,14 @@ using Domain;
 
 namespace LogicLayer // Consumer
 {
-    public class DataTreatment : Observer, IDataTreatment
+    public class DataTreatment : Subject//, IDataTreatment
     {
         private ConvertAlgo ConvertAlgorithm;
         private UC7S3_Filter FilterController;
         private UC1M1_ZeroAdjustment AdjustmentController;
-        private Observer observer;
+        private Subject observer;
         private IData DataInterface;
+        private CalibrationValue CaliValue;
 
         private static object myLock = new object();
 
@@ -26,9 +27,10 @@ namespace LogicLayer // Consumer
         private static Thread DataCollectorThread;
         private static Thread GraphThread;
 
-        public static List<RawData> FullList;
+        public List<RawData> FullList { get; private set; } // har fjernet static da man ellers ikke kan kalde den fra UC_savedata
         public static List<RawData> DownsampledRawList;
         public static List<ConvertedData> ConvertedDataList;
+
         public static List<ConvertedData> GraphList
         {
             get
@@ -48,29 +50,32 @@ namespace LogicLayer // Consumer
             }
         }
 
-        private static List<ConvertedData> graphList;
+        private static List<ConvertedData> graphList; // bliver denne brugt?
 
-        public static double CaliValue { get; private set; }
+
+        //public static double CaliValue { get; set; } // mangles at blive sat et sted!
         public static bool ShallStop { get; private set; }
         private static double Total { get; set; }
         private static double ZeroAdjustedAverage { get; set; }
         private static int Time { get; set; } = 1;
         public static int Counter { get; set; } = 0;
-        public double calibrationVal { get; private set; }
+        //public double calibrationVal { get; private set; }
 
+        
 
-
-        public DataTreatment(BlockingCollection<RawData> collection, Observer obs, IData iData, ConcertAlgo conv)
+        public DataTreatment(BlockingCollection<RawData> collection, Subject obs, IData iData, ConvertAlgo conv, CalibrationValue caliValue)
         {
             DataInterface = iData;
             _collection = collection;
             observer = obs;
             ConvertAlgorithm = conv;
+            CaliValue = caliValue;
 
             FullList = new List<RawData>();
             ConvertedDataList = new List<ConvertedData>();
             DownsampledRawList = new List<RawData>();
             GraphList = new List<ConvertedData>();
+           
         }
 
         public void StartGraphData()
@@ -231,19 +236,19 @@ namespace LogicLayer // Consumer
             }
         }
 
-        public void MakeGraphList()
+        public void MakeGraphList(/*List<RawData> liste*/) // konverterer data 
         {
             while (!ShallStop)
             {
                 Thread.Sleep(20);
                 
                 // if (60 < DownsampledRawList.Count && DownsampledRawList.Count < 300)
-                if (60 <= DownsampledRawList.Count)
+                if (60 <= DownsampledRawList/*liste*/.Count)
                 {
                     for (int i = DownsampledRawList.Count - 60; i < DownsampledRawList.Count; i++)
                     {
-                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Voltage)));
-                        GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
+                        GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage, CaliValue.Value)));
+                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
                     }
 
                     Done();
@@ -251,12 +256,14 @@ namespace LogicLayer // Consumer
             }
         }
 
+
+
         public List<ConvertedData> GetGraphList() // Skal returnere det nedsamplede converterede data fratrukket nulpunktsjusteringen
         {
            return GraphList;
         }
 
-        public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata fratrukket nulpunktsjusteringen
+        public List<RawData> GetDownsampledList() // Skal returnere det nedsamplede rådata fratrukket nulpunktsjusteringen
         {
             return DownsampledRawList;
         }

@@ -7,7 +7,7 @@ using Domain;
 
 namespace LogicLayer
 {
-    public class Observer 
+    public abstract class Subject // er subject istedet (var observer før)
     {
         private List<IObserver> _observers = new List<IObserver>();
 

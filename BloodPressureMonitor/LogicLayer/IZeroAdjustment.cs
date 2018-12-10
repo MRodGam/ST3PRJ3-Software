@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    interface IZeroAdjustment
+    public interface IZeroAdjustment
     {
+        double GetZeroAdjustmentValue();
+        double ZeroAdjust(double rawData);
     }
 }

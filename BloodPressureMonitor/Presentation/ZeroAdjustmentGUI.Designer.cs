@@ -106,6 +106,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ZeroAdjustmentGUI";
             this.Text = "ZeroAdjustmentGUI";
+            this.Load += new System.EventHandler(this.ZeroAdjustmentGUI_Load);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

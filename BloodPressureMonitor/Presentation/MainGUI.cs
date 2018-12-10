@@ -16,48 +16,79 @@ using Domain;
 
 namespace Presentation
 {
-    public partial class MainGUI : Form
+    public partial class MainGUI : Form, IObserver
     {
         
         private IAlarm alarm; // Denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
-        private IDataTreatment dataTreatment;
-        private IAlarmType muteAlarm;
+        private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
+        private IAlarmType alarmType;
+        private ZeroAdjustmentGUI ZeroAdjustmentGui;
+        private UC7S3_Filter FilterRef;
 
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
 
-        private delegate void updateGraphDelegate(IDataTreatment dataInterface);
+        private delegate void updateGraphDelegate(List<ConvertedData> graphList);
 
         private List<ConvertedData> graphList;
 
 
         public int Counter { get; private set; } = 0;
+        public bool Running { get; set; } = false;
 
-        public MainGUI(IDataTreatment data)
+        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef)
         {
             InitializeComponent();
-            muteAlarmWorker = new BackgroundWorker();
+            ZeroAdjustmentGui = zeroAdjustmentGui;
+
+            this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
+
+
+            ZeroAdjustmentGui.ShowDialog();
+
+            if (ZeroAdjustmentGui.IsZeroAdjustmentMeasured == true)
+            {
+                this.Visible = true;
+                StartB.Enabled = true; // knappen er til at starte med ikke enable, bliver først hvis nulpunktsjusteringen udføres
+            }
+            else
+                this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
+        
+            
+        muteAlarmWorker = new BackgroundWorker();
             muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
             muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
-            muteAlarm = new HighAlarm();
+            alarmType = new HighAlarm();
 
             ActiveAlarm = new BackgroundWorker();
             ActiveAlarm.DoWork += new DoWorkEventHandler(ActiveAlarmUpdate_doWork);
             ActiveAlarm.RunWorkerCompleted += new RunWorkerCompletedEventHandler(DeactiveAlarmUpdate);
 
             dataTreatment = data;
-            dataTreatment.Attach(this);
+            dataTreatment.Attach(this); // metoden findes ikke (virker nu da IDataTreatment er udkommenteret, og det isetdet er DataTreatment vi kalder igennem)
             graphList = new List<ConvertedData>();
+
+            //filterRef = new UC7S3_Filter();
+            FilterRef = filterRef;
+
         }
 
-        public void Update(IDataTreatment dataInterface)
+        public void Update(DataTreatment dataTreatmentRef)
         {
-            graphList = dataInterface.FilterData();
+            if (FilterRB.Checked == true)
+            {
+                graphList = FilterRef.GetFiltredGraphList();
+            }
+
+            if (FilterRB.Checked == false)
+            {
+                graphList = dataTreatmentRef.GetGraphList(); //dataTreatmentRef.FilterData(); // filterData er void, hvis den skal retunere skal den være en liste
+            }
             UpdateGraph(graphList);
         }
 
-        private static void UpdateGraph(List<ConvertedData> graphList)
+        private  void UpdateGraph(List<ConvertedData> graphList) // skal ikke være static
         {
             if (chart1.InvokeRequired)
             {
@@ -70,6 +101,16 @@ namespace Presentation
                     chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
                 }
             }
+
+            if (alarm.GetIsAlarmRunning() == true)
+            {
+                ActiveAlarmUpdate();
+            }
+
+            //if (alarm.GetIsAlarmRunning() == false)
+            //{
+            //    alarm.DeactiveAlarmUpdate((object)this, new RunWorkerCompletedEventArgs() ); // hvordan ????
+            //}
         }
 
         private void StartB_Click(object sender, EventArgs e)
@@ -96,6 +137,11 @@ namespace Presentation
 
         private void ActiveAlarmUpdate()
         {
+
+            alarmType.RunAlarm(); // denne skal afspilles med 5 sekunder mellemrum, skal det stå nede i tråden for ActiveAlarm ??
+            //Thread.Sleep(5000); // sover 5 sekunder
+            //alarmType.RunAlarm(); 
+
             blodtryk_L.ForeColor = Color.Red;
             middel_L.ForeColor = Color.Red;
             AlarmPictureBox.Visible = true;
@@ -152,9 +198,9 @@ namespace Presentation
 
         private void muteAlarmWorker_muteAlarm(object sender, DoWorkEventArgs e) // Denne metode bestemmer hvad der sker, imens backgroundworker kører. 
         {
-            muteAlarm.StopAlarm();
+            alarmType.StopAlarm();
             Thread.Sleep(180000);
-            muteAlarm.RunAlarm();
+            alarmType.RunAlarm();
         }
 
         private void muteAlarmWorker_completeMute(object sender, RunWorkerCompletedEventArgs e) // Denne metode kaldes når BackGroundWorker er færdig
@@ -163,13 +209,13 @@ namespace Presentation
             AlarmPausedPictureBox.Visible = false;
         }
 
-        private void FilterRB_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Running == true && FilterRB.Checked)
-            {
-                dataTreatment.StartFilter(); //Mangler forbindelse til interface
-            }
-        }
+        //private void FilterRB_CheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (Running == true && FilterRB.Checked)
+        //    {
+        //        dataTreatment.StartFilter(); //Mangler forbindelse til interface
+        //    }
+        //}
 
 
         private void clearB_Click(object sender, EventArgs e)
@@ -190,6 +236,23 @@ namespace Presentation
         }
 
         private void StartB_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FilterRB_CheckedChanged_1(object sender, EventArgs e) // den gældende
+        {
+            if (Running == true && FilterRB.Checked)
+            {
+                FilterRef.StartFilter(); 
+            }
+            if (Running == true && FilterRB.Checked==false)
+            {
+                FilterRef.StopFilter();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
         {
 
         }
