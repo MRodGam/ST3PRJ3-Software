@@ -46,7 +46,7 @@ namespace DataLayer
             {
                 localDAQ.CollectData(); // Starts the data collection
 
-                if (localDAQ.isListfull == true)
+                if (localDAQ.isListFull == true)
                 {
                     List<RawData> localList = localDAQ.GetCollectedRawData();
                     foreach (var obj in localList)// Transfers content measured from the DAQ to the collection

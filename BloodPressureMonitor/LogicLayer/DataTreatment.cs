@@ -21,6 +21,7 @@ namespace LogicLayer // Consumer
         private IData DataInterface;
 
         private static object myLock = new object();
+
         private BlockingCollection<RawData> _collection;
         private static Thread DataCollectorThread;
         private static Thread GraphThread;

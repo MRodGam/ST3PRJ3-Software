@@ -16,8 +16,7 @@ namespace DataLayer
         List<RawData> TotalRawDataList;
         List<RawData> ShortSampleDataList;
         double[] Raw1000DataArray;
-        public bool isListfull { get; private set; } = false;
-        // public bool isDatacollectionRunning { get; set; }
+        public bool isListFull { get; private set; } = false;
 
         public DAQ()
         {
@@ -25,7 +24,7 @@ namespace DataLayer
         }
         public void CollectData()
         {
-            isListfull = false;
+            isListFull = false;
             Raw1000DataArray = new double[1000]; // 1000 means the screen would be updates every second
             ShortSampleDataList = new List<RawData>();
 
@@ -51,7 +50,7 @@ namespace DataLayer
                 ShortSampleDataList.Add(new RawData(second, Math.Round((Raw1000DataArray[i]), 3)));
             }
 
-            isListfull = true;
+            isListFull = true;
         }
 
         public List<RawData> GetCollectedRawData()

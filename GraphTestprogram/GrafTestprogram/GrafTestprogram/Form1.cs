@@ -29,6 +29,7 @@ namespace GrafTestprogram
 
         private List<ConvertedData> GUIgraphList;
         //private List<RawData> testGraphList;
+        
 
         public int Counter { get; private set; } = 0;
         public int Updates { get; private set; } = 0;
@@ -45,18 +46,12 @@ namespace GrafTestprogram
             InitializeComponent();
             dataTreatment.Attach(this); // Lars
             GUIgraphList = new List<ConvertedData>();
-            //testGraphList = new List<RawData>();
         }
 
         public void Update()
         {
-            GUIgraphList = dataTreatment.GetGraphList();
-            // testGraphList = dataTreatment.GetFilterList();
-
+            GUIgraphList = dataTreatment.GetGraphList();                                                                                                    
             UpdateGraph(GUIgraphList);
-            // UpdateGraph(GUIgraphList);
-
-            Updates++;
         }
 
         private void UpdateGraph(List<ConvertedData> GUIgraphList)
@@ -64,17 +59,15 @@ namespace GrafTestprogram
             if (chart1.InvokeRequired)
             {
                 chart1.Invoke(new updateGraphDelegate(UpdateGraph), new object[] { GUIgraphList });
-                // get other values to update with
             }
             else
             {
+                chart1.Series["Series1"].Points.Clear();
+
                 foreach (var sample in GUIgraphList)
                 {
-                    chart1.Series["Series1"].Points.AddXY(sample.Second,sample.Pressure);
+                    chart1.Series["Series1"].Points.AddY(sample.Pressure);
                 }
-
-                textBox1.Text = Convert.ToString(Updates);
-                // Update other values
             }
         }
 
