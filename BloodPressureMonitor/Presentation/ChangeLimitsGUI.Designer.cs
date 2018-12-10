@@ -219,7 +219,7 @@
             this.okB.Name = "okB";
             this.okB.Size = new System.Drawing.Size(59, 23);
             this.okB.TabIndex = 13;
-            this.okB.Text = "OK";
+            this.okB.Text = "Gem";
             this.okB.UseVisualStyleBackColor = false;
             this.okB.Click += new System.EventHandler(this.okB_Click);
             // 
