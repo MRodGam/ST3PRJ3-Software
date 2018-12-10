@@ -195,5 +195,10 @@ namespace LogicLayer // Consumer
         {
             return downsampledRawList;
         }
+
+        public List<RawData> GetFullList()
+        {
+            return FullList;
+        }
     }
 }
