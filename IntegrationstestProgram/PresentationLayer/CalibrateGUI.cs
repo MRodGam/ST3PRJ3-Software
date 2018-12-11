@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using LogicLayer;
+using Domain;
 
-namespace Presentation
+namespace PresentationLayer
 {
     public partial class CalibrateGUI : Form
     {
@@ -17,33 +18,27 @@ namespace Presentation
         private IMeasure measure; // reference til ICalibrate
         private MainGUI MainGuiRef;
         
+        //private LoginToCalibrateGUI LoginToCalibrateRef; // er det OK at jeg opretter en new her??
 
-        private LoginToCalibrateGUI LoginToCalibrateRef; // er det OK at jeg opretter en new her??
-
-        public bool IsCalibrateDone { get; set; } = false;
-
-        
-
-        public CalibrateGUI(ICalibrate calibrate, IMeasure measure, LoginToCalibrateGUI loginToCalibrateRef, MainGUI mainGui)
+        public CalibrateGUI(ICalibrate calibrate_, IMeasure measure)
         {
             InitializeComponent();
-            LoginToCalibrateRef = loginToCalibrateRef;
-            MainGuiRef = mainGui;
+            //LoginToCalibrateRef = loginToCalibrateRef;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis login = true (se koden nedenunder)
+            calibrate = calibrate_;
 
+            //LoginToCalibrateRef.ShowDialog();
 
-            LoginToCalibrateRef.ShowDialog();
-
-            if (LoginToCalibrateRef.LoginOK == true)
-            {
-                this.Visible = true;
-            }
-            else
-                this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
+            //if (LoginToCalibrateRef.LoginOK == true)
+            //{
+            //    this.Visible = true;
+            //}
+            //else
+            //    this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
         }
 
-        private void button1_Click(object sender, EventArgs e) // 10 mmHg måles
+        private void button1_Click(object sender, EventArgs e)
         {
             calibrate.AddVoltageValue(10);
             button1.Enabled = false;
@@ -57,7 +52,7 @@ namespace Presentation
             MessageBox.Show("Målingen er udført");
         }
 
-        private void button2_Click(object sender, EventArgs e) // 30 mmHg måles
+        private void button2_Click(object sender, EventArgs e)
         {
             calibrate.AddVoltageValue(30);
             button2.Enabled = false;
@@ -69,9 +64,8 @@ namespace Presentation
             }
             MessageBox.Show("Målingen er udført");
         }
-       
 
-        private void button3_Click(object sender, EventArgs e) // 50 mmHg måles
+        private void button3_Click(object sender, EventArgs e)
         {
             calibrate.AddVoltageValue(50);
             button3.Enabled = false;
@@ -84,7 +78,7 @@ namespace Presentation
             MessageBox.Show("Målingen er udført");
         }
 
-        private void button4_Click(object sender, EventArgs e)// 75 mmHg måles
+        private void button4_Click(object sender, EventArgs e)
         {
             calibrate.AddVoltageValue(75);
             button4.Enabled = false;
@@ -97,39 +91,25 @@ namespace Presentation
             MessageBox.Show("Målingen er udført");
         }
 
-        private void button5_Click(object sender, EventArgs e) // 100 mmHg måles
+        private void button5_Click(object sender, EventArgs e)
         {
             calibrate.AddVoltageValue(100);
             button5.Enabled = false;
 
             // hvis alle 5 målinger er blevet udført bliver det muligt at trykke på "kalibrer"-knappen. Skal stå i hver "mål"-knap, da man kan måle i forskellige rækkefølger
-            if (calibrate.GetIsAll5MeasureDone()==true)
+            if (calibrate.GetIsAll5MeasureDone() == true)
             {
                 button6.Enabled = true;
             }
             MessageBox.Show("Målingen er udført");
         }
 
-        private void button6_Click(object sender, EventArgs e) //  kalibrer knappen, er enabled = false i starten.
+        private void button6_Click(object sender, EventArgs e)
         {
-            IsCalibrateDone = false;
-
             calibrate.DoCalibrateRegression(); // Kører metoden DoCalibration i logiklaget
-            
-            MessageBox.Show("Kalibreringen er udført og bregnet til: " +calibrate.getCalibrateValue());
-            //MainGuiRef.  // ændre datoen for sidste kalibrering 
 
-            if (calibrate.GetIsAll5MeasureDone()== true)
-            {
-                IsCalibrateDone = true;
-            }
-            else
-            {
-                IsCalibrateDone = false;
-            }
-           
-            
-            
+            MessageBox.Show("Kalibreringen er udført og bregnet til: " + calibrate.getCalibrateValue());
+            //MainGuiRef.  // ændre datoen for sidste kalibrering 
         }
     }
 }

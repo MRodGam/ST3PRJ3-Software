@@ -15,9 +15,9 @@ namespace LogicLayer
     {
        
         private BlockingCollection<RawData> _collection;
-        private CalibrationValue _calibration;
+        // private CalibrationValue _calibration;
         private IMeasure Measure;
-        private IData Database;
+        // private IData Database;
         private ConvertedData ConvertData;
 
         private double[] voltageArray = new double[5]; // array indeholder 5 pladser da vi tager fem målinger i kalibreringen
@@ -26,33 +26,27 @@ namespace LogicLayer
         private int _tæller = 0;
         private double _voltagePoint;
         private double caliValue;
-        string today = DateTime.Today.ToString("d/MM/yyyy");
-       
 
         public bool IsAll5MeasureDone = false;
         
-        public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database, ConvertedData convertData)
+        //public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database, ConvertedData convertData)
+        public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure)
         {
             _collection = collection;
             Measure = measure;
-            Database = database;
-            ConvertData = convertData;
+            //Database = database;
+            //ConvertData = convertData;
 
         }
 
         public void AddVoltageValue(int pressureValue) // metoden der kaldes i eventhandleren for hver volt måling 
         {
-            
             double voltageValue = GetOneVoltagePoint();
             addSample(voltageValue, pressureValue);
-
-
         }
 
         public double GetOneVoltagePoint() // køres for hver volt måling (kaldes i metoden AddVoltage()
         {
-            
-            //UC2M2_UC3M3_Measure measure = new UC2M2_UC3M3_Measure();
             double totalVoltageValue = 0;
             double _voltagePoint = 0.0;
             
@@ -131,20 +125,15 @@ namespace LogicLayer
 
             // skal gemmes ned i en databasen
 
-            _calibration = new CalibrationValue(caliValue); // sætter CalibrationsValue til _a
+            //_calibration = new CalibrationValue(caliValue); // sætter CalibrationsValue til _a
           
-            Database.SaveCalibrateValue(caliValue); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+            //Database.SaveCalibrateValue(caliValue); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
 
         }
 
         public double getCalibrateValue()
         {
             return caliValue;
-        }
-
-        public string updateCalibrateText()
-        {
-            return "Kalibreringen blev sidst udført :" + today;
         }
 
     }
