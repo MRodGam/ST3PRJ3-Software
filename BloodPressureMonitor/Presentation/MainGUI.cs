@@ -25,6 +25,8 @@ namespace Presentation
         private IAlarmType alarmType;
         private ZeroAdjustmentGUI ZeroAdjustmentGui;
         private UC7S3_Filter FilterRef;
+        private BloodPressureAlgo BloodPressureAlgoRef;
+        private PulseAlgo PulseAlgoRef;
 
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
@@ -37,10 +39,12 @@ namespace Presentation
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
 
-        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef)
+        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef, BloodPressureAlgo bloodPressureAlgoRef, PulseAlgo pulseAlgoRef)
         {
             InitializeComponent();
             ZeroAdjustmentGui = zeroAdjustmentGui;
+            BloodPressureAlgoRef = bloodPressureAlgoRef;
+            PulseAlgoRef = pulseAlgoRef;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
 
@@ -87,6 +91,8 @@ namespace Presentation
             }
 
             UpdateGraph(graphList);
+
+            BloodPressureAlgoRef.WindowOfConvertedData(graphList, PulseAlgoRef.pulseValue); // kalder metoden for at finde blodtryksværdier
         }
 
         private void UpdateGraph(List<ConvertedData> graphList) // skal ikke være static
@@ -116,16 +122,6 @@ namespace Presentation
 
         private void StartB_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Sure", "Some Title", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                //do something
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                //do something else
-            }
-
             Counter++;
 
             if (Counter % 2 == 0)
@@ -136,13 +132,22 @@ namespace Presentation
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
             }
+
             if (Counter % 2 != 0)
             {
-                Measure.StopMeasurement();
+                DialogResult dialogResult = MessageBox.Show("Ønsker du, at afslutte målingen?","Hallo", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    Measure.StopMeasurement();
 
-                Running = false;
-                StartB.BackColor = Color.ForestGreen;
-                StartB.Text = "START MÅLING";
+                    Running = false;
+                    StartB.BackColor = Color.ForestGreen;
+                    StartB.Text = "START MÅLING";
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                   
+                }
             }
         }
 
