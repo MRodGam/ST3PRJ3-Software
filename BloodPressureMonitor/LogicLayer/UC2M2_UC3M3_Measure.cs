@@ -15,34 +15,26 @@ namespace LogicLayer
     public class UC2M2_UC3M3_Measure : IMeasure
     {
         private IDAQ Daq;
-        private DataTreatment dataTreatment;
+        private IDataTreatment dataTreatment;
         private UC5S1_Alarm AlarmController;
-        private BloodPressureAlgo BloodPressureAlgo;
-        private Database Database;
         
 
         public double CaliValue { get; private set; }
         
        
-        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController, BloodPressureAlgo bloodPressureAlgo, Database database)
+        public UC2M2_UC3M3_Measure(IDAQ actualDaq, IDataTreatment _dataTreatment, UC5S1_Alarm alarmController)
         {
             Daq = actualDaq;
             dataTreatment = _dataTreatment;
             AlarmController = alarmController;
-            BloodPressureAlgo = bloodPressureAlgo;
-            Database = database;
-            
         }
 
         public void StartMeasurement()
         {
-            
-            //CaliValue = Database.GetCalibrateValue(); // henter værdien for kalibering i databasen og sætter lig med CaliValue. OBS skal den sættes her? 
             Daq.Start();
             dataTreatment.StartGraphData();
             AlarmController.alarmThread.Set(); // Alarm klassen starter
             AlarmController.IsMeasureActive = true;
-            
         }
 
         public void StopMeasurement()
@@ -50,7 +42,6 @@ namespace LogicLayer
             Daq.Stop();
             dataTreatment.StopGraphData();
             AlarmController.IsMeasureActive = false;
-
         }
     }
 }
