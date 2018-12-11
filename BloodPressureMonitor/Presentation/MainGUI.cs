@@ -18,7 +18,8 @@ namespace Presentation
 {
     public partial class MainGUI : Form, IObserver
     {
-        
+
+        private ICalibrate Icalibrate;
         private IAlarm alarm; // Denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
         private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
@@ -41,7 +42,7 @@ namespace Presentation
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
 
-        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef, BloodPressureAlgo bloodPressureAlgoRef, PulseAlgo pulseAlgoRef, IPulse iPulseRef, CalibrateGUI calibrateGuiRef)
+        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef, BloodPressureAlgo bloodPressureAlgoRef, PulseAlgo pulseAlgoRef, IPulse iPulseRef, CalibrateGUI calibrateGuiRef, ICalibrate Icali)
         {
             InitializeComponent();
             ZeroAdjustmentGui = zeroAdjustmentGui;
@@ -49,6 +50,7 @@ namespace Presentation
             PulseAlgoRef = pulseAlgoRef;
             iPulseRef = IPulseRef;
             CalibrateGUIRef = calibrateGuiRef;
+            Icalibrate = Icali;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
 
@@ -277,6 +279,12 @@ namespace Presentation
         private void button1_Click(object sender, EventArgs e)
         {
             CalibrateGUIRef.ShowDialog();
+
+            if (CalibrateGUIRef.IsCalibrateDone == true)
+            {
+                kaliTekst_L.Text = Icalibrate.updateCalibrateText();
+            }
+            
         }
 
 

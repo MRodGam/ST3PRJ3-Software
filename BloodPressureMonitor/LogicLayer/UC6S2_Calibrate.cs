@@ -26,6 +26,8 @@ namespace LogicLayer
         private int _tæller = 0;
         private double _voltagePoint;
         private double caliValue;
+        string today = DateTime.Today.ToString("d/MM/yyyy");
+       
 
         public bool IsAll5MeasureDone = false;
         
@@ -138,6 +140,11 @@ namespace LogicLayer
         public double getCalibrateValue()
         {
             return caliValue;
+        }
+
+        public string updateCalibrateText()
+        {
+            return "Kalibreringen blev sidst udført :" + today;
         }
 
     }

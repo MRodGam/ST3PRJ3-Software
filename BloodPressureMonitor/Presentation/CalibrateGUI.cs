@@ -20,6 +20,8 @@ namespace Presentation
 
         private LoginToCalibrateGUI LoginToCalibrateRef; // er det OK at jeg opretter en new her??
 
+        public bool IsCalibrateDone { get; set; } = false;
+
         
 
         public CalibrateGUI(ICalibrate calibrate, IMeasure measure, LoginToCalibrateGUI loginToCalibrateRef, MainGUI mainGui)
@@ -110,10 +112,24 @@ namespace Presentation
 
         private void button6_Click(object sender, EventArgs e) //  kalibrer knappen, er enabled = false i starten.
         {
+            IsCalibrateDone = false;
+
             calibrate.DoCalibrateRegression(); // Kører metoden DoCalibration i logiklaget
             
             MessageBox.Show("Kalibreringen er udført og bregnet til: " +calibrate.getCalibrateValue());
             //MainGuiRef.  // ændre datoen for sidste kalibrering 
+
+            if (calibrate.GetIsAll5MeasureDone()== true)
+            {
+                IsCalibrateDone = true;
+            }
+            else
+            {
+                IsCalibrateDone = false;
+            }
+           
+            
+            
         }
     }
 }

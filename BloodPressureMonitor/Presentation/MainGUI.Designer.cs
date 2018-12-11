@@ -45,6 +45,7 @@
             this.blodtryk_L = new System.Windows.Forms.Label();
             this.AlarmPictureBox = new System.Windows.Forms.PictureBox();
             this.AlarmPausedPictureBox = new System.Windows.Forms.PictureBox();
+            this.kaliTekst_L = new System.Windows.Forms.Label();
             button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlarmPictureBox)).BeginInit();
@@ -236,12 +237,24 @@
             this.AlarmPausedPictureBox.TabStop = false;
             this.AlarmPausedPictureBox.Visible = false;
             // 
+            // kaliTekst_L
+            // 
+            this.kaliTekst_L.AutoSize = true;
+            this.kaliTekst_L.BackColor = System.Drawing.SystemColors.ControlText;
+            this.kaliTekst_L.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.kaliTekst_L.Location = new System.Drawing.Point(200, 29);
+            this.kaliTekst_L.Name = "kaliTekst_L";
+            this.kaliTekst_L.Size = new System.Drawing.Size(51, 20);
+            this.kaliTekst_L.TabIndex = 14;
+            this.kaliTekst_L.Text = "label1";
+            // 
             // MainGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InfoText;
             this.ClientSize = new System.Drawing.Size(900, 562);
+            this.Controls.Add(this.kaliTekst_L);
             this.Controls.Add(this.AlarmPausedPictureBox);
             this.Controls.Add(this.AlarmPictureBox);
             this.Controls.Add(this.blodtryk_L);
@@ -280,5 +293,6 @@
         private System.Windows.Forms.Label blodtryk_L;
         private System.Windows.Forms.PictureBox AlarmPictureBox;
         private System.Windows.Forms.PictureBox AlarmPausedPictureBox;
+        private System.Windows.Forms.Label kaliTekst_L;
     }
 }
