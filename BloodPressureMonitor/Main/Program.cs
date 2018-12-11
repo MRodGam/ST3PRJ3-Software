@@ -31,7 +31,7 @@ namespace Main
 
             // Domain classes
             ConvertAlgo convertAlgo = new ConvertAlgo();
-            // BloodPressureAlgo bloodpressureAlgo = new BloodPressureAlgo();
+            BloodPressureAlgo bloodpressureAlgo = new BloodPressureAlgo();
 
             DataTreatment dataTreatment = new DataTreatment(rawCollection,graphCollection,filterCollection, data,convertAlgo);
             IAlarm alarm = new UC5S1_Alarm(dataTreatment,limits, ,alarmType);
