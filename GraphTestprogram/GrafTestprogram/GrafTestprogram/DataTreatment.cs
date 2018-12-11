@@ -85,7 +85,7 @@ namespace LogicLayer // Consumer
 
             _Graphcollection = new BlockingCollection<RawData>();
             FullList = new List<RawData>();
-            ConvertedDataList = new List<ConvertedData>();
+            //ConvertedDataList = new List<ConvertedData>();
             DownsampledRawList = new List<RawData>();
             GraphList = new List<ConvertedData>(); 
         }
