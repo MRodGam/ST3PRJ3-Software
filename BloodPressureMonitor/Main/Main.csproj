@@ -50,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{ee5bda29-9b31-4f79-9a13-76e7bcb5cd32}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{f60e2c13-d94b-4f60-bfe4-aedb0b293855}</Project>
       <Name>Domain</Name>
