@@ -31,15 +31,12 @@ namespace LogicLayer
                 rawDataArray[i] = RawDataList[i].Voltage;
             }
 
-            pulse = pulseAlgorithm.Pulse(rawDataArray, 1000);
+            pulse = pulseAlgorithm.Pulse(rawDataArray, 150000);
 
             return pulse;
 
         }
 
-        public int Pulse(double[] measurements, double samplefrequence)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

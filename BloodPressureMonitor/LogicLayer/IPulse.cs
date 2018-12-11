@@ -8,6 +8,6 @@ namespace LogicLayer
 {
     interface IPulse
     {
-        int Pulse(double[] measurements, double samplefrequence);
+        int FindPulse(); //double[] measurements, double samplefrequence);
     }
 }
