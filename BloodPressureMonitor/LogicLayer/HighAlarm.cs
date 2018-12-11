@@ -15,7 +15,7 @@ namespace LogicLayer
         public void GetFileSound()
         {
             // lydfil hentes
-            player.SoundLocation = "alarmtone\\alarmMedPause.wav"; 
+            player.SoundLocation = "Alarmtone\\alarmMedPause.wav"; 
         }
 
         public void RunAlarm()

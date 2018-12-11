@@ -88,7 +88,7 @@ namespace Presentation
             }
             else
             {
-                SaveDataGUI.Close();
+                //SaveDataGUI.Close();
             }
         }
     }
