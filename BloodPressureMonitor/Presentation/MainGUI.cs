@@ -116,6 +116,16 @@ namespace Presentation
 
         private void StartB_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("Sure", "Some Title", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                //do something
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+
             Counter++;
 
             if (Counter % 2 == 0)

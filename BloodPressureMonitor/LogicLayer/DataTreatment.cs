@@ -12,7 +12,7 @@ using Domain;
 
 namespace LogicLayer // Consumer
 {
-    public class DataTreatment : Subject //, IDataTreatment
+    public class DataTreatment : Subject //IDataTreatment
     {
         // Classes and interfaces
         private ConvertAlgo ConvertAlgorithm;
