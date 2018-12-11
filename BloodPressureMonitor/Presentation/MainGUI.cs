@@ -25,6 +25,8 @@ namespace Presentation
         private IAlarmType alarmType;
         private ZeroAdjustmentGUI ZeroAdjustmentGui;
         private UC7S3_Filter FilterRef;
+        private BloodPressureAlgo BloodPressureAlgoRef;
+        private PulseAlgo PulseAlgoRef;
 
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
@@ -37,10 +39,12 @@ namespace Presentation
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
 
-        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef)
+        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef, BloodPressureAlgo bloodPressureAlgoRef, PulseAlgo pulseAlgoRef)
         {
             InitializeComponent();
             ZeroAdjustmentGui = zeroAdjustmentGui;
+            BloodPressureAlgoRef = bloodPressureAlgoRef;
+            PulseAlgoRef = pulseAlgoRef;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
 
@@ -87,6 +91,8 @@ namespace Presentation
             }
 
             UpdateGraph(graphList);
+
+            BloodPressureAlgoRef.WindowOfConvertedData(graphList, PulseAlgoRef.pulseValue); // kalder metoden for at finde blodtryksværdier
         }
 
         private void UpdateGraph(List<ConvertedData> graphList) // skal ikke være static

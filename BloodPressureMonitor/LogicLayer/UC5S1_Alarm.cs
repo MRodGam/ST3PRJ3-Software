@@ -18,19 +18,21 @@ namespace LogicLayer
         public AutoResetEvent alarmThread { get; set; } // tråd som alarm klassen kører på
 
         private ILimits Limits;
-        private BloodPressure BloodPressure;
+        //private BloodPressure BloodPressure;
         private IAlarmType AlarmType; // typen vælges i parameteren når man opretter klassen UC5S1_Alarm
+        private BloodPressureAlgo BloodpressureAlgoRef;
 
         //public bool IsAlarmActive { get; private set; } = false;
         public bool IsMeasureActive { get; set; } // sættes i UC2M2_UCM3_Measure
         public bool IsAlarmRunning { get; private set; } = false;
 
-        public UC5S1_Alarm(IDataTreatment dataTreatment,ILimits limits, BloodPressure bloodPressure, IAlarmType alarmType )
+        public UC5S1_Alarm(IDataTreatment dataTreatment,ILimits limits, BloodPressure bloodPressure, IAlarmType alarmType, BloodPressureAlgo bloodpressureAlgoRef )
         {
             datatreatment_ = dataTreatment;
             Limits = limits;
-            BloodPressure = bloodPressure;
-            AlarmType = alarmType; 
+            //BloodPressure = bloodPressure;
+            AlarmType = alarmType;
+            BloodpressureAlgoRef = bloodpressureAlgoRef;
 
         }
 
@@ -50,16 +52,16 @@ namespace LogicLayer
 
                 // hvis blodtryksværdi overskrider grænseværdier
                 // henter systolisk værdi i Domæne klassen "BloodPressure" og tjekker i forhold til limits-værdierne 
-                if (BloodPressure.Systolic < Limits.GetLowerLimit() ||
-                    BloodPressure.Systolic > Limits.GetUpperLimit() )
+                if (BloodpressureAlgoRef.SysBP < Limits.GetLowerLimit() ||
+                    BloodpressureAlgoRef.SysBP > Limits.GetUpperLimit() )
                 {
                     AlarmType.RunAlarm();
                     IsAlarmRunning = true;
                 }
 
                 // alarmen stopper hvis værdierne for blodtrykket ligger indenfor grænseværdierne 
-                if (BloodPressure.Systolic >= Limits.GetLowerLimit() &&
-                    BloodPressure.Systolic <= Limits.GetUpperLimit())
+                if (BloodpressureAlgoRef.SysBP >= Limits.GetLowerLimit() &&
+                    BloodpressureAlgoRef.SysBP <= Limits.GetUpperLimit())
                 {
                     AlarmType.StopAlarm();
                     IsAlarmRunning = false;

@@ -21,28 +21,31 @@ namespace Domain
         public int DiaBP { get; private set; }
         public int MeanBP { get; private set; }
         private double value;
+        //private int _pulseValue;
 
         //private int Window = 2000; // antal af samples (tryk-værdier) som der kigges på. 
         //private int CountConvertedDataList;
 
 
         // bruges i metoden WindowOfConvertedData
-        private PulseAlgo PulseAlgo;
+        //private PulseAlgo PulseAlgo;
         //private List<double> _windowOfConvertedData;// 
         private int _nSamplesPrMin = 60000; // antal samples pr. minut
         private int _samplesPrPuls; // antal sample pr. puls
         private List<double> _windowList = new List<double>(); // listen oprettes
         public AutoResetEvent BloodPressureThread { get; set; } // tråd som alarm klassen kører på
+        private List<ConvertedData> _convertedData;
 
 
 
-        public BloodPressureAlgo(/*List<ConvertedData> _convertedData*/ PulseAlgo pulseAlgo)
+        public BloodPressureAlgo(/*List<ConvertedData> _convertedData*/ /*PulseAlgo pulseAlgo*/)
         {
-            //_convertedData = new List<ConvertedData>();
-            PulseAlgo = pulseAlgo;
+            
+            _convertedData = new List<ConvertedData>();
+            //PulseAlgo = new PulseAlgo();
         }
 
-        public BloodPressure WindowOfConvertedData(List<ConvertedData> convertedData)
+        public BloodPressure WindowOfConvertedData(List<ConvertedData> convertedData, int pulseValue)
         {
             //BloodPressureThread.WaitOne(); // kører i tråd, således den hele tiden tjekker om alarmen skal starte. Startes i UCM2_UC3M3_Measure
 
@@ -50,7 +53,7 @@ namespace Domain
             
                 //CountConvertedDataList = convertedData.Count; // længden af listen sættes lig med attributten "CountConvertedDataList"
 
-                _samplesPrPuls = _nSamplesPrMin / PulseAlgo.PulseValue; // beregner antallet af samples der er mellem hvert pulsslag
+                _samplesPrPuls = _nSamplesPrMin / pulseValue; // beregner antallet af samples der er mellem hvert pulsslag
 
                 //if (CountConvertedDataList>Window) // hvis længden af listen for convertedData er længere end window (som er 2000)
                 //{
