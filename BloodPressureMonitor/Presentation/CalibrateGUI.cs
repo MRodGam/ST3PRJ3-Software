@@ -15,15 +15,18 @@ namespace Presentation
     {
         private ICalibrate calibrate; // reference til ICalibrate
         private IMeasure measure; // reference til ICalibrate
+        private MainGUI MainGuiRef;
+        
 
         private LoginToCalibrateGUI LoginToCalibrateRef; // er det OK at jeg opretter en new her??
 
         
 
-        public CalibrateGUI(ICalibrate calibrate, IMeasure measure, LoginToCalibrateGUI loginToCalibrateRef)
+        public CalibrateGUI(ICalibrate calibrate, IMeasure measure, LoginToCalibrateGUI loginToCalibrateRef, MainGUI mainGui)
         {
             InitializeComponent();
             LoginToCalibrateRef = loginToCalibrateRef;
+            MainGuiRef = mainGui;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis login = true (se koden nedenunder)
 
@@ -48,6 +51,8 @@ namespace Presentation
             {
                 button6.Enabled = true;
             }
+
+            MessageBox.Show("Målingen er udført");
         }
 
         private void button2_Click(object sender, EventArgs e) // 30 mmHg måles
@@ -60,6 +65,7 @@ namespace Presentation
             {
                 button6.Enabled = true;
             }
+            MessageBox.Show("Målingen er udført");
         }
        
 
@@ -73,6 +79,7 @@ namespace Presentation
             {
                 button6.Enabled = true;
             }
+            MessageBox.Show("Målingen er udført");
         }
 
         private void button4_Click(object sender, EventArgs e)// 75 mmHg måles
@@ -85,6 +92,7 @@ namespace Presentation
             {
                 button6.Enabled = true;
             }
+            MessageBox.Show("Målingen er udført");
         }
 
         private void button5_Click(object sender, EventArgs e) // 100 mmHg måles
@@ -97,12 +105,15 @@ namespace Presentation
             {
                 button6.Enabled = true;
             }
+            MessageBox.Show("Målingen er udført");
         }
 
         private void button6_Click(object sender, EventArgs e) //  kalibrer knappen, er enabled = false i starten.
         {
             calibrate.DoCalibrateRegression(); // Kører metoden DoCalibration i logiklaget
-
+            
+            MessageBox.Show("Kalibreringen er udført og bregnet til: " +calibrate.getCalibrateValue());
+            //MainGuiRef.  // ændre datoen for sidste kalibrering 
         }
     }
 }

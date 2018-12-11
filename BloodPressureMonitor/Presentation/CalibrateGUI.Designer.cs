@@ -118,7 +118,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(208, 35);
             this.button6.TabIndex = 5;
-            this.button6.Text = "kalibrer";
+            this.button6.Text = "Start kalibrering ";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 

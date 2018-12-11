@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,8 +48,20 @@ namespace Presentation
 
         private void okB_Click(object sender, EventArgs e)
         {
-            _limits.SysLowerLimit = Convert.ToDouble(upperLimit.Text); // grænseværdierne sættes
-            _limits.SysUpperLimit = Convert.ToDouble(lowerLimit.Text);
+            int maxLimit = 160; // ændres??
+            int minLimit = 28; // ændres?
+
+            if (minLimit <= Convert.ToDouble(lowerLimit.Text) && Convert.ToDouble(upperLimit.Text) <= maxLimit)
+            {
+                _limits.SysLowerLimit = Convert.ToDouble(upperLimit.Text); // grænseværdierne sættes
+                _limits.SysUpperLimit = Convert.ToDouble(lowerLimit.Text);
+                MessageBox.Show("De nye grænseværdier er nu gældende. Systole: " + upperLimit.Text + "Diastole: " + lowerLimit.Text);
+                // vandrette linjer på grafen rettes til
+
+            }
+            else
+                MessageBox.Show("Ikke gyldige værdier er valgt. Vælg andre grænseværdier.");
+
         }
 
         private void upperLimit_TextChanged(object sender, EventArgs e)

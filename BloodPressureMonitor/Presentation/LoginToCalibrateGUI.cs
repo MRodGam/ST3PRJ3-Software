@@ -40,7 +40,7 @@ namespace Presentation
             if (usernameTB.Text == _username && Convert.ToInt32(passwordTB.Text) == _password) // hvis de indtastede login-oplysninger i tekstboksene er de samme som attributterne 
             {
                 LoginOK = true;
-                /*form1Ref_.SocSecNb_ = Pnr_TB.Text;*/ // det der er tastet ind i tekstboksen for cpr nr. sættes nu lig med socSecNb_, som der efterfølgende refereres til
+                
                 this.Close(); // login-vinduet lukker ned
             }
             else
