@@ -12,8 +12,8 @@ namespace Domain
     public class BloodPressureAlgo
     {
         //Converted data listen, som indeholder tryk-værdier, gennemløbes hvert sekund. Der puttes et "vindue" ned over listen, 
-        //således jeg tjekker tryk-værdier igennem for 1 sekund, og her finder henholdsvis maks og min og gennemsnit for disse værdier. 
-        // dette skal køre så længe der måles, dvs. skal køre i en while(true)
+        //således jeg tjekker tryk-værdier igennem for en hel blodtrykskurve, og her finder henholdsvis maks og min og gennemsnit for disse værdier. 
+      
 
         //DataTreatment dataTreatment = new DataTreatment(); // what?
 
@@ -74,6 +74,14 @@ namespace Domain
                     }
 
 
+                }
+                else
+                {
+                    for (int i = convertedData.Count - _samplesPrPuls; i < convertedData.Count; i++) // tager listens længde og går så x antal samples tilbage, og tilføjer samples herfra til windowList. Dvs. der tilføjes 2000 samples (tryk-værdier)
+                    {
+                        _windowList.Add(convertedData[i].Pressure);
+                    }
+                
                 }
 
                 // for hvert sekund (for hver gang vi opdatere skærmen) skal disse metoder kaldes -> hvor skal det stå, i metoderne?

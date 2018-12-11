@@ -50,12 +50,13 @@ namespace Presentation
             if (ZeroAdjustmentGui.IsZeroAdjustmentMeasured == true)
             {
                 this.Visible = true;
+                StartB.Enabled = true; // knappen er til at starte med ikke enable, bliver først hvis nulpunktsjusteringen udføres
             }
             else
                 this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
         
             
-        muteAlarmWorker = new BackgroundWorker();
+            muteAlarmWorker = new BackgroundWorker();
             muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
             muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
             alarmType = new HighAlarm();
@@ -84,10 +85,11 @@ namespace Presentation
             {
                 graphList = dataTreatmentRef.GetGraphList(); //dataTreatmentRef.FilterData(); // filterData er void, hvis den skal retunere skal den være en liste
             }
+
             UpdateGraph(graphList);
         }
 
-        private  void UpdateGraph(List<ConvertedData> graphList) // skal ikke være static
+        private void UpdateGraph(List<ConvertedData> graphList) // skal ikke være static
         {
             if (chart1.InvokeRequired)
             {
@@ -249,6 +251,11 @@ namespace Presentation
             {
                 FilterRef.StopFilter();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
 
 

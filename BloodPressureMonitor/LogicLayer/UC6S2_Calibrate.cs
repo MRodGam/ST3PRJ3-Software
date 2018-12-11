@@ -25,6 +25,7 @@ namespace LogicLayer
 
         private int _tæller = 0;
         private double _voltagePoint;
+        private double caliValue;
 
         public bool IsAll5MeasureDone = false;
         
@@ -110,6 +111,7 @@ namespace LogicLayer
 
         public void DoCalibrateRegression()
         {
+            caliValue = 0;
            
             // regressions kode
             double n = voltageArray.Length;
@@ -123,14 +125,19 @@ namespace LogicLayer
 
             }
             
-            double a = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
+            caliValue = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
 
             // skal gemmes ned i en databasen
 
-            _calibration = new CalibrationValue(a); // sætter CalibrationsValue til _a
+            _calibration = new CalibrationValue(caliValue); // sætter CalibrationsValue til _a
           
-            Database.SaveCalibrateValue(a); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+            Database.SaveCalibrateValue(caliValue); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
 
+        }
+
+        public double getCalibrateValue()
+        {
+            return caliValue;
         }
 
     }

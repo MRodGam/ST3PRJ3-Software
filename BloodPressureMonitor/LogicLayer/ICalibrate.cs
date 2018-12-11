@@ -13,5 +13,7 @@ namespace LogicLayer
         void DoCalibrateRegression();
 
         bool GetIsAll5MeasureDone();
+
+        double getCalibrateValue();
     }
 }

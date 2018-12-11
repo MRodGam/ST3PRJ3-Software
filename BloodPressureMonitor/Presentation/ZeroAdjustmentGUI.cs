@@ -35,12 +35,17 @@ namespace Presentation
             {
                 IsZeroAdjustmentMeasured = true;
                 this.Close();
+                
             }
             else if (_uc1M1Zero.IsZeroAdjustDone == false)
             {
                 MessageBox.Show("Nulpunktsjustering ikke foretaget korrekt, se videoen igen");
             }
-           
+
+            //if (_uc1M1Zero.IsMeasureRight==1)
+            //{
+            //    MessageBox.Show("Værdien for nulpunktsjustering afviger fra normalværdien mere end 5%. Tag en ny måling.");
+            //}
 
 
         }

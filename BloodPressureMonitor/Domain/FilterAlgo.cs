@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LogicLayer;
+//using LogicLayer;
 
 namespace Domain
 {
     class FilterAlgo
     {
-       
+       // slet klasse
     }
 }

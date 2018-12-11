@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DataLayer;
 using Domain;
+using NationalInstruments.Restricted;
 
 namespace LogicLayer // Consumer
 {
@@ -23,12 +24,31 @@ namespace LogicLayer // Consumer
         private static object myLock = new object();
 
         private BlockingCollection<RawData> _collection;
-        private static Thread DataCollectorThread;
+        private BlockingCollection<RawData> _Graphcollection;
 
+        private static Thread DataCollectorThread;
         private static Thread GraphThread;
 
         public static List<RawData> FullList;
-        public static List<RawData> DownsampledRawList;
+        public static List<RawData> DownsampledRawList
+        {
+            get
+            {
+                lock (myLock)
+                {
+                    return downsampledRawList;
+                }
+            }
+
+            private set
+            {
+                lock (myLock)
+                {
+                    downsampledRawList = value;
+                }
+            }
+        }
+
         public static List<ConvertedData> ConvertedDataList;
         public static List<ConvertedData> GraphList
         {
@@ -50,27 +70,24 @@ namespace LogicLayer // Consumer
         }
 
         private static List<ConvertedData> graphList;
+        private static List<RawData> downsampledRawList;
         public static bool ShallStop { get; private set; }
         private static double Total { get; set; }
         private static double Average { get; set; }
-        private static double Time { get; set; } = 0;
-        public static bool isListFull { get; private set; } = false;
-        public static int Counter { get; set; } = 0;
-        public double calibrationVal { get; private set; }
-        public double[] DownsampledTimeArray = new double[300];
-        public double[] DownsampledPressureArray = new double[300];
+        private static double Time { get; set; } 
 
 
-        public DataTreatment(BlockingCollection<RawData> collection, ConvertAlgo conv) //Database data
+        public DataTreatment(BlockingCollection<RawData> collection,  ConvertAlgo conv) //Database data
         {
             _collection = collection;
             ConvertAlgorithm = conv;
             // Database = data;
 
+            _Graphcollection = new BlockingCollection<RawData>();
             FullList = new List<RawData>();
-            ConvertedDataList = new List<ConvertedData>();
+            //ConvertedDataList = new List<ConvertedData>();
             DownsampledRawList = new List<RawData>();
-            GraphList = new List<ConvertedData>();
+            GraphList = new List<ConvertedData>(); 
         }
 
         public void StartGraphData()
@@ -99,60 +116,104 @@ namespace LogicLayer // Consumer
 
         }
 
-        public void MakeShortRawList() // Lav en observer som fortæller når den er fuld
+        public void MakeShortRawList2()
         {
             while (!ShallStop)
             {
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 1000; i++)
                 {
-                    FullList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
+                    FullList.Add(_collection.Take()); // Adds 1000 samples into the treatment list. This is equivalent to 1 s worth of data from the transducer
                 }
 
-                if (FullList.Count > 2000) // If the list is longer than the 5 sec window in the graph
+                if (FullList.Count >= 2000 && DownsampledRawList.Count < 300)
                 {
-                    for (int i = FullList.Count - 1000; i < FullList.Count; i += 17) // 5000 samples equals 5 sec on 1000Hz // Flawed, what if theres less than 5000 samples??
+                    for (int i = FullList.Count - 1000; i < FullList.Count; i += 17) // Starts downsampling from the 1000th measured sample. Downsampling 17 (8+1+8)
                     {
                         Total = 0;
                         Average = 0;
 
-                        Total = FullList[i - 8].Voltage + FullList[i - 7].Voltage + FullList[i - 6].Voltage + FullList[i - 5].Voltage + FullList[i - 4].Voltage + FullList[i - 3].Voltage + FullList[i - 2].Voltage + FullList[i - 1].Voltage + FullList[i].Voltage + FullList[i +1].Voltage + FullList[i + 2].Voltage + FullList[i + 3].Voltage + FullList[i + 4].Voltage + FullList[i + 5].Voltage + FullList[i + 6].Voltage + FullList[i + 7].Voltage + FullList[i + 8].Voltage;
+                        Total = FullList[i - 8].Voltage + FullList[i - 7].Voltage + FullList[i - 6].Voltage + FullList[i - 5].Voltage
+                                + FullList[i - 4].Voltage + FullList[i - 3].Voltage + FullList[i - 2].Voltage + FullList[i - 1].Voltage
+                                + FullList[i].Voltage + FullList[i + 1].Voltage + FullList[i + 2].Voltage + FullList[i + 3].Voltage
+                                + FullList[i + 4].Voltage + FullList[i + 5].Voltage + FullList[i + 6].Voltage + FullList[i + 7].Voltage
+                                + FullList[i + 8].Voltage; // Finds sum of voltage value of points in question
 
-                        //double zeroValue = AdjustmentController.GetZeroAdjustmentValue(); // Or whatever
-                        // Average = (Total / 17) - zeroValue;
-                        Average = (Total / 17);
-                        Time += (1 / 60) * 17;
+                        Average = Total / 17; // Finds average
+                        Time++;
+
+                        DownsampledRawList.Add(new RawData(Time, Average)); // Saves average and time to downsampled list. The downsampled list is used for the filter.
+                    }
+                }
+
+                if (DownsampledRawList.Count == 236)
+                {
+                    Thread.Sleep(50);
+                }
+
+            }
+        }
 
 
-                        DownsampledRawList.Add(new RawData(Time, Average));
+        public void MakeGraphList2()
+        {
+            while (!ShallStop)
+            {
+                Thread.Sleep(70);
 
-                        //if (DownsampledRawList.Count == 120)
+                //if (60 <= DownsampledRawList.Count && DownsampledRawList.Count <= 300)
+                if (DownsampledRawList.Count == 236)
+                {
+                    Done();
+
+                    for (int i = DownsampledRawList.Count - 60; i < DownsampledRawList.Count; i++)
+                    {
+                        int graphcounter=+1;
+                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Voltage)));
+                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
+                        GraphList.Add(new ConvertedData(graphcounter, DownsampledRawList[i].Voltage));
+                        DownsampledRawList.RemoveAt(i);
+
+                    }
+                    // Done();
+                }
+            }
+        }
+
+
+        public void MakeShortRawList() // Lav en observer som fortæller når den er fuld
+        {
+            while (!ShallStop)
+            {
+                for (int i = 0; i < 1000; i++)
+                {
+                    FullList.Add(_collection.Take()); // Should add 1000 samples into the treatment list.
+                }
+
+                if (FullList.Count >= 1000) // If the list is longer than the 5 sec window in the graph
+                {
+                    for (int i = FullList.Count - 1000; i < FullList.Count-16; i += 17) // Runs to full count minus 16, because otherwise the downsampling would stop. Does this mean we loose 16 points of data / one downsampled point?
+                    {
+                        Total = 0;
+                        Average = 0;
+
+                        Total = FullList[i].Voltage + FullList[i + 16].Voltage + FullList[i + 15].Voltage +
+                                FullList[i + 14].Voltage + FullList[i + 13].Voltage + FullList[i + 12].Voltage + FullList[i + 11].Voltage + FullList[i + 10].Voltage + FullList[i + 9].Voltage
+                                + FullList[i + 8].Voltage + FullList[i + 7].Voltage + FullList[i + 6].Voltage + FullList[i + 5].Voltage + FullList[i + 4].Voltage + FullList[i + 3].Voltage
+                                + FullList[i + 2].Voltage + FullList[i + 1].Voltage;
+
+                        Average = (Total / 17); // Average = (Total / 17) - zeroValue;
+                        Time++; ;
+
+                        _Graphcollection.Add(new RawData(0,Average));
+
+                        //if (downsampledRawList.Count < 300)
                         //{
-                        //    Done();
-                        //}
-
-                        //if (DownsampledRawList.Count < 300)
-                        //{
-                        //    //foreach (var sample in DownsampledRawList)
-                        //    //{
-                        //    //    GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(sample.Second, sample.Voltage, calibrationVal))); ;
-                        //    //}
-
-
-                        //}
-                        //else if (DownsampledRawList.Count == 300)
-                        //{
-                        //    for (int y = 0; y < 60; y++) // 60 samples is 1 sec on 60Hz
-                        //    {
-                        //        DownsampledRawList.RemoveAt(y);
-                        //        GraphList.RemoveAt(y);
-                        //    }
+                            //downsampledRawList.Add(new RawData(0, Average)); // Its added to the property in order for it to be safe
                         //}
                     }
                 }
 
-                Thread.Sleep(20); // Evt variér de 500
-                                 // Fortæl at den er færdig
-                                 // Vent 
+                Thread.Sleep(20);
             }
         
         } 
@@ -163,86 +224,85 @@ namespace LogicLayer // Consumer
             {
                 Thread.Sleep(20);
 
-                //if (FullList.Count == 2000) // Downsampling starter først, når der er 5 sekunders data
-                //{
-                //    for (int i = 0; i < 60; i++)
-                //    {
-                //        Time = (1 / 60) * i;
-                //        GraphList.Add(new ConvertedData(Time, 0));
-                //    }
-
-                //    Done();
-                //}
-
-                //foreach (var sample in DownsampledRawList)
-                //if (DownsampledRawList.Count < 60)
-                //{
-                //    GraphList.Add(new ConvertedData(Time, 1));
-                //}
-
-                //if (60 <= DownsampledRawList.Count && DownsampledRawList.Count <= 300)
-                //{
-                //    Done();
-
-                //    for (int i = DownsampledRawList.Count - 100; i < DownsampledRawList.Count; i++)
-                //    {
-                //        GraphList.Add(new ConvertedData(Time, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage)));
-                //    }
-                //}
-                //else if (DownsampledRawList.Count >300)
-                //{
-                //    for (int i = DownsampledRawList.Count - 300; i < DownsampledRawList.Count; i++)
-                //    {
-                //        DownsampledRawList.RemoveAt(i);
-                //    }
-                //}
-
-                // if (60 < DownsampledRawList.Count && DownsampledRawList.Count < 300)
-                if (60 <= DownsampledRawList.Count)
+                if (graphList.Count < 300)
                 {
-                    for (int i = DownsampledRawList.Count - 60; i < DownsampledRawList.Count; i++)
+                    for (int i = 0; i < 60; i++)
                     {
-                        //GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, ConvertAlgorithm.ConvertData(DownsampledRawList[i].Voltage)));
-                        GraphList.Add(new ConvertedData(DownsampledRawList[i].Second, DownsampledRawList[i].Voltage));
+                        graphList.Add(new ConvertedData(0, ConvertAlgorithm.ConvertData(_Graphcollection.Take().Voltage)));
                     }
 
                     Done();
                 }
 
-                //if (DownsampledPressureArray.Length < 300 && DownsampledTimeArray.Length < 300)
+                if (graphList.Count == 300)
+                {
+                    for (int i = 0; i < 60; i++)
+                    {
+                        graphList.RemoveAt(i);
+                    }
+                }
+
+                //if (downsampledRawList.Count >= 60 && downsampledRawList.Count < 300)
                 //{
-                //    for (int i = 0; i < DownsampledTimeArray.Length; i++)
+                //    for (int i = downsampledRawList.Count - 60; i < downsampledRawList.Count; i++)
                 //    {
-                //        DownsampledTimeArray[i] = DownsampledRawList[i].Second;
-                //        DownsampledPressureArray[i]= DownsampledRawList[i].Voltage;
+                //        graphList.Add(new ConvertedData(downsampledRawList[i].Second, ConvertAlgorithm.ConvertData(downsampledRawList[i].Voltage)));
                 //    }
-                //    foreach (var sample in DownsampledRawList)
+
+                //    if (graphList.Count == 60 || graphList.Count == 120 || graphList.Count == 180 || graphList.Count == 240)
                 //    {
-                //        int amount++;
-                //        DownsampledTimeArray[amount] = sample.Second;
-                //        DownsampledPressureArra sample.Voltage;
-                //    }
-                //}
-                //if (DownsampledTimeArray.Length > 300 && DownsampledTimeArray.Length > 300)
-                //{
-                //    for (int i = 0; i < 60; i++)
-                //    {
-                //        DownsampledTimeArray[i].
-                //        DownsampledPressureArray = sample.Voltage;
+                //        Done();
                 //    }
                 //}
 
-                //Fortælle at den er færdig
+                //if (graphList.Count == 300 && downsampledRawList.Count ==300)
+                //{
+                //    Done();
+
+                //    for (int i = 0; i < 60; i++)
+                //    {
+                //        downsampledRawList.RemoveAt(i);
+                //        graphList.RemoveAt(i);
+                //    }
+                //}
+
+                //if (downsampledRawList.Count == 300 && graphList.Count == 300)
+                //if (downsampledRawList.Count == 300)
+                //{
+                //    Done();
+
+                //    for (int i = 0; i < 60; i++)
+                //    {
+                //        downsampledRawList.RemoveAt(i);
+                //        graphList.RemoveAt(i);
+                //    }
+                //}
+
+                //if (graphList.Count == 60 || graphList.Count == 120 || graphList.Count == 180 || graphList.Count == 240) 
+                //{
+                //    Done();
+                //}
+
+                //if (downsampledRawList.Count == 300)
+                //{
+                //    Done();
+
+                //    for (int i = 0; i < 60; i++)
+                //    {
+                //        downsampledRawList.RemoveAt(i);
+                //        graphList.RemoveAt(i);
+                //    }
+                //}
             }
         }
         public List<ConvertedData> GetGraphList() 
         {
-            return GraphList;
+            return graphList;
         }
 
         public List<RawData> GetFilterList() // Skal returnere det nedsamplede rådata fratrukket nulpunktsjusteringen
         {
-            return DownsampledRawList;
+            return downsampledRawList;
         }
 
         public void StartFilter()

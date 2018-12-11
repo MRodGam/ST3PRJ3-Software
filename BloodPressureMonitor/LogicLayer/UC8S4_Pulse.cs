@@ -24,7 +24,7 @@ namespace LogicLayer
 
         public int FindPulse() 
         {
-            RawDataList = dataTreatment.GetRawData(); // skal det ikke være en GetFullList her? 
+            RawDataList = dataTreatment.GetFullList(); // skal det ikke være en GetFullList her? 
 
             for (int i = 0; i < RawDataList.Count; i++)
             {
