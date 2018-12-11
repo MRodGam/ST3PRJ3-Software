@@ -25,6 +25,10 @@ namespace Presentation
         private IAlarmType alarmType;
         private ZeroAdjustmentGUI ZeroAdjustmentGui;
         private UC7S3_Filter FilterRef;
+        private BloodPressureAlgo BloodPressureAlgoRef;
+        private PulseAlgo PulseAlgoRef;
+        private IPulse IPulseRef;
+        private CalibrateGUI CalibrateGUIRef;
 
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
@@ -37,10 +41,14 @@ namespace Presentation
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
 
-        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef)
+        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef, BloodPressureAlgo bloodPressureAlgoRef, PulseAlgo pulseAlgoRef, IPulse iPulseRef, CalibrateGUI calibrateGuiRef)
         {
             InitializeComponent();
             ZeroAdjustmentGui = zeroAdjustmentGui;
+            BloodPressureAlgoRef = bloodPressureAlgoRef;
+            PulseAlgoRef = pulseAlgoRef;
+            iPulseRef = IPulseRef;
+            CalibrateGUIRef = calibrateGuiRef;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
 
@@ -87,6 +95,10 @@ namespace Presentation
             }
 
             UpdateGraph(graphList);
+
+            BloodPressureAlgoRef.WindowOfConvertedData(graphList, PulseAlgoRef.PulseValue); // kalder metoden for at finde blodtryksværdier
+            IPulseRef.FindPulse();
+
         }
 
         private void UpdateGraph(List<ConvertedData> graphList) // skal ikke være static
@@ -264,7 +276,7 @@ namespace Presentation
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            CalibrateGUIRef.ShowDialog();
         }
 
 

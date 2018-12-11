@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-    interface IPulse
+    public interface IPulse
     {
-        int Pulse(double[] measurements, double samplefrequence);
+        int FindPulse(); //double[] measurements, double samplefrequence);
     }
 }
