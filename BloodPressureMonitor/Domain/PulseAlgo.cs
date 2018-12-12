@@ -14,17 +14,16 @@ namespace Domain
     public class PulseAlgo
     {
         public int PulseValue{ get; private set; } // har tilføjet denne så jeg kan hente den fra en anden klasse (celia)
+         public double samplefrequence_ = 1000;
+         public double[] measurements_ = new double[20000]; // Opretter array til målingerne med 20000 pladser
 
-        public int Pulse(double[] measurements, double samplefrequence)
+        public int Pulse()//double[] measurements, double samplefrequence)
         {
-            double samplefrequence_ = samplefrequence;
-            double[] measurements_ = measurements; // Opretter array til målingerne
-
-            int length = measurements.Length; //Finder antal målinger
+            int length = measurements_.Length; //Finder antal målinger
             alglib.complex[] complexArray = new alglib.complex[length]; //komplekst array
             List<double> amplitudes = new List<double>(); //listen som skal indeholde amplituderne
 
-            alglib.fftr1d(measurements, out complexArray); //fourier der danner det komplekse array
+            alglib.fftr1d(measurements_, out complexArray); //fourier der danner det komplekse array
 
             foreach (var measurement in complexArray) //Hver måling i det komplekse array gennemløbes
             {
@@ -37,7 +36,7 @@ namespace Domain
             double maximum = amplitudes[1]; //Den maksimale amplitude vælges som den første i listen
             int index = 0;
 
-            for (int i = 0; i < amplitudes.Count / 2; i++)
+            for (int i = 1; i < amplitudes.Count / 2; i++)
             {
                 if (amplitudes[i] > maximum) //tjekker om amplituden er højere end den der allerede er valgt
                 {
