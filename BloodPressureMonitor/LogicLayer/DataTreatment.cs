@@ -16,8 +16,8 @@ namespace LogicLayer // Consumer
     {
         // Classes and interfaces
         private ConvertAlgo ConvertAlgorithm;
-        private UC7S3_Filter FilterController;
-        private UC1M1_ZeroAdjustment AdjustmentController;
+        private IFilter FilterInterface;
+        private IZeroAdjustment AdjustmentInterface;
         private IData DataInterface;
 
         // Objects 
@@ -89,13 +89,16 @@ namespace LogicLayer // Consumer
         //
         //
 
-        public DataTreatment(BlockingCollection<RawData> collection, BlockingCollection<RawData> graphCollection,BlockingCollection<RawData> filterCollection, IData iData, ConvertAlgo conv)
+        //public DataTreatment(BlockingCollection<RawData> collection, BlockingCollection<RawData> graphCollection,BlockingCollection<RawData> filterCollection, IData iData, ConvertAlgo conv)
+        public DataTreatment(BlockingCollection<RawData> collection, BlockingCollection<RawData> graphCollection, IData iData, ConvertAlgo conv, IZeroAdjustment zeroAdjustment)
         {
             _collection = collection;
             _graphCollection = graphCollection;
-            _filterCollection = filterCollection;
+            //_filterCollection = filterCollection;
 
             DataInterface = iData;
+            AdjustmentInterface = zeroAdjustment;
+
             ConvertAlgorithm = conv;
 
             FullList = new List<RawData>();
@@ -123,9 +126,10 @@ namespace LogicLayer // Consumer
             Notify();
         }
 
-        public void MakeShortRawList() // Lav en observer som fortæller når den er fuld
+        public void MakeShortRawList()
         {
-            zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
+            // zeroadjustmentVal = AdjustmentInterface.GetZeroAdjustmentValue();
+                            // This is for when we are ready to test the zero adjustment use case.
 
             while (!ShallStop)
             {
@@ -153,7 +157,7 @@ namespace LogicLayer // Consumer
                         ZeroAdjustedAverage = (Total / 17) - zeroadjustmentVal;
 
                         _graphCollection.Add(new RawData(0, ZeroAdjustedAverage)); // There is not added a time stamp.
-                        _filterCollection.Add(new RawData(0, ZeroAdjustedAverage));
+                        // _filterCollection.Add(new RawData(0, ZeroAdjustedAverage)); // This is for when we are ready to test filter
                     }
                 }
             }
@@ -161,7 +165,8 @@ namespace LogicLayer // Consumer
 
         public void MakeGraphList()
         {
-            calibrationVal = DataInterface.GetCalibrateValue();
+            // calibrationVal = DataInterface.GetCalibrateValue();
+                        //This is for when we have done a calibration and want to run it with the new value
 
             while (!ShallStop)
             {
@@ -169,7 +174,8 @@ namespace LogicLayer // Consumer
                 {
                     for (int i = 0; i < 60; i++) // Adds 60 datapoints at a time
                     {
-                        ConvertedValue = ConvertAlgorithm.ConvertData(_graphCollection.Take().Voltage, calibrationVal);
+                        //ConvertedValue = ConvertAlgorithm.ConvertData(_graphCollection.Take().Voltage, calibrationVal);
+                        ConvertedValue = ConvertAlgorithm.ConvertData(_graphCollection.Take().Voltage, 1);
                         graphList.Add(new ConvertedData(0, ConvertedValue)); // Takes from graphCollection and converts to mmHg
                     }
 

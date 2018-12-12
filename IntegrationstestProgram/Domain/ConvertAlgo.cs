@@ -22,7 +22,7 @@ namespace Domain
             Voltage = voltage;
             CalibrationValue = cal;
 
-            return Pressure = Voltage * 10;
+            return Pressure = Voltage * 50;
 
         }
 

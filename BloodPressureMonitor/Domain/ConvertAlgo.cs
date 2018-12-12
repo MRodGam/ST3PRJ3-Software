@@ -12,7 +12,6 @@ namespace Domain
         public double Second { get; private set; }
         public double Voltage { get; private set; }
         public double Pressure { get; private set; }
-        //private CalibrationValue calibration;
         public double CalibrationValue { get; private set; }
         
 

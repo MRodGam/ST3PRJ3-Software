@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{800E7F58-5343-4EB4-BD57-ECD4C9D0FEAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main-IKKE-DET-HER", "Main\Main-IKKE-DET-HER.csproj", "{800E7F58-5343-4EB4-BD57-ECD4C9D0FEAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "Presentation\PresentationLayer.csproj", "{F3BA8AB2-A08D-4F9E-B8D4-4A6A76A7DF46}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{EE5BDA29-9B31-4F79-9A13-76E7BCB5CD32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{F60E2C13-D94B-4F60-BFE4-AEDB0B293855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main2", "..\IntegrationstestProgram\Main2\Main2.csproj", "{CA0706A1-F09C-4BDA-B62D-FD1462281846}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F60E2C13-D94B-4F60-BFE4-AEDB0B293855}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F60E2C13-D94B-4F60-BFE4-AEDB0B293855}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F60E2C13-D94B-4F60-BFE4-AEDB0B293855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA0706A1-F09C-4BDA-B62D-FD1462281846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA0706A1-F09C-4BDA-B62D-FD1462281846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA0706A1-F09C-4BDA-B62D-FD1462281846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA0706A1-F09C-4BDA-B62D-FD1462281846}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

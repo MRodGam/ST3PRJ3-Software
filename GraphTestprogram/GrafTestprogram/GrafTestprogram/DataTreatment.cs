@@ -13,7 +13,7 @@ using NationalInstruments.Restricted;
 
 namespace LogicLayer // Consumer
 {
-    public class DataTreatment : Subject, IDataTreatment
+    public class DataTreatment : Subject //, IDataTreatment
     {
         private static ConvertAlgo ConvertAlgorithm;
         // private UC7S3_Filter FilterController;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -130,7 +131,7 @@ namespace LogicLayer // Consumer
 
         public void MakeShortRawList() // Lav en observer som fortæller når den er fuld
         {
-            zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
+            //zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
 
             while (!ShallStop)
             {
@@ -155,10 +156,11 @@ namespace LogicLayer // Consumer
                                 FullList[i + 5].Voltage + FullList[i + 4].Voltage + FullList[i + 3].Voltage
                                 + FullList[i + 2].Voltage + FullList[i + 1].Voltage;
 
-                        ZeroAdjustedAverage = (Total / 17) - zeroadjustmentVal;
+                        //ZeroAdjustedAverage = (Total / 17) - zeroadjustmentVal;
+                        ZeroAdjustedAverage = (Total / 17);
 
                         _graphCollection.Add(new RawData(0, ZeroAdjustedAverage)); // There is not added a time stamp.
-                        _filterCollection.Add(new RawData(0, ZeroAdjustedAverage));
+                        // _filterCollection.Add(new RawData(0, ZeroAdjustedAverage));
                     }
                 }
             }
@@ -166,7 +168,7 @@ namespace LogicLayer // Consumer
 
         public void MakeGraphList()
         {
-            calibrationVal = DataInterface.GetCalibrateValue();
+            //calibrationVal = DataInterface.GetCalibrateValue();
 
             while (!ShallStop)
             {
@@ -190,6 +192,7 @@ namespace LogicLayer // Consumer
                 }
             }
         }
+        
 
         public List<ConvertedData> GetGraphList()
         {

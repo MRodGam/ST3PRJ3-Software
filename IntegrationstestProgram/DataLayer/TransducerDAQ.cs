@@ -23,12 +23,12 @@ namespace DataLayer
             localDAQ = actualDAQ;
             _collection = collection;
             RawDataList = new List<RawData>();
-            measurementThread = new Thread(GetRawData);
         }
 
 
         public void Start()
         {
+            measurementThread = new Thread(GetRawData);
             ShallStop = false; // Sets  ShallStop back to false. 
             measurementThread.Start(); //
         }

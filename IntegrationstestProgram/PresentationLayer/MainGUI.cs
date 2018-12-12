@@ -75,7 +75,8 @@ namespace PresentationLayer
 
         }
 
-        public void Update(DataTreatment dataTreatmentRef)
+        //public void Update(DataTreatment dataTreatmentRef)
+        public void Update()
         {
             //if (FilterRB.Checked == true)
             //{
@@ -84,7 +85,7 @@ namespace PresentationLayer
 
             //if (FilterRB.Checked == false)
             //{
-            //    graphList = dataTreatmentRef.GetGraphList(); //dataTreatmentRef.FilterData(); // filterData er void, hvis den skal retunere skal den være en liste
+            graphList = dataTreatment.GetGraphList(); //dataTreatmentRef.FilterData(); // filterData er void, hvis den skal retunere skal den være en liste
             //}
 
             UpdateGraph(graphList);
@@ -98,9 +99,11 @@ namespace PresentationLayer
             }
             else
             {
+                chart1.Series["Series1"].Points.Clear();
+
                 foreach (var sample in graphList)
                 {
-                    chart1.Series["Series"].Points.AddXY(sample.Second, sample.Pressure);
+                    chart1.Series["Series1"].Points.AddXY(sample.Second, sample.Pressure);
                 }
             }
 
@@ -230,7 +233,7 @@ namespace PresentationLayer
 
         private void clearB_Click(object sender, EventArgs e)
         {
-            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde instillerne?", "Ryd instillinger", MessageBoxButtons.YesNo);
+            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde indstillerne?", "Ryd indstillinger", MessageBoxButtons.YesNo);
 
             if (dialog == DialogResult.Yes)
             {
@@ -258,7 +261,7 @@ namespace PresentationLayer
 
             if (Counter % 2 == 0)
             {
-                DialogResult dialogResult = MessageBox.Show("Ønsker du, at afslutte målingen?", "Hallo", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("Ønsker du, at afslutte målingen?", "Advarelse", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     Measure.StopMeasurement();

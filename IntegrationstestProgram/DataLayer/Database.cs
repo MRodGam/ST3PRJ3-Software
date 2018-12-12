@@ -94,7 +94,7 @@ namespace DataLayer
 
         public double GetCalibrateValue() //henter kalibreringværdi
         {
-            command.CommandText = "select * from Calibrate where calibrate=@Calibrate";
+            SqlCommand command = new SqlCommand("select * from Calibrate where calibrate=@Calibrate");
             command.Parameters.Add("Calibrate", SqlDbType.VarChar).Value = calibrateDatabaseValue;
             connectionP.Open();
             SqlDataReader reader = command.ExecuteReader();

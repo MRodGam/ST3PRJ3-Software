@@ -18,44 +18,51 @@ namespace Presentation
 {
     public partial class MainGUI : Form, IObserver
     {
-        
+        // Interfaces
         private IAlarm alarm; // Denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
         private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
         private IAlarmType alarmType;
-        private ZeroAdjustmentGUI ZeroAdjustmentGui;
-        private UC7S3_Filter FilterRef;
+        private IFilter FilterRef;
+        private IPulse PulseRef;
+
+        // Algorithms
         private BloodPressureAlgo BloodPressureAlgoRef;
         private PulseAlgo PulseAlgoRef;
-        private IPulse IPulseRef;
-        private CalibrateGUI CalibrateGUIRef;
 
+        // User interfaces
+        private LoginToCalibrateGUI loginGUIRef;
+        private ZeroAdjustmentGUI zeroAdjustmentGUIRef;
+
+        //Background workers
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
 
+        // Delegates
         private delegate void updateGraphDelegate(List<ConvertedData> graphList);
 
+        // Lists
         private List<ConvertedData> graphList;
 
-
+        // Properties
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
 
-        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef, BloodPressureAlgo bloodPressureAlgoRef, PulseAlgo pulseAlgoRef, IPulse iPulseRef, CalibrateGUI calibrateGuiRef)
+        public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, IFilter filterRef, BloodPressureAlgo bloodPressureAlgoRef, PulseAlgo pulseAlgoRef, IPulse iPulseRef, LoginToCalibrateGUI login)
         {
             InitializeComponent();
-            ZeroAdjustmentGui = zeroAdjustmentGui;
+            zeroAdjustmentGUIRef = zeroAdjustmentGui;
             BloodPressureAlgoRef = bloodPressureAlgoRef;
             PulseAlgoRef = pulseAlgoRef;
-            iPulseRef = IPulseRef;
-            CalibrateGUIRef = calibrateGuiRef;
+            PulseRef = iPulseRef;
+            loginGUIRef = login;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
 
 
-            ZeroAdjustmentGui.ShowDialog();
+            zeroAdjustmentGUIRef.ShowDialog();
 
-            if (ZeroAdjustmentGui.IsZeroAdjustmentMeasured == true)
+            if (zeroAdjustmentGUIRef.IsZeroAdjustmentMeasured == true)
             {
                 this.Visible = true;
                 StartB.Enabled = true; // knappen er til at starte med ikke enable, bliver først hvis nulpunktsjusteringen udføres
@@ -86,18 +93,20 @@ namespace Presentation
         {
             if (FilterRB.Checked == true)
             {
-                graphList = FilterRef.GetFiltredGraphList();
+                // graphList = FilterRef.GetFiltredGraphList();
+                        //Add this when we are testing the filter
             }
 
             if (FilterRB.Checked == false)
             {
-                graphList = dataTreatmentRef.GetGraphList(); //dataTreatmentRef.FilterData(); // filterData er void, hvis den skal retunere skal den være en liste
+                graphList = dataTreatmentRef.GetGraphList(); 
             }
 
             UpdateGraph(graphList);
 
-            BloodPressureAlgoRef.WindowOfConvertedData(graphList, PulseAlgoRef.PulseValue); // kalder metoden for at finde blodtryksværdier
-            IPulseRef.FindPulse();
+            // BloodPressureAlgoRef.WindowOfConvertedData(graphList, PulseAlgoRef.PulseValue); // kalder metoden for at finde blodtryksværdier
+            // IPulseRef.FindPulse();
+                        // Add these two when we are ready to test the pulse algorithm
 
         }
 
@@ -126,7 +135,7 @@ namespace Presentation
             //}
         }
 
-        private void StartB_Click(object sender, EventArgs e)
+        private void StartB_Click_1(object sender, EventArgs e)
         {
             Counter++;
 
@@ -141,7 +150,7 @@ namespace Presentation
 
             if (Counter % 2 != 0)
             {
-                DialogResult dialogResult = MessageBox.Show("Ønsker du, at afslutte målingen?","Hallo", MessageBoxButtons.YesNo);
+                DialogResult dialogResult = MessageBox.Show("Ønsker du, at afslutte målingen?", "Advarelse", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     Measure.StopMeasurement();
@@ -152,7 +161,7 @@ namespace Presentation
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-                   
+
                 }
             }
         }
@@ -240,28 +249,6 @@ namespace Presentation
         //}
 
 
-        private void clearB_Click(object sender, EventArgs e)
-        {
-            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde instillerne?", "Ryd instillinger", MessageBoxButtons.YesNo);
-
-            if (dialog == DialogResult.Yes)
-            {
-                Application.Restart();
-                Refresh(); // hardcoded, kan laves om hvis der er tid 
-            }
-            else
-            {
-                dialog = DialogResult.Cancel;
-            }
-
-
-        }
-
-        private void StartB_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void FilterRB_CheckedChanged_1(object sender, EventArgs e) // den gældende
         {
             if (Running == true && FilterRB.Checked)
@@ -276,7 +263,22 @@ namespace Presentation
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CalibrateGUIRef.ShowDialog();
+            loginGUIRef.ShowDialog();
+        }
+
+        private void clearB_Click_1(object sender, EventArgs e)
+        {
+            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde instillerne?", "Ryd instillinger", MessageBoxButtons.YesNo);
+
+            if (dialog == DialogResult.Yes)
+            {
+                Application.Restart();
+                Refresh(); // hardcoded, kan laves om hvis der er tid 
+            }
+            else
+            {
+                dialog = DialogResult.Cancel;
+            }
         }
 
 

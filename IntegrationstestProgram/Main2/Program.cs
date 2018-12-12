@@ -28,7 +28,7 @@ namespace Main2
             IData data = new Database();
             DataTreatment dataTreatment = new DataTreatment(rawCollection, graphCollection, convertAlgo, data);
             IMeasure measurement = new UC2M2_UC3M3_Measure(transducerdaq, dataTreatment);
-            ICalibrate calibrate = new UC6S2_Calibrate(rawCollection, measurement);
+            ICalibrate calibrate = new UC6S2_Calibrate(rawCollection, transducerdaq);
 
 
             Application.EnableVisualStyles();

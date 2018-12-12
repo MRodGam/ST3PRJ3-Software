@@ -30,9 +30,9 @@
         {
             System.Windows.Forms.Button button1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainGUI));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.AlarmPausedPictureBox = new System.Windows.Forms.PictureBox();
             this.AlarmPictureBox = new System.Windows.Forms.PictureBox();
             this.blodtryk_L = new System.Windows.Forms.Label();
@@ -69,7 +69,7 @@
             // AlarmPausedPictureBox
             // 
             this.AlarmPausedPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AlarmPausedPictureBox.Image")));
-            this.AlarmPausedPictureBox.Location = new System.Drawing.Point(509, 128);
+            this.AlarmPausedPictureBox.Location = new System.Drawing.Point(636, 485);
             this.AlarmPausedPictureBox.Name = "AlarmPausedPictureBox";
             this.AlarmPausedPictureBox.Size = new System.Drawing.Size(90, 90);
             this.AlarmPausedPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -80,7 +80,7 @@
             // AlarmPictureBox
             // 
             this.AlarmPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AlarmPictureBox.Image")));
-            this.AlarmPictureBox.Location = new System.Drawing.Point(509, 128);
+            this.AlarmPictureBox.Location = new System.Drawing.Point(636, 485);
             this.AlarmPictureBox.Name = "AlarmPictureBox";
             this.AlarmPictureBox.Size = new System.Drawing.Size(90, 90);
             this.AlarmPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -93,7 +93,7 @@
             this.blodtryk_L.AutoSize = true;
             this.blodtryk_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.blodtryk_L.ForeColor = System.Drawing.Color.DarkGreen;
-            this.blodtryk_L.Location = new System.Drawing.Point(645, 109);
+            this.blodtryk_L.Location = new System.Drawing.Point(1205, 152);
             this.blodtryk_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.blodtryk_L.Name = "blodtryk_L";
             this.blodtryk_L.Size = new System.Drawing.Size(90, 25);
@@ -105,7 +105,7 @@
             this.middel_L.AutoSize = true;
             this.middel_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.middel_L.ForeColor = System.Drawing.Color.DarkGreen;
-            this.middel_L.Location = new System.Drawing.Point(645, 209);
+            this.middel_L.Location = new System.Drawing.Point(1205, 252);
             this.middel_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.middel_L.Name = "middel_L";
             this.middel_L.Size = new System.Drawing.Size(76, 25);
@@ -117,7 +117,7 @@
             this.puls_L.AutoSize = true;
             this.puls_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.puls_L.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.puls_L.Location = new System.Drawing.Point(645, 33);
+            this.puls_L.Location = new System.Drawing.Point(1205, 76);
             this.puls_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.puls_L.Name = "puls_L";
             this.puls_L.Size = new System.Drawing.Size(54, 25);
@@ -130,7 +130,7 @@
             this.FilterRB.BackColor = System.Drawing.Color.Transparent;
             this.FilterRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilterRB.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.FilterRB.Location = new System.Drawing.Point(626, 417);
+            this.FilterRB.Location = new System.Drawing.Point(1186, 460);
             this.FilterRB.Margin = new System.Windows.Forms.Padding(4);
             this.FilterRB.Name = "FilterRB";
             this.FilterRB.Size = new System.Drawing.Size(72, 21);
@@ -145,7 +145,7 @@
             this.pauseB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.pauseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseB.ForeColor = System.Drawing.Color.White;
-            this.pauseB.Location = new System.Drawing.Point(221, 381);
+            this.pauseB.Location = new System.Drawing.Point(948, 518);
             this.pauseB.Margin = new System.Windows.Forms.Padding(4);
             this.pauseB.Name = "pauseB";
             this.pauseB.Size = new System.Drawing.Size(398, 57);
@@ -159,7 +159,7 @@
             this.clearB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.clearB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clearB.ForeColor = System.Drawing.Color.White;
-            this.clearB.Location = new System.Drawing.Point(626, 381);
+            this.clearB.Location = new System.Drawing.Point(1186, 424);
             this.clearB.Margin = new System.Windows.Forms.Padding(4);
             this.clearB.Name = "clearB";
             this.clearB.Size = new System.Drawing.Size(160, 30);
@@ -172,7 +172,7 @@
             this.saveB.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.saveB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.saveB.ForeColor = System.Drawing.Color.White;
-            this.saveB.Location = new System.Drawing.Point(626, 342);
+            this.saveB.Location = new System.Drawing.Point(1186, 385);
             this.saveB.Margin = new System.Windows.Forms.Padding(4);
             this.saveB.Name = "saveB";
             this.saveB.Size = new System.Drawing.Size(160, 30);
@@ -185,7 +185,7 @@
             this.limitsB.BackColor = System.Drawing.Color.Silver;
             this.limitsB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.limitsB.ForeColor = System.Drawing.Color.White;
-            this.limitsB.Location = new System.Drawing.Point(626, 305);
+            this.limitsB.Location = new System.Drawing.Point(1186, 348);
             this.limitsB.Margin = new System.Windows.Forms.Padding(4);
             this.limitsB.Name = "limitsB";
             this.limitsB.Size = new System.Drawing.Size(160, 30);
@@ -200,7 +200,7 @@
             this.StartB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.StartB.Location = new System.Drawing.Point(15, 381);
+            this.StartB.Location = new System.Drawing.Point(742, 518);
             this.StartB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.StartB.Name = "StartB";
             this.StartB.Size = new System.Drawing.Size(197, 57);
@@ -211,18 +211,19 @@
             // 
             // chart1
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(0, 46);
             this.chart1.Name = "chart1";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(599, 314);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(1179, 418);
             this.chart1.TabIndex = 26;
             this.chart1.Text = "chart1";
             // 
@@ -230,7 +231,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1359, 607);
             this.Controls.Add(this.AlarmPausedPictureBox);
             this.Controls.Add(this.AlarmPictureBox);
             this.Controls.Add(this.blodtryk_L);

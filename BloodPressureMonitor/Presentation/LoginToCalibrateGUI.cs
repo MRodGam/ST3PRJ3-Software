@@ -20,9 +20,10 @@ namespace Presentation
 
         public bool LoginOK { get; private set; } = false; // kan hentes af andres men ikke sættes af andre
 
-        public LoginToCalibrateGUI()
+        public LoginToCalibrateGUI(CalibrateGUI calibrateGUI)
         {
             InitializeComponent();
+            calibrateRef_ = calibrateGUI;
         }
 
         private void LoginToCalibrateGUI_Load(object sender, EventArgs e) // hvilken knap er det???
@@ -42,6 +43,7 @@ namespace Presentation
                 LoginOK = true;
                 
                 this.Close(); // login-vinduet lukker ned
+                calibrateRef_.ShowDialog();
             }
             else
                 MessageBox.Show("Ikke gyldigt login, prøv igen."); // hvis login ikke er OK kommer dette frem som et vindue 

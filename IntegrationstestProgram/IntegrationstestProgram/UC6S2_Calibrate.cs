@@ -16,7 +16,7 @@ namespace LogicLayer
        
         private BlockingCollection<RawData> _collection;
         // private CalibrationValue _calibration;
-        private IMeasure Measure;
+        private IDAQ _daq;
         // private IData Database;
         private ConvertedData ConvertData;
 
@@ -30,10 +30,10 @@ namespace LogicLayer
         public bool IsAll5MeasureDone = false;
         
         //public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database, ConvertedData convertData)
-        public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure)
+        public UC6S2_Calibrate(BlockingCollection<RawData> collection, IDAQ daq)
         {
             _collection = collection;
-            Measure = measure;
+            _daq = daq;
             //Database = database;
             //ConvertData = convertData;
 
@@ -51,7 +51,7 @@ namespace LogicLayer
             double _voltagePoint = 0.0;
             
             
-            Measure.StartMeasurement(); // start måling 
+            _daq.Start(); // start måling 
 
             //voltageList.AddRange(_collection.Take()); // Tilføj samples til liste, OBS virker ikke? 
             
@@ -65,7 +65,7 @@ namespace LogicLayer
 
             if (_voltagePoint != 0.0)
             {
-                Measure.StopMeasurement();// slutter måling 
+                _daq.Stop();// slutter måling 
             }
             
             return _voltagePoint;
