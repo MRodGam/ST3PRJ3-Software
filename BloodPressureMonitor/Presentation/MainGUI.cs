@@ -266,6 +266,11 @@ namespace Presentation
             loginGUIRef.ShowDialog();
         }
 
+        public void UpdateCaliLabel(string NewDate)
+        {
+            kaliTekst_L.Text = NewDate;
+        }
+
         private void clearB_Click_1(object sender, EventArgs e)
         {
             DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde instillerne?", "Ryd instillinger", MessageBoxButtons.YesNo);
@@ -279,6 +284,11 @@ namespace Presentation
             {
                 dialog = DialogResult.Cancel;
             }
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
         }
 
 

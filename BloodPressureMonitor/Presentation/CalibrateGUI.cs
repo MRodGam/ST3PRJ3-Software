@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Domain;
 using LogicLayer;
 
 namespace Presentation
@@ -16,6 +17,7 @@ namespace Presentation
         private ICalibrate calibrate; // reference til ICalibrate
         private IMeasure measure; // reference til ICalibrate
         private MainGUI MainGuiRef;
+        private CalibrationValue calibrationValue;
         
 
         private LoginToCalibrateGUI LoginToCalibrateRef; // er det OK at jeg opretter en new her??
@@ -24,11 +26,12 @@ namespace Presentation
 
         
 
-        public CalibrateGUI(ICalibrate calibrate, IMeasure measure, LoginToCalibrateGUI loginToCalibrateRef, MainGUI mainGui)
+        public CalibrateGUI(ICalibrate calibrate, IMeasure measure, LoginToCalibrateGUI loginToCalibrateRef, MainGUI mainGui, CalibrationValue caliValue)
         {
             InitializeComponent();
             LoginToCalibrateRef = loginToCalibrateRef;
             MainGuiRef = mainGui;
+            calibrationValue = caliValue;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis login = true (se koden nedenunder)
 
@@ -116,8 +119,8 @@ namespace Presentation
 
             calibrate.DoCalibrateRegression(); // Kører metoden DoCalibration i logiklaget
             
-            MessageBox.Show("Kalibreringen er udført og bregnet til: " +calibrate.getCalibrateValue());
-            //MainGuiRef.  // ændre datoen for sidste kalibrering 
+            MessageBox.Show("Kalibreringen er udført. a = " + calibrationValue._a + "b = " +calibrationValue._b);
+            MainGuiRef.UpdateCaliLabel(calibrate.updateCalibrateText()); // opdatere kalibreringstekst i mainGUI
 
             if (calibrate.GetIsAll5MeasureDone()== true)
             {

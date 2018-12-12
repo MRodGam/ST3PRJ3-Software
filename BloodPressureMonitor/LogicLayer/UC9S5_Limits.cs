@@ -11,11 +11,10 @@ namespace LogicLayer
     public class UC9S5_Limits : ILimits
     {
         // giver det måske mere mening at denne klasse er domæne ??
-        public double SysLowerLimit { get; set; }
-        public double SysUpperLimit { get; set; }
+        public double SysLowerLimit { get; set; } = 30; // default værdi
+        public double SysUpperLimit { get; set; } = 180;
 
         //grænseværdierne sættes inde i eventhandler
-        
 
 
         public double GetLowerLimit()
