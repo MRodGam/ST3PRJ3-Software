@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 
 namespace LogicLayer
 {
@@ -14,7 +15,7 @@ namespace LogicLayer
 
         bool GetIsAll5MeasureDone();
 
-        double getCalibrateValue();
+        CalibrationValue getCalibrateValue();
 
         string updateCalibrateText();
     }

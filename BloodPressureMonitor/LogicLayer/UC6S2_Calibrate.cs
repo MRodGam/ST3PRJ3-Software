@@ -25,7 +25,9 @@ namespace LogicLayer
 
         private int _tæller = 0;
         private double _voltagePoint;
-        private double caliValue;
+        //private double caliValue;
+        public double a = 0;
+        private 
         string today = DateTime.Today.ToString("d/MM/yyyy");
        
 
@@ -113,7 +115,9 @@ namespace LogicLayer
 
         public void DoCalibrateRegression()
         {
-            caliValue = 0;
+            //caliValue = 0;
+            double a = 0;
+            double b = 0;
            
             // regressions kode
             double n = voltageArray.Length;
@@ -127,19 +131,22 @@ namespace LogicLayer
 
             }
             
-            caliValue = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
+            a = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
 
             // skal gemmes ned i en databasen
 
-            _calibration = new CalibrationValue(caliValue); // sætter CalibrationsValue til _a
-          
-            Database.SaveCalibrateValue(caliValue); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+            b = sumy - a * sumx; // b skal gerne ligge omkring -2
+
+            _calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
+
+          // obs. databasen skal gøres sådan der gemmes to værdier ned
+            Database.SaveCalibrateValue(a,b); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
 
         }
 
-        public double getCalibrateValue()
+        public CalibrationValue getCalibrateValue()
         {
-            return caliValue;
+            return _calibration;
         }
 
         public string updateCalibrateText()
