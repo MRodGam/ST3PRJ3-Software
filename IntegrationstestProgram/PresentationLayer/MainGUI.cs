@@ -312,6 +312,11 @@ namespace PresentationLayer
             Login.ShowDialog();
         }
 
+        public void UpdateCaliLabel(string NewDate)
+        {
+            kaliTekst_L.Text = NewDate;
+        }
+
         //private void FilterRB_CheckedChanged_1(object sender, EventArgs e) // den gældende
         //{
         //    if (Running == true && FilterRB.Checked)

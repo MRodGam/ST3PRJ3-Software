@@ -24,7 +24,7 @@ namespace Presentation
         private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
         private IAlarmType alarmType;
         private IFilter FilterRef;
-        private IPulse PulseRef;
+        private IPulse PulseRef; 
 
         // Algorithms
         private BloodPressureAlgo BloodPressureAlgoRef;

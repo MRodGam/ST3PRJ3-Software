@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Button calibrateB;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainGUI));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.Button calibrateB;
             this.AlarmPausedPictureBox = new System.Windows.Forms.PictureBox();
             this.AlarmPictureBox = new System.Windows.Forms.PictureBox();
             this.blodtryk_L = new System.Windows.Forms.Label();
@@ -49,18 +49,35 @@
             this.SystoliskL = new System.Windows.Forms.Label();
             this.MiddelL = new System.Windows.Forms.Label();
             this.DiastoliskL = new System.Windows.Forms.Label();
+            this.kaliTekst_L = new System.Windows.Forms.Label();
             calibrateB = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AlarmPausedPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AlarmPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
+            // calibrateB
+            // 
+            calibrateB.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            calibrateB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            calibrateB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            calibrateB.ForeColor = System.Drawing.Color.Silver;
+            calibrateB.Location = new System.Drawing.Point(25, 16);
+            calibrateB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            calibrateB.Name = "calibrateB";
+            calibrateB.Size = new System.Drawing.Size(140, 32);
+            calibrateB.TabIndex = 35;
+            calibrateB.Text = "Kalibrer";
+            calibrateB.UseVisualStyleBackColor = false;
+            calibrateB.Click += new System.EventHandler(this.calibrateB_Click);
+            // 
             // AlarmPausedPictureBox
             // 
             this.AlarmPausedPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AlarmPausedPictureBox.Image")));
-            this.AlarmPausedPictureBox.Location = new System.Drawing.Point(1209, 468);
+            this.AlarmPausedPictureBox.Location = new System.Drawing.Point(1360, 585);
+            this.AlarmPausedPictureBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AlarmPausedPictureBox.Name = "AlarmPausedPictureBox";
-            this.AlarmPausedPictureBox.Size = new System.Drawing.Size(116, 112);
+            this.AlarmPausedPictureBox.Size = new System.Drawing.Size(130, 140);
             this.AlarmPausedPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.AlarmPausedPictureBox.TabIndex = 25;
             this.AlarmPausedPictureBox.TabStop = false;
@@ -69,9 +86,10 @@
             // AlarmPictureBox
             // 
             this.AlarmPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("AlarmPictureBox.Image")));
-            this.AlarmPictureBox.Location = new System.Drawing.Point(1209, 468);
+            this.AlarmPictureBox.Location = new System.Drawing.Point(1360, 585);
+            this.AlarmPictureBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.AlarmPictureBox.Name = "AlarmPictureBox";
-            this.AlarmPictureBox.Size = new System.Drawing.Size(116, 112);
+            this.AlarmPictureBox.Size = new System.Drawing.Size(130, 140);
             this.AlarmPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.AlarmPictureBox.TabIndex = 24;
             this.AlarmPictureBox.TabStop = false;
@@ -82,10 +100,10 @@
             this.blodtryk_L.AutoSize = true;
             this.blodtryk_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.blodtryk_L.ForeColor = System.Drawing.Color.DarkGreen;
-            this.blodtryk_L.Location = new System.Drawing.Point(1192, 170);
+            this.blodtryk_L.Location = new System.Drawing.Point(1341, 212);
             this.blodtryk_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.blodtryk_L.Name = "blodtryk_L";
-            this.blodtryk_L.Size = new System.Drawing.Size(70, 18);
+            this.blodtryk_L.Size = new System.Drawing.Size(83, 22);
             this.blodtryk_L.TabIndex = 23;
             this.blodtryk_L.Text = "Blodtryk";
             // 
@@ -94,10 +112,10 @@
             this.middel_L.AutoSize = true;
             this.middel_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.middel_L.ForeColor = System.Drawing.Color.DarkGreen;
-            this.middel_L.Location = new System.Drawing.Point(1192, 330);
+            this.middel_L.Location = new System.Drawing.Point(1341, 412);
             this.middel_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.middel_L.Name = "middel_L";
-            this.middel_L.Size = new System.Drawing.Size(57, 18);
+            this.middel_L.Size = new System.Drawing.Size(68, 22);
             this.middel_L.TabIndex = 22;
             this.middel_L.Text = "Middel";
             // 
@@ -106,10 +124,10 @@
             this.puls_L.AutoSize = true;
             this.puls_L.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.puls_L.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.puls_L.Location = new System.Drawing.Point(1192, 49);
+            this.puls_L.Location = new System.Drawing.Point(1341, 61);
             this.puls_L.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.puls_L.Name = "puls_L";
-            this.puls_L.Size = new System.Drawing.Size(41, 18);
+            this.puls_L.Size = new System.Drawing.Size(49, 22);
             this.puls_L.TabIndex = 21;
             this.puls_L.Text = "Puls";
             // 
@@ -119,10 +137,10 @@
             this.FilterRB.BackColor = System.Drawing.Color.Transparent;
             this.FilterRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FilterRB.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.FilterRB.Location = new System.Drawing.Point(349, 651);
-            this.FilterRB.Margin = new System.Windows.Forms.Padding(4);
+            this.FilterRB.Location = new System.Drawing.Point(393, 814);
+            this.FilterRB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.FilterRB.Name = "FilterRB";
-            this.FilterRB.Size = new System.Drawing.Size(104, 33);
+            this.FilterRB.Size = new System.Drawing.Size(120, 36);
             this.FilterRB.TabIndex = 19;
             this.FilterRB.TabStop = true;
             this.FilterRB.Text = "Filtrer";
@@ -134,10 +152,10 @@
             this.pauseB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.pauseB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pauseB.ForeColor = System.Drawing.Color.White;
-            this.pauseB.Location = new System.Drawing.Point(346, 627);
-            this.pauseB.Margin = new System.Windows.Forms.Padding(4);
+            this.pauseB.Location = new System.Drawing.Point(389, 784);
+            this.pauseB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pauseB.Name = "pauseB";
-            this.pauseB.Size = new System.Drawing.Size(1023, 57);
+            this.pauseB.Size = new System.Drawing.Size(1151, 71);
             this.pauseB.TabIndex = 18;
             this.pauseB.Text = "Kvitter alarm ";
             this.pauseB.UseVisualStyleBackColor = false;
@@ -151,10 +169,10 @@
             this.clearB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.clearB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clearB.ForeColor = System.Drawing.Color.White;
-            this.clearB.Location = new System.Drawing.Point(1185, 627);
-            this.clearB.Margin = new System.Windows.Forms.Padding(4);
+            this.clearB.Location = new System.Drawing.Point(1333, 784);
+            this.clearB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.clearB.Name = "clearB";
-            this.clearB.Size = new System.Drawing.Size(183, 57);
+            this.clearB.Size = new System.Drawing.Size(206, 71);
             this.clearB.TabIndex = 17;
             this.clearB.Text = "Ryd";
             this.clearB.UseVisualStyleBackColor = false;
@@ -167,10 +185,10 @@
             this.saveB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.saveB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveB.ForeColor = System.Drawing.Color.White;
-            this.saveB.Location = new System.Drawing.Point(981, 627);
-            this.saveB.Margin = new System.Windows.Forms.Padding(4);
+            this.saveB.Location = new System.Drawing.Point(1104, 784);
+            this.saveB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.saveB.Name = "saveB";
-            this.saveB.Size = new System.Drawing.Size(183, 57);
+            this.saveB.Size = new System.Drawing.Size(206, 71);
             this.saveB.TabIndex = 16;
             this.saveB.Text = "Gem";
             this.saveB.UseVisualStyleBackColor = false;
@@ -182,10 +200,10 @@
             this.limitsB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.limitsB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.limitsB.ForeColor = System.Drawing.Color.White;
-            this.limitsB.Location = new System.Drawing.Point(775, 627);
-            this.limitsB.Margin = new System.Windows.Forms.Padding(4);
+            this.limitsB.Location = new System.Drawing.Point(872, 784);
+            this.limitsB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.limitsB.Name = "limitsB";
-            this.limitsB.Size = new System.Drawing.Size(186, 57);
+            this.limitsB.Size = new System.Drawing.Size(209, 71);
             this.limitsB.TabIndex = 15;
             this.limitsB.Text = "Juster grænseværdi";
             this.limitsB.UseVisualStyleBackColor = false;
@@ -198,10 +216,10 @@
             this.StartB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.StartB.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StartB.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.StartB.Location = new System.Drawing.Point(22, 627);
+            this.StartB.Location = new System.Drawing.Point(25, 784);
             this.StartB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.StartB.Name = "StartB";
-            this.StartB.Size = new System.Drawing.Size(305, 57);
+            this.StartB.Size = new System.Drawing.Size(343, 71);
             this.StartB.TabIndex = 14;
             this.StartB.Text = "START MÅLING";
             this.StartB.UseVisualStyleBackColor = false;
@@ -233,14 +251,15 @@
             legend1.Enabled = false;
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(23, 48);
+            this.chart1.Location = new System.Drawing.Point(26, 60);
+            this.chart1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(1156, 563);
+            this.chart1.Size = new System.Drawing.Size(1300, 704);
             this.chart1.TabIndex = 26;
             this.chart1.Text = "chart1";
             // 
@@ -249,9 +268,9 @@
             this.PulsL.AutoSize = true;
             this.PulsL.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PulsL.ForeColor = System.Drawing.Color.LimeGreen;
-            this.PulsL.Location = new System.Drawing.Point(1199, 67);
+            this.PulsL.Location = new System.Drawing.Point(1349, 84);
             this.PulsL.Name = "PulsL";
-            this.PulsL.Size = new System.Drawing.Size(0, 55);
+            this.PulsL.Size = new System.Drawing.Size(0, 65);
             this.PulsL.TabIndex = 29;
             // 
             // SystoliskL
@@ -259,9 +278,9 @@
             this.SystoliskL.AutoSize = true;
             this.SystoliskL.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SystoliskL.ForeColor = System.Drawing.Color.ForestGreen;
-            this.SystoliskL.Location = new System.Drawing.Point(1199, 187);
+            this.SystoliskL.Location = new System.Drawing.Point(1349, 234);
             this.SystoliskL.Name = "SystoliskL";
-            this.SystoliskL.Size = new System.Drawing.Size(0, 55);
+            this.SystoliskL.Size = new System.Drawing.Size(0, 65);
             this.SystoliskL.TabIndex = 31;
             // 
             // MiddelL
@@ -269,9 +288,9 @@
             this.MiddelL.AutoSize = true;
             this.MiddelL.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MiddelL.ForeColor = System.Drawing.Color.ForestGreen;
-            this.MiddelL.Location = new System.Drawing.Point(1199, 366);
+            this.MiddelL.Location = new System.Drawing.Point(1349, 458);
             this.MiddelL.Name = "MiddelL";
-            this.MiddelL.Size = new System.Drawing.Size(0, 55);
+            this.MiddelL.Size = new System.Drawing.Size(0, 65);
             this.MiddelL.TabIndex = 32;
             // 
             // DiastoliskL
@@ -279,32 +298,29 @@
             this.DiastoliskL.AutoSize = true;
             this.DiastoliskL.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DiastoliskL.ForeColor = System.Drawing.Color.ForestGreen;
-            this.DiastoliskL.Location = new System.Drawing.Point(1271, 232);
+            this.DiastoliskL.Location = new System.Drawing.Point(1430, 290);
             this.DiastoliskL.Name = "DiastoliskL";
-            this.DiastoliskL.Size = new System.Drawing.Size(0, 55);
+            this.DiastoliskL.Size = new System.Drawing.Size(0, 65);
             this.DiastoliskL.TabIndex = 33;
             // 
-            // calibrateB
+            // kaliTekst_L
             // 
-            calibrateB.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            calibrateB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            calibrateB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            calibrateB.ForeColor = System.Drawing.Color.Silver;
-            calibrateB.Location = new System.Drawing.Point(22, 13);
-            calibrateB.Margin = new System.Windows.Forms.Padding(4);
-            calibrateB.Name = "calibrateB";
-            calibrateB.Size = new System.Drawing.Size(124, 26);
-            calibrateB.TabIndex = 35;
-            calibrateB.Text = "Kalibrer";
-            calibrateB.UseVisualStyleBackColor = false;
-            calibrateB.Click += new System.EventHandler(this.calibrateB_Click);
+            this.kaliTekst_L.AutoSize = true;
+            this.kaliTekst_L.BackColor = System.Drawing.SystemColors.ControlText;
+            this.kaliTekst_L.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.kaliTekst_L.Location = new System.Drawing.Point(187, 22);
+            this.kaliTekst_L.Name = "kaliTekst_L";
+            this.kaliTekst_L.Size = new System.Drawing.Size(40, 20);
+            this.kaliTekst_L.TabIndex = 36;
+            this.kaliTekst_L.Text = "HEJ";
             // 
             // MainGUI
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(1382, 706);
+            this.ClientSize = new System.Drawing.Size(1555, 882);
+            this.Controls.Add(this.kaliTekst_L);
             this.Controls.Add(calibrateB);
             this.Controls.Add(this.DiastoliskL);
             this.Controls.Add(this.MiddelL);
@@ -322,6 +338,7 @@
             this.Controls.Add(this.StartB);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.FilterRB);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainGUI";
             this.Text = "MainGUI";
             this.Load += new System.EventHandler(this.MainGUI_Load);
@@ -351,5 +368,6 @@
         private System.Windows.Forms.Label SystoliskL;
         private System.Windows.Forms.Label MiddelL;
         private System.Windows.Forms.Label DiastoliskL;
+        private System.Windows.Forms.Label kaliTekst_L;
     }
 }
