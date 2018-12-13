@@ -48,8 +48,8 @@ namespace Presentation
 
         private void okB_Click(object sender, EventArgs e)
         {
-            int maxLimit = 160; // ændres??
-            int minLimit = 28; // ændres?
+            int maxLimit = 200; // ændres??
+            int minLimit = 25; // ændres?
 
             if (minLimit <= Convert.ToDouble(lowerLimit.Text) && Convert.ToDouble(upperLimit.Text) <= maxLimit)
             {
