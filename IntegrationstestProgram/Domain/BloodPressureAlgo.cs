@@ -34,17 +34,17 @@ namespace Domain
         private int _samplesPrPuls; // antal sample pr. puls
         private List<double> _windowList = new List<double>(); // listen oprettes
         public AutoResetEvent BloodPressureThread { get; set; } // tråd som alarm klassen kører på
-        private List<ConvertedData> _convertedData;
+        private List<double> _convertedData;
 
 
 
         public BloodPressureAlgo()
         {
-            _convertedData = new List<ConvertedData>();
+            _convertedData = new List<double>();
             //PulseAlgo = new PulseAlgo();
         }
 
-        public BloodPressure WindowOfConvertedData(List<ConvertedData> convertedData, int pulseValue)
+        public BloodPressure WindowOfConvertedData(List<double> convertedData, int pulseValue)
         {
             _convertedData = convertedData;
 
@@ -56,7 +56,7 @@ namespace Domain
 
                 for (int i = _convertedData.Count - _samplesPrPuls; i < _convertedData.Count; i++) // tager listens længde og går så x antal samples tilbage, og tilføjer samples herfra til windowList. Dvs. der tilføjes 2000 samples (tryk-værdier)
                 {
-                    _windowList.Add(_convertedData[i].Pressure);
+                    _windowList.Add(_convertedData[i]);
                 }
 
 
@@ -65,7 +65,7 @@ namespace Domain
             {
                 for (int i = _convertedData.Count - _samplesPrPuls; i < _convertedData.Count; i++) // tager listens længde og går så x antal samples tilbage, og tilføjer samples herfra til windowList. Dvs. der tilføjes 2000 samples (tryk-værdier)
                 {
-                    _windowList.Add(_convertedData[i].Pressure);
+                    _windowList.Add(_convertedData[i]);
                 }
                 
             }

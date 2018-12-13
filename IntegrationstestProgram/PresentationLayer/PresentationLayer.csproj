@@ -50,6 +50,12 @@
     <Compile Include="CalibrateGUI.Designer.cs">
       <DependentUpon>CalibrateGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangeLimitsGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeLimitsGUI.Designer.cs">
+      <DependentUpon>ChangeLimitsGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginToCalibrateGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,12 @@
       <DependentUpon>MainGUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveDataGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveDataGUI.Designer.cs">
+      <DependentUpon>SaveDataGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="ZeroAdjustmentGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,11 +86,17 @@
     <EmbeddedResource Include="CalibrateGUI.resx">
       <DependentUpon>CalibrateGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChangeLimitsGUI.resx">
+      <DependentUpon>ChangeLimitsGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginToCalibrateGUI.resx">
       <DependentUpon>LoginToCalibrateGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainGUI.resx">
       <DependentUpon>MainGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveDataGUI.resx">
+      <DependentUpon>SaveDataGUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ZeroAdjustmentGUI.resx">
       <DependentUpon>ZeroAdjustmentGUI.cs</DependentUpon>

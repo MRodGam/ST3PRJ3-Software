@@ -14,11 +14,11 @@ namespace LogicLayer
     public class UC6S2_Calibrate : ICalibrate
     {
        
-        private BlockingCollection<RawData> _calibrateCollection;
+        private BlockingCollection<double> _calibrateCollection;
         private CalibrationValue _calibration;
         private IDAQ _daq;
         private IData Database;
-        private ConvertedData ConvertData;
+        private double ConvertData;
 
         private double[] voltageArray = new double[5]; // array indeholder 5 pladser da vi tager fem målinger i kalibreringen
         private double[] pressureArray = new double[5];
@@ -34,11 +34,11 @@ namespace LogicLayer
         public bool IsAll5MeasureDone = false;
         
         //public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database, ConvertedData convertData)
-        public UC6S2_Calibrate(BlockingCollection<RawData> calibrateCollection, IDAQ daq)
+        public UC6S2_Calibrate(BlockingCollection<double> calibrateCollection, IDAQ daq, IData database)
         {
             _calibrateCollection = calibrateCollection;
             _daq = daq;
-            //Database = database;
+            Database = database;
             //ConvertData = convertData;
 
         }
@@ -66,7 +66,7 @@ namespace LogicLayer
             //}
             for (int i = 0; i < 1000; i++)
             {
-                _voltageSum += _calibrateCollection.Take().Voltage;
+                _voltageSum += _calibrateCollection.Take();
             }
 
             _voltagePoint = _voltageSum / 1000;
@@ -138,9 +138,9 @@ namespace LogicLayer
             a = (float) a1; // Converts double to float. Is necessary because the database the values are defined as floats. 
             b = (float) b1;
 
-            _calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
-
-            //Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+            //_calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
+            _calibration = new CalibrationValue(0.0189, -1.975); // sætter CalibrationsValue til _a
+            Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
 
         }
 

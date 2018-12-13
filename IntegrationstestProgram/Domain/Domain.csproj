@@ -31,8 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="alglibnet2">
+      <HintPath>..\..\..\..\..\ASE Programmer\alglib-3.14.0.csharp.gpl\csharp\net-core\alglibnet2.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,9 +50,11 @@
     <Compile Include="CalibrationValue.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ConvertAlgo.cs" />
-    <Compile Include="ConvertedData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RawData.cs" />
+    <Compile Include="PulseAlgo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

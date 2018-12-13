@@ -19,32 +19,40 @@ namespace Main2
         [STAThread]
         static void Main()
         {
-            BlockingCollection<RawData> rawCollection = new BlockingCollection<RawData>();
-            BlockingCollection<RawData> graphCollection = new BlockingCollection<RawData>();
-            BlockingCollection<RawData> calibrationCollection = new BlockingCollection<RawData>();
-            BlockingCollection<ConvertedData> alarmCollection = new BlockingCollection<ConvertedData>();
+            BlockingCollection<double> rawCollection = new BlockingCollection<double>();
+            BlockingCollection<double> graphCollection = new BlockingCollection<double>();
+            BlockingCollection<double> calibrationCollection = new BlockingCollection<double>();
+            BlockingCollection<double> alarmCollection = new BlockingCollection<double>();
+            BlockingCollection<double> filterCollection = new BlockingCollection<double>();
+
             DAQ daq = new DAQ();
             ConvertAlgo convertAlgo = new ConvertAlgo();
             BloodPressureAlgo bpAlgo = new BloodPressureAlgo();
+            PulseAlgo pulseAlgo = new PulseAlgo();
 
             IDAQ transducerdaq = new TransducerDAQ(daq, rawCollection, calibrationCollection);
             IData data = new Database();
             IAlarmType alarmType = new HighAlarm();
             ILimits limits = new UC9S5_Limits();
-            IAlarm alarm = new UC5S1_Alarm(alarmCollection,limits, alarmType, bpAlgo);
-            DataTreatment dataTreatment = new DataTreatment(rawCollection, graphCollection, alarmCollection, convertAlgo, data, alarm);
 
-            IMeasure measurement = new UC2M2_UC3M3_Measure(transducerdaq, dataTreatment,alarm);
-            ICalibrate calibrate = new UC6S2_Calibrate(calibrationCollection, transducerdaq);
+            IAlarm alarm = new UC5S1_Alarm(alarmCollection,limits, alarmType, bpAlgo);
+            IFilter filter = new UC7S3_Filter(filterCollection, data, convertAlgo);
+            DataTreatment dataTreatment = new DataTreatment(rawCollection, graphCollection, filterCollection, alarmCollection, convertAlgo, data, alarm);
+            IMeasure measurement = new UC2M2_UC3M3_Measure(transducerdaq, dataTreatment,alarm, filter);
+            ICalibrate calibrate = new UC6S2_Calibrate(calibrationCollection, transducerdaq,data);
             IZeroAdjustment zero = new UC1M1_ZeroAdjustment(calibrationCollection,transducerdaq);
             UC1M1_ZeroAdjustment uc1 = new UC1M1_ZeroAdjustment(calibrationCollection,transducerdaq);
+            IPulse pulse = new UC8S4_Pulse(dataTreatment,pulseAlgo);
+            ISave save = new UC4M4_SaveData(data, dataTreatment);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ZeroAdjustmentGUI zeroAdjustment = new ZeroAdjustmentGUI(zero,uc1);
             CalibrateGUI calibrateGUI = new CalibrateGUI(calibrate, measurement);
             LoginToCalibrateGUI login = new LoginToCalibrateGUI(calibrateGUI);
-            MainGUI gui = new MainGUI(dataTreatment, measurement, login, zeroAdjustment,alarm);
+            SaveDataGUI saveGUI = new SaveDataGUI(save);
+            ChangeLimitsGUI limitsGUI = new ChangeLimitsGUI(limits);
+            MainGUI gui = new MainGUI(dataTreatment, measurement, login, zeroAdjustment,alarm, pulse,bpAlgo, filter, saveGUI, limitsGUI);
             Application.Run(gui);
         }
     }

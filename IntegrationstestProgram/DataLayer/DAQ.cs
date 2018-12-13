@@ -13,8 +13,8 @@ namespace DataLayer
 {
     public class DAQ
     {
-        List<RawData> TotalRawDataList;
-        List<RawData> ShortSampleDataList;
+        List<double> TotalRawDataList;
+        List<double> ShortSampleDataList;
         double[] Raw1000DataArray;
         public bool isDatacollectionRunning { get; set; }
 
@@ -25,7 +25,7 @@ namespace DataLayer
         public void CollectData()
         {
             Raw1000DataArray = new double[1000]; // 1000 means the screen would be updates every second
-            ShortSampleDataList = new List<RawData>();
+            ShortSampleDataList = new List<double>();
 
             NIDAQVoltage datacollector = new NIDAQVoltage(); //Creates a DAQ-object
                 // Should it do this here? Didn't I talk to Lars about creating the transducer through the constructor?
@@ -46,11 +46,11 @@ namespace DataLayer
                 double second = 0.001 * (i + 1); // It is the timespacing between the given samples.
                     // plus 1 because arrays start at 0 and we start counting samples at the first sample.
 
-                ShortSampleDataList.Add(new RawData(second, Math.Round((Raw1000DataArray[i]), 3)));
+                ShortSampleDataList.Add(Math.Round((Raw1000DataArray[i]), 3));
             }
         }
 
-        public List<RawData> GetCollectedRawData()
+        public List<double> GetCollectedRawData()
         {
             return ShortSampleDataList;
         }

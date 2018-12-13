@@ -17,7 +17,7 @@ namespace LogicLayer
 
 
         private IDAQ _daq;
-        private BlockingCollection<RawData> _calibrationCollection;
+        private BlockingCollection<double> _calibrationCollection;
         public double ZeroAdjustmentValue { get; private set; } = -11; // -11 fordi så kan den ikke gå ind i if-sætning hvis ikke den har lavet en måling og derved ændret værdien
         public bool IsZeroAdjustDone { get; private set; } = false;
         private double TotalValue=0;
@@ -25,7 +25,7 @@ namespace LogicLayer
         //public int IsMeasureRight { set; get; } = 0;
 
 
-        public UC1M1_ZeroAdjustment(BlockingCollection<RawData> calibrationCollection, IDAQ daq)
+        public UC1M1_ZeroAdjustment(BlockingCollection<double> calibrationCollection, IDAQ daq)
         {
             _calibrationCollection = calibrationCollection;
             _daq = daq;
@@ -44,7 +44,7 @@ namespace LogicLayer
 
             for (int i = 0; i < 1000; i++) // tager fem målinger
             {
-                TotalValue += _calibrationCollection.Take().Voltage; // sætter ZeroAdjustmentValue lig med det der måles
+                TotalValue += _calibrationCollection.Take(); // sætter ZeroAdjustmentValue lig med det der måles
             }
             ZeroAdjustmentValue = TotalValue / 1000;
 

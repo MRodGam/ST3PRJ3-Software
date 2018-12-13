@@ -47,16 +47,22 @@
     <Compile Include="IAlarm.cs" />
     <Compile Include="IAlarmType.cs" />
     <Compile Include="ICalibrate.cs" />
+    <Compile Include="IFilter.cs" />
     <Compile Include="ILimits.cs" />
     <Compile Include="IMeasure.cs" />
     <Compile Include="IObserver.cs" />
+    <Compile Include="IPulse.cs" />
+    <Compile Include="ISave.cs" />
     <Compile Include="IZeroAdjustment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subject.cs" />
     <Compile Include="UC1M1_ZeroAdjustment.cs" />
     <Compile Include="UC2M2_UC3M3_Measure.cs" />
+    <Compile Include="UC4M4_SaveData.cs" />
     <Compile Include="UC5S1_Alarm.cs" />
     <Compile Include="UC6S2_Calibrate.cs" />
+    <Compile Include="UC7S3_Filter.cs" />
+    <Compile Include="UC8S4_Pulse.cs" />
     <Compile Include="UC9S5_Limits.cs" />
   </ItemGroup>
   <ItemGroup>

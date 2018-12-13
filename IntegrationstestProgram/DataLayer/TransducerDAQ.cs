@@ -11,22 +11,22 @@ namespace DataLayer
 {
     public class TransducerDAQ : IDAQ // Producer
     {
-        public List<RawData> RawDataList { get; private set; }
+        public List<double> RawDataList { get; private set; }
         private static Thread measurementThread;
         public static bool ShallStop { get; private set; }
         public DAQ localDAQ;
-        private BlockingCollection<RawData> _collection;
-        private BlockingCollection<RawData> _calibrationCollection;
+        private BlockingCollection<double> _collection;
+        private BlockingCollection<double> _calibrationCollection;
 
 
-        public TransducerDAQ(DAQ actualDAQ, BlockingCollection<RawData> collection, BlockingCollection<RawData> calibrateCollection) // Takes a DAQ parameter, so that we're sure it will be conected to thesae DAQ as the remaining classes when they are initiated
+        public TransducerDAQ(DAQ actualDAQ, BlockingCollection<double> collection, BlockingCollection<double> calibrateCollection) // Takes a DAQ parameter, so that we're sure it will be conected to thesae DAQ as the remaining classes when they are initiated
         {
             localDAQ = actualDAQ;
 
             _collection = collection;
             _calibrationCollection = calibrateCollection;
 
-            RawDataList = new List<RawData>();
+            RawDataList = new List<double>();
         }
 
 

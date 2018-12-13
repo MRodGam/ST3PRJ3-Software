@@ -18,7 +18,7 @@ namespace LogicLayer
         // public DataTreatment datatreatment_;
         //public AutoResetEvent alarmThread { get; set; } // tråd som alarm klassen kører på
         private Thread alarmThread { get; set; }
-        private BlockingCollection<ConvertedData> AlarmCollection;
+        private BlockingCollection<double> AlarmCollection;
 
         private ILimits Limits;
         private BloodPressure BloodPressure;
@@ -29,10 +29,10 @@ namespace LogicLayer
         public bool IsMeasureActive { get; set; } // sættes i UC2M2_UCM3_Measure
         public bool IsAlarmRunning { get; private set; } = false;
         public int Pulse { get; private set; }
-        public List<ConvertedData> graphList;
+        public List<double> graphList;
 
         //public UC5S1_Alarm(DataTreatment dataTreatment, ILimits limits, BloodPressure bloodPressure, IAlarmType alarmType, BloodPressureAlgo bloodpressureAlgoRef)
-        public UC5S1_Alarm(BlockingCollection<ConvertedData> alarmCollection, ILimits limits, IAlarmType alarmType, BloodPressureAlgo bloodpressureAlgoRef)
+        public UC5S1_Alarm(BlockingCollection<double> alarmCollection, ILimits limits, IAlarmType alarmType, BloodPressureAlgo bloodpressureAlgoRef)
         {
             AlarmCollection = alarmCollection;
             Limits = limits;
@@ -42,7 +42,7 @@ namespace LogicLayer
 
             //alarmThread = new AutoResetEvent(false);
 
-            graphList = new List<ConvertedData>();
+            graphList = new List<double>();
         }
 
         //public bool GetIsAlarmActive()

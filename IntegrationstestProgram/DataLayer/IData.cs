@@ -10,12 +10,12 @@ namespace DataLayer
     public interface IData
     {
         void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name,  DateTime timeAndDate,
-            List<RawData> bloodpressureList);
+            List<double> bloodpressureList);
         
 
-        List<RawData> rawData(string which);
+        List<double> rawData(string which);
 
-        // CalibrationValue GetCalibrateValue();
+        CalibrationValue GetCalibrateValue();
         void SaveCalibrateValue(CalibrationValue calibrationValue);
 
 

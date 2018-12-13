@@ -19,9 +19,12 @@ namespace DataLayer
         private SqlDataReader reader;
         private SqlCommand command;
         private const String DBlogin = "E18ST3PRJ3Gr3";
-        public List<RawData> bloodPressureList;
+        public List<double> bloodPressureList;
         private double calibrateDatabaseValue;
-        public List<RawData> GetCompletedMeasurement { get; private set; }
+        public List<double> GetCompletedMeasurement { get; private set; }
+
+        public double a { get; private set; }
+        public double b { get; private set; }
 
         public Database() //st-i4da.
         {
@@ -30,7 +33,7 @@ namespace DataLayer
 
         }
 
-        private static byte[] GetBytes(List<RawData> dataList)
+        private static byte[] GetBytes(List<double> dataList)
         {
             if (dataList == null) return null;
             BinaryFormatter bf = new BinaryFormatter();
@@ -39,7 +42,7 @@ namespace DataLayer
             return ms.ToArray();
         }
 
-        public List<RawData> rawData(string which)
+        public List<double> rawData(string which)
         {
             BinaryFormatter bf = new BinaryFormatter();
 
@@ -61,7 +64,7 @@ namespace DataLayer
 
                 using (MemoryStream ms = new MemoryStream(m))
                 {
-                    bloodPressureList = (List<RawData>)bf.Deserialize(ms);
+                    bloodPressureList = (List<double>)bf.Deserialize(ms);
                 }
 
                 //Data skrives til domain klasse SaveData
@@ -78,7 +81,7 @@ namespace DataLayer
             return GetCompletedMeasurement;
         }
 
-        public void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name, DateTime timeAndDate, List<RawData> bloodPressureList) //,    
+        public void SaveInDatabase(string IDno, string Procedure, string CPRno, string Name, DateTime timeAndDate, List<double> bloodPressureList) //,    
         {
             connectionP.Open();
             SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase(Idno, Procedures, CPRno, Name, timeAndDate, CompletedMeasurement) VALUES(@Idno, @Procedure, @CPRno, @Name, @timeAndDate, @CompletedMeasurement)", connectionP);
@@ -92,24 +95,30 @@ namespace DataLayer
             connectionP.Close();
         }
 
-        public CalibrationValue GetCalibrateValue(CalibrationValue calibrationValue) //henter kalibreringværdi
+        public CalibrationValue GetCalibrateValue() //henter kalibreringværdi
         {
-            command.CommandText = "select * from CalibrateA where calibrateA=@CalibrateA";
-            command.Parameters.Add("CalibrateA", SqlDbType.VarChar).Value = calibrationValue._a;
-            command.CommandText = "select * from CalibrateB where calibrateB=@CalibrateB";
-            command.Parameters.Add("CalibrateB", SqlDbType.VarChar).Value = calibrationValue._b;
+            SqlCommand command = new SqlCommand("SELECT * FROM Calibrate", connectionP);
             connectionP.Open();
-            SqlDataReader reader = command.ExecuteReader();
-            calibrationValue = new CalibrationValue(calibrationValue._a, calibrationValue._b);
-            return calibrationValue;
+            reader = command.ExecuteReader();
 
+            while (reader.Read())
+            {
+                command.CommandText = "SELECT * FROM Calibrate  where calibrateA=@CalibrateA";
+                a = Convert.ToDouble(reader["CalibrateA"]);
+                command.CommandText = "SELECT * FROM Calibrate where calibrateB=@CalibrateB";
+                b = Convert.ToDouble(reader["CalibrateB"]);
+            }
+
+            CalibrationValue calibrationValue = new CalibrationValue(a, b);
+            return calibrationValue;
         }
 
         public void SaveCalibrateValue(CalibrationValue calibrationValue) //gemmer kalibreringsværdi
         {
             //skal gemme clibrate-værdi
             connectionP.Open();
-            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase (CalibrateA, CalibrateB) VALUES(@CalibrateA, @CalibrateB)", connectionP);
+            SqlCommand command_ = new SqlCommand("INSERT INTO Calibrate (Idnr, CalibrateA, CalibrateB) VALUES(@Idnr, @CalibrateA, @CalibrateB)", connectionP);
+            command_.Parameters.AddWithValue("@Idnr", "Admin");
             command_.Parameters.AddWithValue("@CalibrateA", calibrationValue._a);
             command_.Parameters.AddWithValue("@CalibrateB", calibrationValue._b);
             command_.ExecuteNonQuery();

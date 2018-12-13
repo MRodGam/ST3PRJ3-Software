@@ -13,11 +13,11 @@ namespace Domain
         private string procedure_;
         private string name_;
         private string timeAndDate_;
-        private List<RawData> completedMeasurement_;
+        private List<double> completedMeasurement_;
         private double calibrate_;
 
         public SaveData(string CPRno, string Idno, string procedure, string name,
-            DateTime timeAndDate, List<RawData> completedMeasurement) //,  double calibrate)
+            DateTime timeAndDate, List<double> completedMeasurement) //,  double calibrate)
         {
             CPRno_ = CPRno;
             Idno_ = Idno;

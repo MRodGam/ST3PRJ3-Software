@@ -18,29 +18,38 @@ namespace PresentationLayer
         private IAlarm alarm; // Denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
         private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
+        private IPulse pulse;
+        private BloodPressureAlgo bp;
 
         private LoginToCalibrateGUI Login;
         private ZeroAdjustmentGUI ZeroAdjustmentGui;
+        private SaveDataGUI SaveGUI;
+        private ChangeLimitsGUI ChangeLimitsGUI;
 
         private IAlarmType alarmType;
-        // private UC7S3_Filter FilterRef;
+        private IFilter FilterRef;
 
         private BackgroundWorker muteAlarmWorker;
         private BackgroundWorker ActiveAlarm;
 
-        private delegate void updateGraphDelegate(List<ConvertedData> graphList);
+        private delegate void updateGraphDelegate(List<double> graphList);
 
-        private List<ConvertedData> graphList;
+        private List<double> graphList;
 
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
 
         //public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef)
-        public MainGUI(DataTreatment data, IMeasure measure, LoginToCalibrateGUI login, ZeroAdjustmentGUI zeroAdjustmentGui, IAlarm _alarm)
+        public MainGUI(DataTreatment data, IMeasure measure, LoginToCalibrateGUI login, ZeroAdjustmentGUI zeroAdjustmentGui, IAlarm _alarm,IPulse _pulse, BloodPressureAlgo bpAlgo, IFilter filter, SaveDataGUI saveGUI, ChangeLimitsGUI change)
         {
             InitializeComponent();
             ZeroAdjustmentGui = zeroAdjustmentGui;
             alarm = _alarm;
+            pulse = _pulse;
+            bp = bpAlgo;
+            FilterRef = filter;
+            SaveGUI = saveGUI;
+            ChangeLimitsGUI = change;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
             ZeroAdjustmentGui.ShowDialog();
@@ -68,29 +77,25 @@ namespace PresentationLayer
             Measure = measure;
             Login = login;
             dataTreatment.Attach(this); // metoden findes ikke (virker nu da IDataTreatment er udkommenteret, og det isetdet er DataTreatment vi kalder igennem)
-            graphList = new List<ConvertedData>();
-
-            //filterRef = new UC7S3_Filter();
-            // FilterRef = filterRef;
+            graphList = new List<double>();
         }
 
-        //public void Update(DataTreatment dataTreatmentRef)
         public void Update()
         {
-            //if (FilterRB.Checked == true)
-            //{
-            //    graphList = FilterRef.GetFiltredGraphList();
-            //}
+            if (FilterRB.Checked == true)
+            {
+                graphList = FilterRef.GetFilteredGraphList();
+            }
 
-            //if (FilterRB.Checked == false)
-            //{
-            graphList = dataTreatment.GetGraphList(); //dataTreatmentRef.FilterData(); // filterData er void, hvis den skal retunere skal den være en liste
-            //}
+            if (FilterRB.Checked == false)
+            {
+                graphList = dataTreatment.GetGraphList(); //dataTreatmentRef.FilterData(); // filterData er void, hvis den skal retunere skal den være en liste
+            }
 
             UpdateGraph(graphList);
         }
 
-        private void UpdateGraph(List<ConvertedData> graphList) // skal ikke være static
+        private void UpdateGraph(List<double> graphList) // skal ikke være static
         {
             if (chart1.InvokeRequired)
             {
@@ -102,10 +107,22 @@ namespace PresentationLayer
 
                 foreach (var sample in graphList)
                 {
-                    chart1.Series["Series1"].Points.AddXY(sample.Second, sample.Pressure);
+                    chart1.Series["Series1"].Points.AddY(sample);
                 }
 
-                //alarm.ControlAlarm();
+                int puls = pulse.FindPulse();
+                PulsL.Text = Convert.ToString(puls);
+
+                bp.WindowOfConvertedData(graphList, puls);
+
+                int diastolic = bp.FindDiastolic();
+                DiastoliskL.Text = Convert.ToString(diastolic);
+
+                int systolic = bp.FindSystolic();
+                SystoliskL.Text = Convert.ToString(systolic);
+
+                int mean = bp.FindMean();
+                MiddelL.Text = Convert.ToString(mean);
 
                 if (alarm.GetIsAlarmRunning() == true)
                 {
@@ -114,37 +131,6 @@ namespace PresentationLayer
             }
         }
 
-        //private void StartB_Click(object sender, EventArgs e)
-        //{
-        //    Counter++;
-
-        //    if (Counter % 2 == 0)
-        //    {
-        //        Measure.StartMeasurement();
-
-        //        Running = true;
-        //        StartB.BackColor = Color.Red;
-        //        StartB.Text = "STOP MÅLING";
-        //    }
-
-        //    if (Counter % 2 != 0)
-        //    {
-        //        DialogResult dialogResult = MessageBox.Show("Ønsker du, at afslutte målingen?", "Hallo", MessageBoxButtons.YesNo);
-        //        if (dialogResult == DialogResult.Yes)
-        //        {
-        //            Measure.StopMeasurement();
-
-        //            Running = false;
-        //            StartB.BackColor = Color.ForestGreen;
-        //            StartB.Text = "START MÅLING";
-        //        }
-        //        else if (dialogResult == DialogResult.No)
-        //        {
-
-        //        }
-        //    }
-        //}
-
         private void ActiveAlarmUpdate()
         {
             //alarmType.RunAlarm(); // denne skal afspilles med 5 sekunder mellemrum, skal det stå nede i tråden for ActiveAlarm ??
@@ -152,7 +138,10 @@ namespace PresentationLayer
                                   //alarmType.RunAlarm(); 
 
             blodtryk_L.ForeColor = Color.Red;
+            DiastoliskL.ForeColor = Color.Red;
+            SystoliskL.ForeColor = Color.Red;
             middel_L.ForeColor = Color.Red;
+            MiddelL.ForeColor = Color.Red;
             AlarmPictureBox.Visible = true;
         }
 
@@ -238,6 +227,11 @@ namespace PresentationLayer
         //    }
         //}
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Login.ShowDialog();
+        }
+
         private void StartB_Click_1(object sender, EventArgs e)
         {
             Counter++;
@@ -249,6 +243,9 @@ namespace PresentationLayer
                 Running = true;
                 StartB.BackColor = Color.Red;
                 StartB.Text = "STOP MÅLING";
+                saveB.Enabled = false;
+                //calibrateB.Enabled = false;
+                clearB.Enabled = false;
             }
 
             if (Counter % 2 == 0)
@@ -261,22 +258,58 @@ namespace PresentationLayer
                     Running = false;
                     StartB.BackColor = Color.CornflowerBlue;
                     StartB.Text = "START MÅLING";
+                    saveB.Enabled = true;
+                    clearB.Enabled = true;
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-
                 }
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Login.ShowDialog();
         }
 
         private void pauseB_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainGUI_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clearB_Click(object sender, EventArgs e) // Ikke rigtig
+        {
+            DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde indstillerne?", "Ryd indstillinger", MessageBoxButtons.YesNo);
+
+            if (dialog == DialogResult.Yes)
+            {
+                Application.Restart();
+                Refresh(); // hardcoded, kan laves om hvis der er tid 
+            }
+            else
+            {
+                dialog = DialogResult.Cancel;
+            }
+        }
+
+        private void saveB_Click(object sender, EventArgs e)
+        {
+            SaveGUI.ShowDialog();
+        }
+
+        private void limitsB_Click(object sender, EventArgs e)
+        {
+            ChangeLimitsGUI.ShowDialog();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void calibrateB_Click(object sender, EventArgs e)
+        {
+            Login.ShowDialog();
         }
 
         //private void FilterRB_CheckedChanged_1(object sender, EventArgs e) // den gældende

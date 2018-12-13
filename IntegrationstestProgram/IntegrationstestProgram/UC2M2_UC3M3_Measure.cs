@@ -17,17 +17,19 @@ namespace LogicLayer
         private IDAQ Daq;
         private DataTreatment dataTreatment;
         private IAlarm AlarmController;
+        private IFilter FilterController;
 
         public double CaliValue { get; private set; }
         public bool ShallStop { get; private set; }
 
 
         //public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment, UC5S1_Alarm alarmController)
-        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment,IAlarm alarmController)
+        public UC2M2_UC3M3_Measure(IDAQ actualDaq, DataTreatment _dataTreatment,IAlarm alarmController, IFilter filter)
         {
             Daq = actualDaq;
             dataTreatment = _dataTreatment;
             AlarmController = alarmController;
+            FilterController = filter;
         }
 
         public void StartMeasurement()
@@ -35,7 +37,7 @@ namespace LogicLayer
             Daq.Start();
             dataTreatment.StartGraphData();
             AlarmController.StartAlarm(); // Alarm klassen starter
-            //AlarmController.ControlAlarm();
+            FilterController.StartFilter();
         }
 
         public void StopMeasurement()
@@ -43,7 +45,7 @@ namespace LogicLayer
             Daq.Stop();
             dataTreatment.StopGraphData();
             AlarmController.StopAlarm();
-            //AlarmController.StopAlarm();
+            FilterController.StopFilter();
         }
     }
 }
