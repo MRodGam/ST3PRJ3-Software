@@ -153,6 +153,7 @@
             this.pauseB.Text = "Kvitter alarm ";
             this.pauseB.UseVisualStyleBackColor = false;
             this.pauseB.Visible = false;
+            this.pauseB.Click += new System.EventHandler(this.pauseB_Click_1);
             // 
             // clearB
             // 

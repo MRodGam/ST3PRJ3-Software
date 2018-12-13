@@ -140,7 +140,7 @@ namespace LogicLayer
 
             _calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
 
-            // Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+            //Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
 
         }
 

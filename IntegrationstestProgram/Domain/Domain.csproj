@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BloodPressure.cs" />
+    <Compile Include="BloodPressureAlgo.cs" />
     <Compile Include="CalibrationValue.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ConvertAlgo.cs" />

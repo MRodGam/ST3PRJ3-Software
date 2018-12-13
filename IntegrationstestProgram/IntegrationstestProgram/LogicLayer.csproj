@@ -43,7 +43,11 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="DataTreatment.cs" />
+    <Compile Include="HighAlarm.cs" />
+    <Compile Include="IAlarm.cs" />
+    <Compile Include="IAlarmType.cs" />
     <Compile Include="ICalibrate.cs" />
+    <Compile Include="ILimits.cs" />
     <Compile Include="IMeasure.cs" />
     <Compile Include="IObserver.cs" />
     <Compile Include="IZeroAdjustment.cs" />
@@ -51,7 +55,9 @@
     <Compile Include="Subject.cs" />
     <Compile Include="UC1M1_ZeroAdjustment.cs" />
     <Compile Include="UC2M2_UC3M3_Measure.cs" />
+    <Compile Include="UC5S1_Alarm.cs" />
     <Compile Include="UC6S2_Calibrate.cs" />
+    <Compile Include="UC9S5_Limits.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\DataLayer.csproj">
@@ -62,6 +68,11 @@
       <Project>{c5eaea2e-8fde-46b3-aebe-c2ce5a4d9880}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Alarmtone\alarmMedPause.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
