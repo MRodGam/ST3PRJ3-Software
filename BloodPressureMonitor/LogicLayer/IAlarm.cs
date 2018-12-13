@@ -11,6 +11,7 @@ namespace LogicLayer
         void ControlAlarm();
 
         bool GetIsAlarmRunning();
+
         //void MuteAlarm();
         //void StopAlarm();
         //bool GetIsAlarmActive();

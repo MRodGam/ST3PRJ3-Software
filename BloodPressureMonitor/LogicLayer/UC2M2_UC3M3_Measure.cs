@@ -16,13 +16,13 @@ namespace LogicLayer
     {
         private IDAQ Daq;
         private IDataTreatment dataTreatment;
-        private UC5S1_Alarm AlarmController;
+        private IAlarm AlarmController;
         
 
         public double CaliValue { get; private set; }
         
        
-        public UC2M2_UC3M3_Measure(IDAQ actualDaq, IDataTreatment _dataTreatment, UC5S1_Alarm alarmController)
+        public UC2M2_UC3M3_Measure(IDAQ actualDaq, IDataTreatment _dataTreatment, IAlarm alarmController)
         {
             Daq = actualDaq;
             dataTreatment = _dataTreatment;

@@ -14,8 +14,9 @@ namespace LogicLayer
 {
     public class UC5S1_Alarm : IAlarm
     {
-        public IDataTreatment datatreatment_;
+        public DataTreatment datatreatment_;
         public AutoResetEvent alarmThread { get; set; } // tråd som alarm klassen kører på
+
 
         private ILimits Limits;
         //private BloodPressure BloodPressure;
@@ -26,7 +27,7 @@ namespace LogicLayer
         public bool IsMeasureActive { get; set; } // sættes i UC2M2_UCM3_Measure
         public bool IsAlarmRunning { get; private set; } = false;
 
-        public UC5S1_Alarm(IDataTreatment dataTreatment,ILimits limits, BloodPressure bloodPressure, IAlarmType alarmType, BloodPressureAlgo bloodpressureAlgoRef )
+        public UC5S1_Alarm(DataTreatment dataTreatment,ILimits limits, BloodPressure bloodPressure, IAlarmType alarmType, BloodPressureAlgo bloodpressureAlgoRef )
         {
             datatreatment_ = dataTreatment;
             Limits = limits;
@@ -77,20 +78,20 @@ namespace LogicLayer
             return IsAlarmRunning;
         }
 
-        public void MuteAlarm()// denne metode kaldes inde i eventhandleren for knappen kvitteralarm
-        {
-            //Timer counter = new Timer(180);
+        //public void MuteAlarm()// denne metode kaldes inde i eventhandleren for knappen kvitteralarm
+        //{
+        //    //Timer counter = new Timer(180);
            
-            //while (counter)
-            //{
-            //    alarmType.StopAlarm();
-            //    IsAlarmActive = false;
-            //}
-            //alarmType.RunAlarm();
-            //IsAlarmActive = true;
+        //    //while (counter)
+        //    //{
+        //    //    alarmType.StopAlarm();
+        //    //    IsAlarmActive = false;
+        //    //}
+        //    //alarmType.RunAlarm();
+        //    //IsAlarmActive = true;
 
 
-        }
+        //}
 
         //public void MuteAlarm()
         //{
