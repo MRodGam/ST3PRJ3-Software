@@ -118,6 +118,8 @@ namespace LogicLayer
             //caliValue = 0;
             double a = 0;
             double b = 0;
+            double a1;
+            double b1;
            
             // regressions kode
             double n = voltageArray.Length;
@@ -131,11 +133,14 @@ namespace LogicLayer
 
             }
             
-            a = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
+            a1 = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
 
             // skal gemmes ned i en databasen
 
-            b = sumy - a * sumx; // b skal gerne ligge omkring -2
+            b1 = sumy - a * sumx; // b skal gerne ligge omkring -2
+
+            a = (float)a1;
+            b = (float) b1;
 
             _calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
 
