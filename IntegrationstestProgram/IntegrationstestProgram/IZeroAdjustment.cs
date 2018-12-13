@@ -10,5 +10,6 @@ namespace LogicLayer
     {
         double GetZeroAdjustmentValue();
         double ZeroAdjust(double rawData);
+        bool IsMeasureRight();
     }
 }

@@ -22,12 +22,12 @@ namespace PresentationLayer
         public bool IsZeroAdjustmentMeasured { get; set; } = false;
         public double zeroAdjustmentValue { get; private set; }
 
-        public ZeroAdjustmentGUI(IZeroAdjustment zeroAdjustment, UC1M1_ZeroAdjustment uc1M1Zero)
+        public ZeroAdjustmentGUI(IZeroAdjustment zeroAdjustment /*UC1M1_ZeroAdjustment uc1M1Zero*/)
         {
             InitializeComponent();
             // axWindowsMediaPlayer1.settings.setMode("loop", true);
             _zeroAdjustment = zeroAdjustment;
-            _uc1M1Zero = uc1M1Zero;
+            //_uc1M1Zero = uc1M1Zero;
         }
 
         private void zeroB_Click(object sender, EventArgs e)
@@ -35,7 +35,7 @@ namespace PresentationLayer
             //zeroAdjustmentValue = _zeroAdjustment.GetZeroAdjustmentValue();
             zeroAdjustmentValue = 1.989;
 
-            if (zeroAdjustmentValue > -10)
+            if (_zeroAdjustment.IsMeasureRight()==true)
             {
                 IsZeroAdjustmentMeasured = true;
                 double zeroAdjustmentValue_3dec = (float) zeroAdjustmentValue;
@@ -43,9 +43,9 @@ namespace PresentationLayer
                 this.Close();
 
             }
-            if (zeroAdjustmentValue <-10)
+            if (_zeroAdjustment.IsMeasureRight() == false)
             {
-                MessageBox.Show("Nulpunktsjustering ikke foretaget korrekt, se videoen igen");
+                MessageBox.Show("Nulpunktsjustering afviger mere end 5% fra den normale værdi");
             }
 
             zeroAdjustmentValue = 0;

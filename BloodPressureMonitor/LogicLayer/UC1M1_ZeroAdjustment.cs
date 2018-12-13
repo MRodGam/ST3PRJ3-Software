@@ -36,8 +36,8 @@ namespace LogicLayer
         public double GetZeroAdjustmentValue()
         {
             //IsMeasureRight = 0;
-            //double normalUpper = 1.2*1.05; // normalværdie for volt + 5 procent 
-            //double normalUnder = 1.2 * 0.95; // normalværdie for volt - 5 procent 
+            double normalUpper = 1.2 * 1.05; // normalværdie for volt + 5 procent 
+            double normalUnder = 1.2 * 0.95; // normalværdie for volt - 5 procent 
 
             _daq.Start(); // start måling 
 

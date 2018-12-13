@@ -14,7 +14,7 @@ namespace LogicLayer
         // når man trykke på nulpunktsjusterknappen skal målingen starte, og der tages en volt måling af collection
         // det den måler skal den returner
         // det er meningen man blot skal måle ude i atmosfæren
-
+        public bool IsMeasureRight { get; private set; } = false;
 
         private IDAQ _daq;
         private BlockingCollection<double> _calibrationCollection;
@@ -35,9 +35,10 @@ namespace LogicLayer
 
         public double GetZeroAdjustmentValue()
         {
-            //IsMeasureRight = 0;
-            //double normalUpper = 1.2*1.05; // normalværdie for volt + 5 procent 
-            //double normalUnder = 1.2 * 0.95; // normalværdie for volt - 5 procent 
+            IsMeasureRight = false; // sættes til false til at starte med
+
+            double normalUpper = -1.9*1.05; // normalværdie for volt + 5 procent 
+            double normalUnder = -1.9 * 0.95; // normalværdie for volt - 5 procent 
             ZeroAdjustmentValue = 0;
 
             _daq.StartCalibration(); // start måling 
@@ -53,18 +54,19 @@ namespace LogicLayer
             //    IsZeroAdjustDone = true;
             //}
 
-            return ZeroAdjustmentValue;
+            
 
 
             // OBS skal give fejlmelding hvis det målete tryk overstiger normaltrykket med +%5. 
-            // Men hvad er normaltrykket? 0???
+            
+            if (ZeroAdjustmentValue <= normalUpper && normalUnder <= ZeroAdjustmentValue) // hvis værdien varierer mere end +-5%
+            {
+                IsMeasureRight = true;
 
-            //if (ZeroAdjustmentValue <= normalUpper && normalUnder <= ZeroAdjustmentValue) // hvis værdien varierer mere end +-5%
-            //{
-            //    return ZeroAdjustmentValue;
+            }
+            else IsMeasureRight = false;
 
-            //}
-            //else return IsMeasureRight = 1;
+            return ZeroAdjustmentValue;
 
         }
 
@@ -72,6 +74,11 @@ namespace LogicLayer
         public double ZeroAdjust(double rawData)
         {
             return rawData - ZeroAdjustmentValue;
+        }
+
+        public bool IsMeasureRigth()
+        {
+            return IsMeasureRight;
         }
 
 
