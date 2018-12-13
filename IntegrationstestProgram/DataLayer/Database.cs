@@ -101,12 +101,12 @@ namespace DataLayer
             return calibrateDatabaseValue;
         }
 
-        public void SaveCalibrateValue(double Calibrate) //gemmer kalibreringsværdi
+        public void SaveCalibrateValue(CalibrationValue calibrate) //gemmer kalibreringsværdi
         {
             //skal gemme clibrate-værdi
             connectionP.Open();
             SqlCommand command_ = new SqlCommand("INSERT INTO SaveCalibrateValue (Calibrate) VALUES(@Calibrate)", connectionP);
-            command_.Parameters.AddWithValue("@Calibrate", Calibrate);
+            command_.Parameters.AddWithValue("@Calibrate", calibrate._a);
             command_.ExecuteNonQuery();
             connectionP.Close();
         }

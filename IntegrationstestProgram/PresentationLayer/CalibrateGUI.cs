@@ -108,7 +108,8 @@ namespace PresentationLayer
         {
             calibrate.DoCalibrateRegression(); // Kører metoden DoCalibration i logiklaget
 
-            MessageBox.Show("Kalibreringen er udført og bregnet til: " + calibrate.getCalibrateValue());
+            MessageBox.Show("Kalibreringenens A-værdi er udført og bregnet til: " + calibrate.getCalibrateValue()._a
+            + Environment.NewLine +"Kalibreringenens B-værdi er udført og bregnet til: " + calibrate.getCalibrateValue()._b);
             //MainGuiRef.  // ændre datoen for sidste kalibrering 
         }
     }

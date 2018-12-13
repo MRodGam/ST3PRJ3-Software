@@ -85,7 +85,7 @@ namespace LogicLayer // Consumer
         public static bool ShallStop { get; private set; }
         private static double Total { get; set; }
         private static double ZeroAdjustedAverage { get; set; }
-        public double calibrationVal { get; private set; }
+        public CalibrationValue calibrationVal { get; private set; }
         public double zeroadjustmentVal { get; private set; }
         public double ConvertedValue { get; private set; }
 
@@ -131,7 +131,7 @@ namespace LogicLayer // Consumer
 
         public void MakeShortRawList() // Lav en observer som fortæller når den er fuld
         {
-            //zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
+            zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
 
             while (!ShallStop)
             {
@@ -169,6 +169,7 @@ namespace LogicLayer // Consumer
         public void MakeGraphList()
         {
             //calibrationVal = DataInterface.GetCalibrateValue();
+            calibrationVal = new CalibrationValue(0.0189, -1.975);
 
             while (!ShallStop)
             {

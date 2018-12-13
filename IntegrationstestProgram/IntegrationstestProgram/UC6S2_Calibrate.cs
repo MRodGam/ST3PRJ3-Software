@@ -14,25 +14,29 @@ namespace LogicLayer
     public class UC6S2_Calibrate : ICalibrate
     {
        
-        private BlockingCollection<RawData> _collection;
-        // private CalibrationValue _calibration;
+        private BlockingCollection<RawData> _calibrateCollection;
+        private CalibrationValue _calibration;
         private IDAQ _daq;
-        // private IData Database;
+        private IData Database;
         private ConvertedData ConvertData;
 
         private double[] voltageArray = new double[5]; // array indeholder 5 pladser da vi tager fem målinger i kalibreringen
         private double[] pressureArray = new double[5];
 
         private int _tæller = 0;
+        private double _voltageSum;
         private double _voltagePoint;
-        private double caliValue;
+        private double a;
+        private double a1;
+        private double b;
+        private double b1;
 
         public bool IsAll5MeasureDone = false;
         
         //public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database, ConvertedData convertData)
-        public UC6S2_Calibrate(BlockingCollection<RawData> collection, IDAQ daq)
+        public UC6S2_Calibrate(BlockingCollection<RawData> calibrateCollection, IDAQ daq)
         {
-            _collection = collection;
+            _calibrateCollection = calibrateCollection;
             _daq = daq;
             //Database = database;
             //ConvertData = convertData;
@@ -49,9 +53,9 @@ namespace LogicLayer
         {
             double totalVoltageValue = 0;
             double _voltagePoint = 0.0;
+            _voltageSum = 0;
             
-            
-            _daq.Start(); // start måling 
+            _daq.StartCalibration(); // start måling 
 
             //voltageList.AddRange(_collection.Take()); // Tilføj samples til liste, OBS virker ikke? 
             
@@ -60,12 +64,16 @@ namespace LogicLayer
             //{
             //    totalVoltageValue = voltageList[i] + totalVoltageValue; // samlet værdi for volt findes
             //}
+            for (int i = 0; i < 1000; i++)
+            {
+                _voltageSum += _calibrateCollection.Take().Voltage;
+            }
 
-            _voltagePoint = _collection.Take().Voltage; 
+            _voltagePoint = _voltageSum / 1000;
 
             if (_voltagePoint != 0.0)
             {
-                _daq.Stop();// slutter måling 
+                // _daq.Stop();// slutter måling 
             }
             
             return _voltagePoint;
@@ -107,7 +115,10 @@ namespace LogicLayer
 
         public void DoCalibrateRegression()
         {
-            caliValue = 0;
+            a1 = 0;
+            a = 0;
+            b1 = 0;
+            b = 0;
            
             // regressions kode
             double n = voltageArray.Length;
@@ -115,25 +126,27 @@ namespace LogicLayer
             for (int i = 0; i < voltageArray.Length; i++)
             {
                 sumxy += voltageArray[i] * pressureArray[i];
-                sumx += voltageArray[i];
-                sumy += pressureArray[i];
-                sumx2 += voltageArray[i] * voltageArray[i];
+                sumx += pressureArray[i];
+                sumy += voltageArray[i];
+                sumx2 += pressureArray[i] * pressureArray[i];
 
             }
             
-            caliValue = ((sumxy-sumx*sumy/n) / (sumx2-sumx*sumx/n) ); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
+            a1 = ((sumxy/n)-((sumx/n)*(sumy/n))) / ((sumx2/n)-(sumx/n)*(sumx/n)); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
+            b1 = (sumy / n) - (a * (sumx / n));
 
-            // skal gemmes ned i en databasen
+            a = (float) a1; // Converts double to float. Is necessary because the database the values are defined as floats. 
+            b = (float) b1;
 
-            //_calibration = new CalibrationValue(caliValue); // sætter CalibrationsValue til _a
-          
-            //Database.SaveCalibrateValue(caliValue); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+            _calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
+
+            // Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
 
         }
 
-        public double getCalibrateValue()
+        public CalibrationValue getCalibrateValue()
         {
-            return caliValue;
+            return _calibration;
         }
 
     }

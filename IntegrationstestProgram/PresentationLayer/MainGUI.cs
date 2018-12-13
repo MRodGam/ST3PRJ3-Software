@@ -20,6 +20,7 @@ namespace PresentationLayer
         private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
 
         private LoginToCalibrateGUI Login;
+        private ZeroAdjustmentGUI ZeroAdjustmentGui;
 
         // private IAlarmType alarmType;
         // private ZeroAdjustmentGUI ZeroAdjustmentGui;
@@ -36,23 +37,21 @@ namespace PresentationLayer
         public bool Running { get; set; } = false;
 
         //public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef)
-        public MainGUI(DataTreatment data, IMeasure measure, LoginToCalibrateGUI login)
+        public MainGUI(DataTreatment data, IMeasure measure, LoginToCalibrateGUI login, ZeroAdjustmentGUI zeroAdjustmentGui)
         {
             InitializeComponent();
-            //ZeroAdjustmentGui = zeroAdjustmentGui;
+            ZeroAdjustmentGui = zeroAdjustmentGui;
 
-            //this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
+            this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
+            ZeroAdjustmentGui.ShowDialog();
 
-
-            //ZeroAdjustmentGui.ShowDialog();
-
-            //if (ZeroAdjustmentGui.IsZeroAdjustmentMeasured == true)
-            //{
-            //this.Visible = true;
-            StartB.Enabled = true; // knappen er til at starte med ikke enable, bliver først hvis nulpunktsjusteringen udføres
-            //}
-            //else
-            //    this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
+            if (ZeroAdjustmentGui.IsZeroAdjustmentMeasured == true)
+            {
+                this.Visible = true;
+                StartB.Enabled = true; // knappen er til at starte med ikke enable, bliver først hvis nulpunktsjusteringen udføres
+            }
+            else
+                this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
 
 
             //muteAlarmWorker = new BackgroundWorker();
@@ -72,7 +71,6 @@ namespace PresentationLayer
 
             //filterRef = new UC7S3_Filter();
             // FilterRef = filterRef;
-
         }
 
         //public void Update(DataTreatment dataTreatmentRef)

@@ -10,6 +10,7 @@ namespace DataLayer
     public interface IDAQ
     {
         void Start();
+        void StartCalibration();
         void Stop();
         void GetRawData();
 

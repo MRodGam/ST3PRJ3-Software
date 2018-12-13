@@ -16,7 +16,7 @@ namespace DataLayer
         List<RawData> rawData(string which);
 
         double GetCalibrateValue();
-        void SaveCalibrateValue(double Calibrate);
+        // CalibrationValue SaveCalibrateValue(CalibrationValue calibration);
 
 
         //List<RawData> GetCompletedMeasurement { get; private set; }

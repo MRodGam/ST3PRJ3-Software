@@ -16,12 +16,16 @@ namespace DataLayer
         public static bool ShallStop { get; private set; }
         public DAQ localDAQ;
         private BlockingCollection<RawData> _collection;
+        private BlockingCollection<RawData> _calibrationCollection;
 
 
-        public TransducerDAQ(DAQ actualDAQ, BlockingCollection<RawData> collection) // Takes a DAQ parameter, so that we're sure it will be conected to thesae DAQ as the remaining classes when they are initiated
+        public TransducerDAQ(DAQ actualDAQ, BlockingCollection<RawData> collection, BlockingCollection<RawData> calibrateCollection) // Takes a DAQ parameter, so that we're sure it will be conected to thesae DAQ as the remaining classes when they are initiated
         {
             localDAQ = actualDAQ;
+
             _collection = collection;
+            _calibrationCollection = calibrateCollection;
+
             RawDataList = new List<RawData>();
         }
 
@@ -37,6 +41,16 @@ namespace DataLayer
         public void Stop()
         {
             ShallStop = true; // Stops thread. 
+        }
+
+        public void StartCalibration()
+        {
+            localDAQ.CollectData();
+
+            foreach (var obj in localDAQ.GetCollectedRawData())// Transfers content measured from the DAQ to the collection
+            {
+                _calibrationCollection.Add(obj);
+            }
         }
 
         public void GetRawData() // This method is used exclusively by the measuring thread 

@@ -31,6 +31,7 @@ namespace PresentationLayer
             {
                 LoginOK = true;
 
+                this.Hide();
                 this.Close(); // login-vinduet lukker ned
                 calibrateRef_.ShowDialog();
             }

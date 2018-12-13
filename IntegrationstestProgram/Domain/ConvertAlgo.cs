@@ -14,15 +14,17 @@ namespace Domain
         public double Pressure { get; private set; }
         //private CalibrationValue calibration;
         public double CalibrationValue { get; private set; }
+        public double a { get; private set; }
+        public double b { get; private set; }
         
 
-        public double ConvertData(double voltage, double cal)
+        public double ConvertData(double voltage, CalibrationValue cal)
         {
-            // Calculate pressure from voltage
             Voltage = voltage;
-            CalibrationValue = cal;
+            a = cal._a;
+            b = cal._b;
 
-            return Pressure = Voltage * 50;
+            return (Voltage/ a)-b;
 
         }
 
