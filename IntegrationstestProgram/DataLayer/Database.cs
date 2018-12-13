@@ -92,21 +92,26 @@ namespace DataLayer
             connectionP.Close();
         }
 
-        public double GetCalibrateValue() //henter kalibreringværdi
+        public CalibrationValue GetCalibrateValue(CalibrationValue calibrationValue) //henter kalibreringværdi
         {
-            SqlCommand command = new SqlCommand("select * from Calibrate where calibrate=@Calibrate");
-            command.Parameters.Add("Calibrate", SqlDbType.VarChar).Value = calibrateDatabaseValue;
+            command.CommandText = "select * from CalibrateA where calibrateA=@CalibrateA";
+            command.Parameters.Add("CalibrateA", SqlDbType.VarChar).Value = calibrationValue._a;
+            command.CommandText = "select * from CalibrateB where calibrateB=@CalibrateB";
+            command.Parameters.Add("CalibrateB", SqlDbType.VarChar).Value = calibrationValue._b;
             connectionP.Open();
             SqlDataReader reader = command.ExecuteReader();
-            return calibrateDatabaseValue;
+            calibrationValue = new CalibrationValue(calibrationValue._a, calibrationValue._b);
+            return calibrationValue;
+
         }
 
-        public void SaveCalibrateValue(CalibrationValue calibrate) //gemmer kalibreringsværdi
+        public void SaveCalibrateValue(CalibrationValue calibrationValue) //gemmer kalibreringsværdi
         {
             //skal gemme clibrate-værdi
             connectionP.Open();
-            SqlCommand command_ = new SqlCommand("INSERT INTO SaveCalibrateValue (Calibrate) VALUES(@Calibrate)", connectionP);
-            command_.Parameters.AddWithValue("@Calibrate", calibrate._a);
+            SqlCommand command_ = new SqlCommand("INSERT INTO SaveInDatabase (CalibrateA, CalibrateB) VALUES(@CalibrateA, @CalibrateB)", connectionP);
+            command_.Parameters.AddWithValue("@CalibrateA", calibrationValue._a);
+            command_.Parameters.AddWithValue("@CalibrateB", calibrationValue._b);
             command_.ExecuteNonQuery();
             connectionP.Close();
         }

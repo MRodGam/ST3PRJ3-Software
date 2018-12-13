@@ -19,6 +19,7 @@ namespace LogicLayer // Consumer
         private ConvertAlgo ConvertAlgorithm;
         // private UC7S3_Filter FilterController;
         private UC1M1_ZeroAdjustment AdjustmentController;
+        private IAlarm AlarmController;
 
         private ICalibrate _calibrate;
         private IData DataInterface;
@@ -30,6 +31,7 @@ namespace LogicLayer // Consumer
         private BlockingCollection<RawData> _collection; // Take from TransducerDAQ
         private BlockingCollection<RawData> _graphCollection; // Take from DataTreamtment, Add to graphList 
         private BlockingCollection<RawData> _filterCollection;
+        private BlockingCollection<ConvertedData> _alarmCollection;
 
         // Threads
         private static Thread DataCollectorThread; // Datacollection thread (downsampling)
@@ -93,12 +95,15 @@ namespace LogicLayer // Consumer
         //
 
         //public DataTreatment(BlockingCollection<RawData> collection, BlockingCollection<RawData> graphCollection, BlockingCollection<RawData> filterCollection, IData iData, ConvertAlgo conv)
-        public DataTreatment(BlockingCollection<RawData> collection, BlockingCollection<RawData> graphCollection,ConvertAlgo conv,IData data)
+        public DataTreatment(BlockingCollection<RawData> collection, BlockingCollection<RawData> graphCollection, BlockingCollection<ConvertedData> alarmCollection, ConvertAlgo conv,IData data, IAlarm alarm)
         {
             _collection = collection;
             _graphCollection = graphCollection;
+            _alarmCollection = alarmCollection;
+
             DataInterface = data;
             //_filterCollection = filterCollection;
+            AlarmController = alarm;
             
 
             //DataInterface = iData;
@@ -131,7 +136,8 @@ namespace LogicLayer // Consumer
 
         public void MakeShortRawList() // Lav en observer som fortæller når den er fuld
         {
-            zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
+            //zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
+            //zeroadjustmentVal = -1.989;
 
             while (!ShallStop)
             {
@@ -179,10 +185,12 @@ namespace LogicLayer // Consumer
                     {
                         ConvertedValue = ConvertAlgorithm.ConvertData(_graphCollection.Take().Voltage, calibrationVal);
                         graphList.Add(new ConvertedData(0, ConvertedValue)); // Takes from graphCollection and converts to mmHg
+                        _alarmCollection.Add(new ConvertedData(0,ConvertedValue));
                     }
 
                     Done(); // Updates graph
                 }
+
 
                 if (graphList.Count == 300)
                 {

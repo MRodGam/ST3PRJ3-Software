@@ -32,12 +32,14 @@ namespace PresentationLayer
 
         private void zeroB_Click(object sender, EventArgs e)
         {
-            zeroAdjustmentValue = _zeroAdjustment.GetZeroAdjustmentValue();
+            //zeroAdjustmentValue = _zeroAdjustment.GetZeroAdjustmentValue();
+            zeroAdjustmentValue = 1.989;
 
             if (zeroAdjustmentValue > -10)
             {
                 IsZeroAdjustmentMeasured = true;
-                MessageBox.Show("Nulpunktsjusteringen er sket korrekt. Justeringsværdien er " + zeroAdjustmentValue);
+                double zeroAdjustmentValue_3dec = (float) zeroAdjustmentValue;
+                MessageBox.Show("Nulpunktsjusteringen er sket korrekt. Justeringsværdien er " + zeroAdjustmentValue_3dec);
                 this.Close();
 
             }
