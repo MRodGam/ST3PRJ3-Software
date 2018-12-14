@@ -108,7 +108,7 @@ namespace PresentationLayer
         {
             calibrate.DoCalibrateRegression(); // Kører metoden DoCalibration i logiklaget
 
-           MessageBox.Show("Kalibreringen er udført. a = " + calibrate.getCalibrateValue()._a + "b = " + calibrate.getCalibrateValue()._b);
+            MessageBox.Show("Kalibreringen er udført. a = " + calibrate.getCalibrateValue()._a + "b = " + calibrate.getCalibrateValue()._b);
             MainGuiRef.UpdateCaliLabel(calibrate.updateCalibrateText()); // opdatere kalibreringstekst i mainGUI
         }
     }

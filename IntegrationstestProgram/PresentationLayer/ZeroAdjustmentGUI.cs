@@ -25,15 +25,14 @@ namespace PresentationLayer
         public ZeroAdjustmentGUI(IZeroAdjustment zeroAdjustment /*UC1M1_ZeroAdjustment uc1M1Zero*/)
         {
             InitializeComponent();
-            // axWindowsMediaPlayer1.settings.setMode("loop", true);
+            axWindowsMediaPlayer1.settings.setMode("loop", true);
             _zeroAdjustment = zeroAdjustment;
             //_uc1M1Zero = uc1M1Zero;
         }
 
         private void zeroB_Click(object sender, EventArgs e)
         {
-            //zeroAdjustmentValue = _zeroAdjustment.GetZeroAdjustmentValue();
-            zeroAdjustmentValue = 1.989;
+            zeroAdjustmentValue = _zeroAdjustment.GetZeroAdjustmentValue();
 
             if (_zeroAdjustment.IsMeasureRight()==true)
             {

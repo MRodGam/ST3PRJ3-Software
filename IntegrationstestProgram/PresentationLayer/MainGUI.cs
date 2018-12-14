@@ -39,7 +39,6 @@ namespace PresentationLayer
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
 
-        //public MainGUI(DataTreatment data, ZeroAdjustmentGUI zeroAdjustmentGui, UC7S3_Filter filterRef)
         public MainGUI(DataTreatment data, IMeasure measure, LoginToCalibrateGUI login, ZeroAdjustmentGUI zeroAdjustmentGui, IAlarm _alarm,IPulse _pulse, BloodPressureAlgo bpAlgo, IFilter filter, SaveDataGUI saveGUI, ChangeLimitsGUI change)
         {
             InitializeComponent();
@@ -61,7 +60,6 @@ namespace PresentationLayer
             }
             else
                 this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
-
 
             muteAlarmWorker = new BackgroundWorker();
             muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
@@ -127,6 +125,9 @@ namespace PresentationLayer
                 if (alarm.GetIsAlarmRunning() == true)
                 {
                     ActiveAlarmUpdate();
+                    pauseB.Visible = true;
+                    pauseB.Enabled = true;
+                    ActiveAlarm.RunWorkerAsync();
                 }
             }
         }
@@ -177,18 +178,18 @@ namespace PresentationLayer
             AlarmPausedPictureBox.Visible = false;
         }
 
-        private void pauseB_Click(object sender, EventArgs e)
-        {
-            // Lyd stop
-            // Tegn skal op
-            // Kvitterknap skal gøres usynlig
+        //private void pauseB_Click(object sender, EventArgs e)
+        //{
+        //    // Lyd stop
+        //    // Tegn skal op
+        //    // Kvitterknap skal gøres usynlig
 
-            pauseB.Visible = false;
-            AlarmPictureBox.Visible = false;
-            AlarmPausedPictureBox.Visible = true;
-            muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
+        //    pauseB.Visible = false;
+        //    AlarmPictureBox.Visible = false;
+        //    AlarmPausedPictureBox.Visible = true;
+        //    muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
 
-        }
+        //}
 
         private void muteAlarmWorker_muteAlarm(object sender, DoWorkEventArgs e) // Denne metode bestemmer hvad der sker, imens backgroundworker kører. // DET HER SKAL LIGGE I BUSINESS
         {
@@ -211,21 +212,6 @@ namespace PresentationLayer
         //    }
         //}
 
-
-        //private void clearB_Click(object sender, EventArgs e)
-        //{
-        //    DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde indstillerne?", "Ryd indstillinger", MessageBoxButtons.YesNo);
-
-        //    if (dialog == DialogResult.Yes)
-        //    {
-        //        Application.Restart();
-        //        Refresh(); // hardcoded, kan laves om hvis der er tid 
-        //    }
-        //    else
-        //    {
-        //        dialog = DialogResult.Cancel;
-        //    }
-        //}
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -269,7 +255,14 @@ namespace PresentationLayer
 
         private void pauseB_Click_1(object sender, EventArgs e)
         {
+            // Lyd stop
+            // Tegn skal op
+            // Kvitterknap skal gøres usynlig
 
+            pauseB.Visible = false;
+            AlarmPictureBox.Visible = false;
+            AlarmPausedPictureBox.Visible = true;
+            muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
         }
 
         private void MainGUI_Load(object sender, EventArgs e)
@@ -277,14 +270,14 @@ namespace PresentationLayer
 
         }
 
-        private void clearB_Click(object sender, EventArgs e) // Ikke rigtig
+        private void clearB_Click(object sender, EventArgs e) 
         {
             DialogResult dialog = MessageBox.Show("Er du sikker på du vil rydde indstillerne?", "Ryd indstillinger", MessageBoxButtons.YesNo);
 
             if (dialog == DialogResult.Yes)
             {
                 Application.Restart();
-                Refresh(); // hardcoded, kan laves om hvis der er tid 
+                Refresh();
             }
             else
             {
