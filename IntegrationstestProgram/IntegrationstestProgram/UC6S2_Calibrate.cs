@@ -30,10 +30,10 @@ namespace LogicLayer
         private double a1;
         private double b;
         private double b1;
+        private string today = DateTime.Today.ToString("d/MM/yyyy");
 
         public bool IsAll5MeasureDone = false;
         
-        //public UC6S2_Calibrate(BlockingCollection<RawData> collection, IMeasure measure, IData database, ConvertedData convertData)
         public UC6S2_Calibrate(BlockingCollection<double> calibrateCollection, IDAQ daq, IData database)
         {
             _calibrateCollection = calibrateCollection;
@@ -138,15 +138,19 @@ namespace LogicLayer
             a = (float) a1; // Converts double to float. Is necessary because the database the values are defined as floats. 
             b = (float) b1;
 
-            //_calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
-            _calibration = new CalibrationValue(0.0189, -1.975); // sætter CalibrationsValue til _a
-            Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+            _calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
+           Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
 
         }
 
         public CalibrationValue getCalibrateValue()
         {
             return _calibration;
+        }
+
+        public string updateCalibrateText()
+        {
+            return "Sidste kalibraring blev udført :" + today;
         }
 
     }

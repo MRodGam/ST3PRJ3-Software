@@ -125,6 +125,9 @@ namespace PresentationLayer
                 if (alarm.GetIsAlarmRunning() == true)
                 {
                     ActiveAlarmUpdate();
+                    pauseB.Visible = true;
+                    pauseB.Enabled = true;
+                    ActiveAlarm.RunWorkerAsync();
                 }
             }
         }
@@ -175,18 +178,18 @@ namespace PresentationLayer
             AlarmPausedPictureBox.Visible = false;
         }
 
-        private void pauseB_Click(object sender, EventArgs e)
-        {
-            // Lyd stop
-            // Tegn skal op
-            // Kvitterknap skal gøres usynlig
+        //private void pauseB_Click(object sender, EventArgs e)
+        //{
+        //    // Lyd stop
+        //    // Tegn skal op
+        //    // Kvitterknap skal gøres usynlig
 
-            pauseB.Visible = false;
-            AlarmPictureBox.Visible = false;
-            AlarmPausedPictureBox.Visible = true;
-            muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
+        //    pauseB.Visible = false;
+        //    AlarmPictureBox.Visible = false;
+        //    AlarmPausedPictureBox.Visible = true;
+        //    muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
 
-        }
+        //}
 
         private void muteAlarmWorker_muteAlarm(object sender, DoWorkEventArgs e) // Denne metode bestemmer hvad der sker, imens backgroundworker kører. // DET HER SKAL LIGGE I BUSINESS
         {
@@ -208,8 +211,6 @@ namespace PresentationLayer
         //        dataTreatment.StartFilter(); //Mangler forbindelse til interface
         //    }
         //}
-
-
 
 
         private void button1_Click(object sender, EventArgs e)
@@ -254,7 +255,14 @@ namespace PresentationLayer
 
         private void pauseB_Click_1(object sender, EventArgs e)
         {
+            // Lyd stop
+            // Tegn skal op
+            // Kvitterknap skal gøres usynlig
 
+            pauseB.Visible = false;
+            AlarmPictureBox.Visible = false;
+            AlarmPausedPictureBox.Visible = true;
+            muteAlarmWorker.RunWorkerAsync(); // Denne metode starter backGroundWorker tråden
         }
 
         private void MainGUI_Load(object sender, EventArgs e)
