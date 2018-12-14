@@ -63,7 +63,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(21, 99);
+            this.label4.Location = new System.Drawing.Point(24, 126);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(138, 18);
             this.label4.TabIndex = 32;
@@ -75,7 +75,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(24, 50);
+            this.label3.Location = new System.Drawing.Point(29, 61);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(130, 18);
             this.label3.TabIndex = 31;
@@ -87,9 +87,9 @@
             this.okB.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.okB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okB.ForeColor = System.Drawing.Color.White;
-            this.okB.Location = new System.Drawing.Point(36, 161);
+            this.okB.Location = new System.Drawing.Point(27, 299);
             this.okB.Name = "okB";
-            this.okB.Size = new System.Drawing.Size(59, 23);
+            this.okB.Size = new System.Drawing.Size(178, 69);
             this.okB.TabIndex = 30;
             this.okB.Text = "Gem";
             this.okB.UseVisualStyleBackColor = false;
@@ -97,17 +97,17 @@
             // 
             // upperLimit
             // 
-            this.upperLimit.Location = new System.Drawing.Point(24, 70);
+            this.upperLimit.Location = new System.Drawing.Point(29, 81);
             this.upperLimit.Name = "upperLimit";
-            this.upperLimit.Size = new System.Drawing.Size(100, 22);
+            this.upperLimit.Size = new System.Drawing.Size(151, 22);
             this.upperLimit.TabIndex = 29;
             this.upperLimit.TextChanged += new System.EventHandler(this.upperLimit_TextChanged);
             // 
             // lowerLimit
             // 
-            this.lowerLimit.Location = new System.Drawing.Point(24, 117);
+            this.lowerLimit.Location = new System.Drawing.Point(27, 144);
             this.lowerLimit.Name = "lowerLimit";
-            this.lowerLimit.Size = new System.Drawing.Size(100, 22);
+            this.lowerLimit.Size = new System.Drawing.Size(151, 22);
             this.lowerLimit.TabIndex = 28;
             this.lowerLimit.TextChanged += new System.EventHandler(this.lowerLimit_TextChanged);
             // 
@@ -117,9 +117,9 @@
             this.button_0.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_0.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_0.ForeColor = System.Drawing.Color.White;
-            this.button_0.Location = new System.Drawing.Point(213, 138);
+            this.button_0.Location = new System.Drawing.Point(459, 299);
             this.button_0.Name = "button_0";
-            this.button_0.Size = new System.Drawing.Size(23, 23);
+            this.button_0.Size = new System.Drawing.Size(74, 69);
             this.button_0.TabIndex = 27;
             this.button_0.Text = "0";
             this.button_0.UseVisualStyleBackColor = false;
@@ -130,9 +130,9 @@
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button11.ForeColor = System.Drawing.Color.White;
-            this.button11.Location = new System.Drawing.Point(184, 138);
+            this.button11.Location = new System.Drawing.Point(277, 299);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(23, 23);
+            this.button11.Size = new System.Drawing.Size(164, 69);
             this.button11.TabIndex = 26;
             this.button11.Text = "<-";
             this.button11.UseVisualStyleBackColor = false;
@@ -143,9 +143,9 @@
             this.button_9.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_9.ForeColor = System.Drawing.Color.White;
-            this.button_9.Location = new System.Drawing.Point(242, 109);
+            this.button_9.Location = new System.Drawing.Point(459, 214);
             this.button_9.Name = "button_9";
-            this.button_9.Size = new System.Drawing.Size(23, 23);
+            this.button_9.Size = new System.Drawing.Size(74, 69);
             this.button_9.TabIndex = 25;
             this.button_9.Text = "9";
             this.button_9.UseVisualStyleBackColor = false;
@@ -156,9 +156,9 @@
             this.button_8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_8.ForeColor = System.Drawing.Color.White;
-            this.button_8.Location = new System.Drawing.Point(213, 109);
+            this.button_8.Location = new System.Drawing.Point(367, 214);
             this.button_8.Name = "button_8";
-            this.button_8.Size = new System.Drawing.Size(23, 23);
+            this.button_8.Size = new System.Drawing.Size(74, 69);
             this.button_8.TabIndex = 24;
             this.button_8.Text = "8";
             this.button_8.UseVisualStyleBackColor = false;
@@ -169,9 +169,9 @@
             this.button_7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_7.ForeColor = System.Drawing.Color.White;
-            this.button_7.Location = new System.Drawing.Point(184, 109);
+            this.button_7.Location = new System.Drawing.Point(277, 214);
             this.button_7.Name = "button_7";
-            this.button_7.Size = new System.Drawing.Size(23, 23);
+            this.button_7.Size = new System.Drawing.Size(74, 69);
             this.button_7.TabIndex = 23;
             this.button_7.Text = "7";
             this.button_7.UseVisualStyleBackColor = false;
@@ -182,9 +182,9 @@
             this.button_6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_6.ForeColor = System.Drawing.Color.White;
-            this.button_6.Location = new System.Drawing.Point(242, 80);
+            this.button_6.Location = new System.Drawing.Point(459, 130);
             this.button_6.Name = "button_6";
-            this.button_6.Size = new System.Drawing.Size(23, 23);
+            this.button_6.Size = new System.Drawing.Size(74, 69);
             this.button_6.TabIndex = 22;
             this.button_6.Text = "6";
             this.button_6.UseVisualStyleBackColor = false;
@@ -195,9 +195,9 @@
             this.button_5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_5.ForeColor = System.Drawing.Color.White;
-            this.button_5.Location = new System.Drawing.Point(213, 80);
+            this.button_5.Location = new System.Drawing.Point(367, 130);
             this.button_5.Name = "button_5";
-            this.button_5.Size = new System.Drawing.Size(23, 23);
+            this.button_5.Size = new System.Drawing.Size(74, 69);
             this.button_5.TabIndex = 21;
             this.button_5.Text = "5";
             this.button_5.UseVisualStyleBackColor = false;
@@ -208,9 +208,9 @@
             this.button_4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_4.ForeColor = System.Drawing.Color.White;
-            this.button_4.Location = new System.Drawing.Point(184, 80);
+            this.button_4.Location = new System.Drawing.Point(277, 130);
             this.button_4.Name = "button_4";
-            this.button_4.Size = new System.Drawing.Size(23, 23);
+            this.button_4.Size = new System.Drawing.Size(74, 69);
             this.button_4.TabIndex = 20;
             this.button_4.Text = "4";
             this.button_4.UseVisualStyleBackColor = false;
@@ -221,9 +221,9 @@
             this.button_3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_3.ForeColor = System.Drawing.Color.White;
-            this.button_3.Location = new System.Drawing.Point(242, 51);
+            this.button_3.Location = new System.Drawing.Point(459, 46);
             this.button_3.Name = "button_3";
-            this.button_3.Size = new System.Drawing.Size(23, 23);
+            this.button_3.Size = new System.Drawing.Size(74, 69);
             this.button_3.TabIndex = 19;
             this.button_3.Text = "3";
             this.button_3.UseVisualStyleBackColor = false;
@@ -234,9 +234,9 @@
             this.button_2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_2.ForeColor = System.Drawing.Color.White;
-            this.button_2.Location = new System.Drawing.Point(213, 51);
+            this.button_2.Location = new System.Drawing.Point(367, 46);
             this.button_2.Name = "button_2";
-            this.button_2.Size = new System.Drawing.Size(23, 23);
+            this.button_2.Size = new System.Drawing.Size(74, 69);
             this.button_2.TabIndex = 18;
             this.button_2.Text = "2";
             this.button_2.UseVisualStyleBackColor = false;
@@ -247,19 +247,19 @@
             this.button_1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_1.ForeColor = System.Drawing.Color.White;
-            this.button_1.Location = new System.Drawing.Point(184, 51);
+            this.button_1.Location = new System.Drawing.Point(277, 46);
             this.button_1.Name = "button_1";
-            this.button_1.Size = new System.Drawing.Size(23, 23);
+            this.button_1.Size = new System.Drawing.Size(74, 69);
             this.button_1.TabIndex = 17;
             this.button_1.Text = "1";
             this.button_1.UseVisualStyleBackColor = false;
             // 
-            // ChangeLimitsGUIcs
+            // ChangeLimitsGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(320, 231);
+            this.ClientSize = new System.Drawing.Size(569, 414);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -277,7 +277,7 @@
             this.Controls.Add(this.button_3);
             this.Controls.Add(this.button_2);
             this.Controls.Add(this.button_1);
-            this.Name = "ChangeLimitsGUIcs";
+            this.Name = "ChangeLimitsGUI";
             this.Text = "ChangeLimitsGUIcs";
             this.ResumeLayout(false);
             this.PerformLayout();

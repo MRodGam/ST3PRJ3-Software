@@ -53,6 +53,8 @@ namespace PresentationLayer
             else
                 return true;
         } // tjekker CPR-nummer
+
+
         private void textBox9_TextChanged(object sender, EventArgs e)
         { }
 
