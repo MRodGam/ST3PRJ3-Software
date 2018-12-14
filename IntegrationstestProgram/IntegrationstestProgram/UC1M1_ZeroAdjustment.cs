@@ -14,7 +14,7 @@ namespace LogicLayer
         // når man trykke på nulpunktsjusterknappen skal målingen starte, og der tages en volt måling af collection
         // det den måler skal den returner
         // det er meningen man blot skal måle ude i atmosfæren
-        public bool IsMeasureRight { get; private set; } = false;
+        public bool _IsMeasureRight { get; private set; } = false;
 
         private IDAQ _daq;
         private BlockingCollection<double> _calibrationCollection;
@@ -35,7 +35,7 @@ namespace LogicLayer
 
         public double GetZeroAdjustmentValue()
         {
-            IsMeasureRight = false; // sættes til false til at starte med
+            _IsMeasureRight = false; // sættes til false til at starte med
 
             double normalUpper = -1.9*1.05; // normalværdie for volt + 5 procent 
             double normalUnder = -1.9 * 0.95; // normalværdie for volt - 5 procent 
@@ -61,10 +61,10 @@ namespace LogicLayer
             
             if (ZeroAdjustmentValue <= normalUpper && normalUnder <= ZeroAdjustmentValue) // hvis værdien varierer mere end +-5%
             {
-                IsMeasureRight = true;
+                _IsMeasureRight = true;
 
             }
-            else IsMeasureRight = false;
+            else _IsMeasureRight = false;
 
             return ZeroAdjustmentValue;
 
@@ -76,9 +76,9 @@ namespace LogicLayer
             return rawData - ZeroAdjustmentValue;
         }
 
-        public bool IsMeasureRigth()
+        public bool IsMeasureRight()
         {
-            return IsMeasureRight;
+            return _IsMeasureRight;
         }
 
 

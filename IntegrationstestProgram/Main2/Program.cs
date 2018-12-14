@@ -47,7 +47,7 @@ namespace Main2
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ZeroAdjustmentGUI zeroAdjustment = new ZeroAdjustmentGUI(zero,uc1);
+            ZeroAdjustmentGUI zeroAdjustment = new ZeroAdjustmentGUI(zero);
             CalibrateGUI calibrateGUI = new CalibrateGUI(calibrate, measurement);
             LoginToCalibrateGUI login = new LoginToCalibrateGUI(calibrateGUI);
             SaveDataGUI saveGUI = new SaveDataGUI(save);

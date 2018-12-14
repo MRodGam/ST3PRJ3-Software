@@ -157,8 +157,7 @@ namespace LogicLayer // Consumer
 
         public void MakeShortRawList() // Lav en observer som fortæller når den er fuld
         {
-            //zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
-            zeroadjustmentVal = -1.989;
+            zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
 
             while (!ShallStop)
             {
