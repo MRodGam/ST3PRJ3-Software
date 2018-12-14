@@ -16,5 +16,6 @@ namespace LogicLayer
         bool GetIsAll5MeasureDone();
 
         CalibrationValue getCalibrateValue();
+        string updateCalibrateText();
     }
 }
