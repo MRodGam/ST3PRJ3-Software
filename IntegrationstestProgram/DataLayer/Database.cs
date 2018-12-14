@@ -108,7 +108,7 @@ namespace DataLayer
                 command.CommandText = "SELECT * FROM Calibrate where calibrateB=@CalibrateB";
                 b = Convert.ToDouble(reader["CalibrateB"]);
             }
-
+            connectionP.Close();
             CalibrationValue calibrationValue = new CalibrationValue(a, b);
             return calibrationValue;
         }

@@ -23,8 +23,9 @@ namespace Domain
             Voltage = voltage;
             a = cal._a;
             b = cal._b;
+            Pressure = ((Voltage -b) / a);
 
-            return (Voltage/ a)-b;
+            return Pressure;
 
         }
 

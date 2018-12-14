@@ -17,11 +17,13 @@ namespace PresentationLayer
     {
         private IAlarm alarm; // Denne oprettes for at vi kan kommunikere med alarm klassen i logik-laget gennem interfacet
         private IMeasure Measure;
+        private ICalibrate calibrate;
         private DataTreatment dataTreatment; // ændet til at kende selve klassen isetdet for inteface
         private IPulse pulse;
         private BloodPressureAlgo bp;
 
         private LoginToCalibrateGUI Login;
+        private CalibrateGUI calibrateGUI;
         private ZeroAdjustmentGUI ZeroAdjustmentGui;
         private SaveDataGUI SaveGUI;
         private ChangeLimitsGUI ChangeLimitsGUI;
@@ -38,8 +40,10 @@ namespace PresentationLayer
 
         public int Counter { get; private set; } = 0;
         public bool Running { get; set; } = false;
+        private string today = DateTime.Today.ToString("dd/MM/yyyy");
+        public int AlarmCounter { get; private set; } = 0;
 
-        public MainGUI(DataTreatment data, IMeasure measure, LoginToCalibrateGUI login, ZeroAdjustmentGUI zeroAdjustmentGui, IAlarm _alarm,IPulse _pulse, BloodPressureAlgo bpAlgo, IFilter filter, SaveDataGUI saveGUI, ChangeLimitsGUI change)
+        public MainGUI(DataTreatment data, IMeasure measure, LoginToCalibrateGUI login, ZeroAdjustmentGUI zeroAdjustmentGui, IAlarm _alarm,IPulse _pulse, BloodPressureAlgo bpAlgo, IFilter filter, SaveDataGUI saveGUI, ChangeLimitsGUI change, CalibrateGUI _calibrateGui)
         {
             InitializeComponent();
             ZeroAdjustmentGui = zeroAdjustmentGui;
@@ -49,6 +53,7 @@ namespace PresentationLayer
             FilterRef = filter;
             SaveGUI = saveGUI;
             ChangeLimitsGUI = change;
+            calibrateGUI = _calibrateGui;
 
             this.Visible = false; // Vinduet skjules til en start, og kommer kun frem hvis nulpunktsjusteringen foretages
             ZeroAdjustmentGui.ShowDialog();
@@ -61,21 +66,23 @@ namespace PresentationLayer
             else
                 this.Close(); // denne skal være der for at man ikke bare kan lukke login vinduet og så vil hovedvinduet komme frem, den vil nu lukke
 
-            muteAlarmWorker = new BackgroundWorker();
-            muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
-            muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
-            alarmType = new HighAlarm();
+            //muteAlarmWorker = new BackgroundWorker();
+            //muteAlarmWorker.DoWork += new DoWorkEventHandler(muteAlarmWorker_muteAlarm); // Her ændres metoden doWork til det vi vil have den til. 
+            //muteAlarmWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(muteAlarmWorker_completeMute); // Her ændres completemetoden til det vi vil have den til. 
+            //alarmType = new HighAlarm();
 
-            ActiveAlarm = new BackgroundWorker();
-            ActiveAlarm.DoWork += new DoWorkEventHandler(ActiveAlarmUpdate_doWork);
-            ActiveAlarm.RunWorkerCompleted += new RunWorkerCompletedEventHandler(DeactiveAlarmUpdate);
-            ActiveAlarm.RunWorkerAsync();
+            //ActiveAlarm = new BackgroundWorker();
+            //ActiveAlarm.DoWork += new DoWorkEventHandler(ActiveAlarmUpdate_doWork);
+            //ActiveAlarm.RunWorkerCompleted += new RunWorkerCompletedEventHandler(DeactiveAlarmUpdate);
+            //ActiveAlarm.RunWorkerAsync();
 
             dataTreatment = data;
             Measure = measure;
             Login = login;
             dataTreatment.Attach(this); // metoden findes ikke (virker nu da IDataTreatment er udkommenteret, og det isetdet er DataTreatment vi kalder igennem)
             graphList = new List<double>();
+
+            kaliTekst_L.Text = "Sidste kalibrering blev udført " + today; // opdatere kalibreringstekst i mainGUI  
         }
 
         public void Update()
@@ -111,7 +118,15 @@ namespace PresentationLayer
                 int puls = pulse.FindPulse();
                 PulsL.Text = Convert.ToString(puls);
 
-                bp.WindowOfConvertedData(graphList, puls);
+                if (puls > 0)
+                {
+                    bp.WindowOfConvertedData(graphList, puls);
+
+                }
+                if (puls <= 0)
+                {
+                    bp.WindowOfConvertedData(graphList, 1);
+                }
 
                 int diastolic = bp.FindDiastolic();
                 DiastoliskL.Text = Convert.ToString(diastolic);
@@ -125,10 +140,20 @@ namespace PresentationLayer
                 if (alarm.GetIsAlarmRunning() == true)
                 {
                     ActiveAlarmUpdate();
-                    pauseB.Visible = true;
-                    pauseB.Enabled = true;
-                    ActiveAlarm.RunWorkerAsync();
+                    //pauseB.Visible = true;
+                    //pauseB.Enabled = true;
+                    //if(AlarmCounter==0)
+                    //{
+                    //    ActiveAlarm.RunWorkerAsync();
+                    //    AlarmCounter++;
+                    //}
                 }
+
+                //if (alarm.GetIsAlarmRunning() == false)
+                //{
+                //    pauseB.Visible = false;
+                //    AlarmCounter = 0;
+                //}
             }
         }
 
@@ -169,6 +194,7 @@ namespace PresentationLayer
 
         private void DeactiveAlarmUpdate(object sender, RunWorkerCompletedEventArgs e)
         {
+            AlarmCounter = 0;
             blodtryk_L.ForeColor = Color.DarkGreen;
             middel_L.ForeColor = Color.DarkGreen;
             // tallene for blodtryk skal STOPPE med at blinke
@@ -308,6 +334,10 @@ namespace PresentationLayer
         public void UpdateCaliLabel(string NewDate)
         {
             kaliTekst_L.Text = NewDate;
+        }
+
+        private void kaliTekst_L_Click(object sender, EventArgs e)
+        {
         }
 
         //private void FilterRB_CheckedChanged_1(object sender, EventArgs e) // den gældende

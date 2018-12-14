@@ -18,11 +18,11 @@ namespace LogicLayer
 
         private IDAQ _daq;
         private BlockingCollection<double> _calibrationCollection;
-        public double ZeroAdjustmentValue { get; private set; } = -11; // -11 fordi så kan den ikke gå ind i if-sætning hvis ikke den har lavet en måling og derved ændret værdien
+        public double ZeroAdjustmentValue { get; private set; }  // -11 fordi så kan den ikke gå ind i if-sætning hvis ikke den har lavet en måling og derved ændret værdien
         public bool IsZeroAdjustDone { get; private set; } = false;
         private double TotalValue=0;
 
-        //public int IsMeasureRight { set; get; } = 0;
+        public bool _IsMeasureRight { set; get; } = false;
 
 
         public UC1M1_ZeroAdjustment(BlockingCollection<double> calibrationCollection, IDAQ daq)
@@ -35,10 +35,11 @@ namespace LogicLayer
 
         public double GetZeroAdjustmentValue()
         {
-            //IsMeasureRight = 0;
-            //double normalUpper = 1.2*1.05; // normalværdie for volt + 5 procent 
-            //double normalUnder = 1.2 * 0.95; // normalværdie for volt - 5 procent 
+            _IsMeasureRight = false;
+            double normalUpper = -1.9*1.05; // normalværdie for volt + 5 procent 
+            double normalUnder = -1.9*0.95; // normalværdie for volt - 5 procent 
             ZeroAdjustmentValue = 0;
+            TotalValue = 0;
 
             _daq.StartCalibration(); // start måling 
 
@@ -46,38 +47,27 @@ namespace LogicLayer
             {
                 TotalValue += _calibrationCollection.Take(); // sætter ZeroAdjustmentValue lig med det der måles
             }
+
             ZeroAdjustmentValue = TotalValue / 1000;
 
-            //if (ZeroAdjustmentValue > -10) // skrives på anden måde måske?
-            //{
-            //    IsZeroAdjustDone = true;
-            //}
+            if (ZeroAdjustmentValue >= normalUpper && normalUnder >= ZeroAdjustmentValue) // hvis værdien varierer mere end +-5%
+            {
+                _IsMeasureRight = true;
+            }
+            else _IsMeasureRight = false;
 
             return ZeroAdjustmentValue;
-
-
-            // OBS skal give fejlmelding hvis det målete tryk overstiger normaltrykket med +%5. 
-            // Men hvad er normaltrykket? 0???
-
-            //if (ZeroAdjustmentValue <= normalUpper && normalUnder <= ZeroAdjustmentValue) // hvis værdien varierer mere end +-5%
-            //{
-            //    return ZeroAdjustmentValue;
-
-            //}
-            //else return IsMeasureRight = 1;
-
         }
 
 
-        public double ZeroAdjust(double rawData)
+        public double GetLastValue()
         {
-            return rawData - ZeroAdjustmentValue;
+            return ZeroAdjustmentValue;
         }
 
-
-
-
-
-
+        public bool IsMeasureRight()
+        {
+            return _IsMeasureRight;
+        }
     }
 }

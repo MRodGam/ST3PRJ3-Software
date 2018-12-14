@@ -9,6 +9,8 @@ namespace LogicLayer
     public interface IZeroAdjustment
     {
         double GetZeroAdjustmentValue();
-        double ZeroAdjust(double rawData);
+        //double ZeroAdjust(double rawData);
+        bool IsMeasureRight();
+        double GetLastValue();
     }
 }
