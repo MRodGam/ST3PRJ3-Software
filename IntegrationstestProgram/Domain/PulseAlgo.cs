@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Numerics; // Complex numbers 
 using System.Threading;
 
+
 namespace Domain
 {
     public class PulseAlgo
