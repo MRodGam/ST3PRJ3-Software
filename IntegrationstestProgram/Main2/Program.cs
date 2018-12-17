@@ -35,6 +35,7 @@ namespace Main2
             IAlarmType alarmType = new HighAlarm();
             ILimits limits = new UC9S5_Limits();
 
+
             IAlarm alarm = new UC5S1_Alarm(alarmCollection,limits, alarmType, bpAlgo);
             IFilter filter = new UC7S3_Filter(filterCollection, data, convertAlgo);
             DataTreatment dataTreatment = new DataTreatment(rawCollection, graphCollection, filterCollection, alarmCollection, convertAlgo, data, alarm);

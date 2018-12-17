@@ -27,8 +27,7 @@ namespace LogicLayer
         private double _voltagePoint;
         //private double caliValue;
         public double a = 0;
-        private 
-        string today = DateTime.Today.ToString("d/MM/yyyy");
+        private string today = DateTime.Today.ToString("d/MM/yyyy");
        
 
         public bool IsAll5MeasureDone = false;
