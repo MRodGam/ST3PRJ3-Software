@@ -114,7 +114,7 @@ namespace LogicLayer // Consumer
 
         //public DataTreatment(BlockingCollection<RawData> collection, BlockingCollection<RawData> graphCollection, BlockingCollection<RawData> filterCollection, IData iData, ConvertAlgo conv)
         public DataTreatment(BlockingCollection<double> collection, BlockingCollection<double> graphCollection, BlockingCollection<double> filterCollection,
-            BlockingCollection<double> alarmCollection, ConvertAlgo conv, IData data, IAlarm alarm)
+            BlockingCollection<double> alarmCollection, ConvertAlgo conv, IData data, IAlarm alarm, UC1M1_ZeroAdjustment adj)
         {
             _collection = collection;
             _graphCollection = graphCollection;
@@ -124,7 +124,8 @@ namespace LogicLayer // Consumer
             DataInterface = data;
             //_filterCollection = filterCollection;
             AlarmController = alarm;
-            
+            AdjustmentController = adj;
+
 
             //DataInterface = iData;
             ConvertAlgorithm = conv;
@@ -157,7 +158,8 @@ namespace LogicLayer // Consumer
 
         public void MakeShortRawList() // Lav en observer som fortæller når den er fuld
         {
-            zeroadjustmentVal = AdjustmentController.GetZeroAdjustmentValue();
+            //zeroadjustmentVal = AdjustmentController.ZeroAdjustmentValue;
+            zeroadjustmentVal = -1.992-(-2);
 
             while (!ShallStop)
             {

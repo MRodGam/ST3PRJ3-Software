@@ -17,7 +17,8 @@ namespace PresentationLayer
         private ICalibrate calibrate; // reference til ICalibrate
         private IMeasure measure; // reference til ICalibrate
         private MainGUI MainGuiRef;
-        
+
+        public bool IsThereNewCalibration { get; private set; }= false;
         //private LoginToCalibrateGUI LoginToCalibrateRef; // er det OK at jeg opretter en new her??
 
         public CalibrateGUI(ICalibrate calibrate_, IMeasure measure)
@@ -109,7 +110,9 @@ namespace PresentationLayer
             calibrate.DoCalibrateRegression(); // Kører metoden DoCalibration i logiklaget
 
             MessageBox.Show("Kalibreringen er udført. a = " + calibrate.getCalibrateValue()._a + "b = " + calibrate.getCalibrateValue()._b);
-            MainGuiRef.UpdateCaliLabel(calibrate.updateCalibrateText()); // opdatere kalibreringstekst i mainGUI
+            IsThereNewCalibration = true;
+            this.Hide();
+            this.Close();
         }
     }
 }

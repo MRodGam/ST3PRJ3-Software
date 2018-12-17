@@ -86,6 +86,7 @@ namespace LogicLayer
                         AlarmType.RunAlarm();
                         alarmOn = true;
                     }
+
                     IsAlarmRunning = true;
                 }
 
@@ -95,6 +96,7 @@ namespace LogicLayer
                 {
                     AlarmType.StopAlarm();
                     IsAlarmRunning = false;
+                    alarmOn = false;
                 }
             }
 

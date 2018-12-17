@@ -30,7 +30,7 @@ namespace LogicLayer
         private double a1;
         private double b;
         private double b1;
-        private string today = DateTime.Today.ToString("d/MM/yyyy");
+        private string today = DateTime.Today.ToString("dd/MM/yyyy");
 
         public bool IsAll5MeasureDone = false;
         
@@ -133,13 +133,13 @@ namespace LogicLayer
             }
             
             a1 = ((sumxy/n)-((sumx/n)*(sumy/n))) / ((sumx2/n)-(sumx/n)*(sumx/n)); // _a er hældningskoefficienten som skal ganges på alle volt værdierne 
-            b1 = (sumy / n) - (a * (sumx / n));
+            b1 = (sumy / n) - (a1 * (sumx / n));
 
             a = (float) a1; // Converts double to float. Is necessary because the database the values are defined as floats. 
             b = (float) b1;
 
             _calibration = new CalibrationValue(a,b); // sætter CalibrationsValue til _a
-           Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
+            Database.SaveCalibrateValue(_calibration); // kalder metoden SaveCalibration i Database gennem interface, og gemmer herved værdien for kalibreringen 
 
         }
 

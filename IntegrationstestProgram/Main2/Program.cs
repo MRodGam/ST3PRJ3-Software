@@ -38,11 +38,11 @@ namespace Main2
 
             IAlarm alarm = new UC5S1_Alarm(alarmCollection,limits, alarmType, bpAlgo);
             IFilter filter = new UC7S3_Filter(filterCollection, data, convertAlgo);
-            DataTreatment dataTreatment = new DataTreatment(rawCollection, graphCollection, filterCollection, alarmCollection, convertAlgo, data, alarm);
+            UC1M1_ZeroAdjustment uc1 = new UC1M1_ZeroAdjustment(calibrationCollection, transducerdaq);
+            DataTreatment dataTreatment = new DataTreatment(rawCollection, graphCollection, filterCollection, alarmCollection, convertAlgo, data, alarm, uc1);
             IMeasure measurement = new UC2M2_UC3M3_Measure(transducerdaq, dataTreatment,alarm, filter);
             ICalibrate calibrate = new UC6S2_Calibrate(calibrationCollection, transducerdaq,data);
             IZeroAdjustment zero = new UC1M1_ZeroAdjustment(calibrationCollection,transducerdaq);
-            UC1M1_ZeroAdjustment uc1 = new UC1M1_ZeroAdjustment(calibrationCollection,transducerdaq);
             IPulse pulse = new UC8S4_Pulse(dataTreatment,pulseAlgo);
             ISave save = new UC4M4_SaveData(data, dataTreatment);
 
@@ -53,7 +53,7 @@ namespace Main2
             LoginToCalibrateGUI login = new LoginToCalibrateGUI(calibrateGUI);
             SaveDataGUI saveGUI = new SaveDataGUI(save);
             ChangeLimitsGUI limitsGUI = new ChangeLimitsGUI(limits);
-            MainGUI gui = new MainGUI(dataTreatment, measurement, login, zeroAdjustment,alarm, pulse,bpAlgo, filter, saveGUI, limitsGUI);
+            MainGUI gui = new MainGUI(dataTreatment, measurement, login, zeroAdjustment,alarm, pulse,bpAlgo, filter, saveGUI, limitsGUI, calibrateGUI);
             Application.Run(gui);
         }
     }
